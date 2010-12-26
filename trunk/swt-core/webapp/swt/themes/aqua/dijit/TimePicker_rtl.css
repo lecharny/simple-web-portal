@@ -1,0 +1,10 @@
+/* TimePicker */
+
+.dj_ie .aqua .dijitTimePickerRtl .dijitTimePickerTickHover,
+.dj_ie .aqua .dijitTimePickerRtl .dijitTimePickerMarkerHover,
+.dj_ie .aqua .dijitTimePickerRtl .dijitTimePickerMarkerSelected,
+.dj_ie .aqua .dijitTimePickerRtl .dijitTimePickerTickSelected {
+	margin-left:-6px;
+	margin-right:-8px;
+	width: 114%;	
+}
