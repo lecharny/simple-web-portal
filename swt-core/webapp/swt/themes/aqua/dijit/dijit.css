@@ -2045,3 +2045,8 @@ DIV.dijitTabDisabled, .dj_ie DIV.dijitTabDisabled {
 	/* a region the user would be able to click on, but it's disabled */
 	cursor: default;
 }
+
+/*harjeet*/
+.dijitIcon {
+	height: 18px;
+}
