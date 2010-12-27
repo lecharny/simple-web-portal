@@ -32,28 +32,20 @@
  	-webkit-transition-duration:.3s;
 }
 
+/*harjeet*/
 .aqua .dijitButton .dijitButtonNode,
 .aqua .dijitDropDownButton .dijitButtonNode,
 .aqua .dijitComboButton .dijitButtonNode,
 .aqua .dijitToggleButton .dijitButtonNode {
 	/* rules for the dijit.form.*Button widgets (see also ComboButton section below) */
-	border: 1px solid #769dc0;
 	padding:2px 4px 4px 4px;
-	background-image: url("images/button.png");
-	background-position: center top;
-	background-repeat: repeat-x;
-	background-color: #e4f2ff;
-	border-radius: 4px;
-	-moz-border-radius: 4px;
-	-webkit-border-radius: 4px;
-	box-shadow:0px 1px 1px rgba(0,0,0,0.15);
-	-webkit-box-shadow:0px 1px 1px rgba(0,0,0,0.15);
-	-moz-box-shadow: 0px 1px 1px rgba(0,0,0,0.15);	
-}
-
-.aqua .dijitComboButton .dijitArrowButton {
-	border-left-width: 0px;
-	padding: 4px 2px 4px 2px;	/* TODO: still needed? */
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border: 1px solid #dddddd;
+	background: #f6f6f6 url(../../images/ui-bg_highlight-soft_100_f6f6f6_1x100.png) 50% 50% repeat-x;
+	font-weight: bold;
+	color: #2E679B;
 }
 
 /*arrow styles for down/up/left/right directions*/
@@ -96,15 +88,24 @@
 	color: #7F7F7F;
 }
 
-/* hover status */
+/* harjeet hover status */
 .aqua .dijitButtonHover .dijitButtonNode,
 .aqua .dijitDropDownButtonHover .dijitButtonNode,
 .aqua .dijitComboButton .dijitButtonNodeHover, 
 .aqua .dijitComboButton .dijitDownArrowButtonHover,
 .aqua .dijitToggleButtonHover .dijitButtonNode {
-	background-color: #afd9ff;
-	color:#000;
- 	-webkit-transition-duration:.2s;
+ 	xxxborder: 1px solid #0073ea;
+	border: 1px solid #ED8714;
+ 	background-color: #FFFFFF;
+	background-image: none;
+	font-weight: bold;
+	text-decoration: none;
+	-webkit-transition-duration:.2s;
+}
+
+.aqua .dijitComboButton .dijitArrowButton {
+	border-left-width: 0px;
+	padding: 4px 2px 4px 2px;	/* TODO: still needed? */
 }
 
 /* checked status */
@@ -152,17 +153,19 @@
 	background-image: none;
 }
 
+/*harjeet*/
 .aqua .dijitComboButton .dijitStretch {
-	-moz-border-radius: 4px 0px 0px 4px;
-	-webkit-border-top-left-radius: 4px;
+	-moz-border-radius: 2px 0px 0px 2px;
+	-webkit-border-top-left-radius: 2px;
 	-webkit-border-top-right-radius: 0px;
 	-webkit-border-bottom-right-radius: 0px;
-	-webkit-border-bottom-left-radius: 4px;
+	-webkit-border-bottom-left-radius: 2px;
 }
+/*harjeet*/
 .aqua .dijitComboButton .dijitArrowButton {
-	-moz-border-radius: 0px 4px 4px 0px;
+	-moz-border-radius: 0px 2px 2px 0px;
 	-webkit-border-top-left-radius: 0px;
-	-webkit-border-top-right-radius: 4px;
-	-webkit-border-bottom-right-radius: 4px;
+	-webkit-border-top-right-radius: 2px;
+	-webkit-border-bottom-right-radius: 2px;
 	-webkit-border-bottom-left-radius: 0px;
 }
