@@ -104,9 +104,14 @@
 }
 
 .aqua .dijitComboButton .dijitArrowButton {
-	border-left-width: 0px;
-	padding: 4px 2px 4px 2px;	/* TODO: still needed? */
+	border-left-width: 1px;
+	padding: 4px 2px 4px 1px;	/* TODO: still needed? */
+	border-left-color: transparent;
 }
+.aqua .dijitComboButton .dijitArrowButton:HOVER {
+	border-left-color: #ED8714;
+}
+
 
 /* checked status */
 .aqua .dijitButtonActive .dijitButtonNode, 
