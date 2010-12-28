@@ -20,12 +20,11 @@
  *		.dijitColorPalette .dijitPaletteCellSelected .dijitPaletteImg
  *		adds border for active or selected state
  */
-
+/*harjeet*/
 .aqua  .dijitColorPalette {
-	outline: 1px solid #769dc0; 
+	xxxoutline: 1px solid #769dc0; 
 	border: 1px solid #c0ccdf;
 	background:#fff;
-
 	-moz-border-radius: 0px;
 }
 
@@ -35,8 +34,10 @@
 	 * overrides border color in dijit.css */
 	border: 1px solid #cecece;
 }
+/*harjeet*/
 .aqua .dijitColorPalette .dijitPaletteCellHover .dijitPaletteImg {
-	border: 1px solid #000;
+	xxxborder: 1px solid #000000;
+	border: 1px solid #ED8714;
 }
 .aqua .dijitColorPalette .dijitPaletteCellActive .dijitPaletteImg,
 .aqua .dijitColorPalette .dijitPaletteCellSelected .dijitPaletteImg {
