@@ -21,9 +21,10 @@
 	padding: 0px 5px 2px 5px;
 }
 
-/* normal status */
+/* harjeet normal status */
 .aqua .dijitSelect {
-	border: 1px solid #b5bcc7;
+	xxxborder: 1px solid #b5bcc7;
+	border: 1px solid #d3d3d3;
 	background-color: #f7fcff;
 	border-collapse: separate;
 }
@@ -33,13 +34,15 @@
 }
 
 .aqua .dijitSelect .dijitButtonContents {
-	border: 0px solid #b5bcc7;
+	xxxborder: 0px solid #b5bcc7;
+	border: 0px solid #d3d3d3;
 	border-right-width: 1px;
 }
-
+/*harjeet*/
 .aqua .dijitSelect .dijitArrowButton {
 	padding: 0;
-	border: 1px solid #fff;	/* inner white border on button node */
+	xxxborder: 1px solid #fff;	/* inner white border on button node */
+	border: 1px solid transparent;
 	border-top:none;
 	background-color:#ebeef4;
 	background-image: url("images/formHighlight.png");
@@ -55,12 +58,14 @@
 	display:block;
 }
 
-/* hover status */
+/* harjeet hover status */
 .aqua .dijitSelectHover {
-	border: 1px solid #769dc0;
-	background-color: #e9f4fe;
-	background-image: url('images/textBox_back.png');
-	background-repeat: repeat-x;
+	xxxborder: 1px solid #769dc0;
+	border: 1px solid #ED8714;
+	xxxbackground-color: #e9f4fe;
+	background-color: #F7FCFF;
+	xxxbackground-image: url('images/textBox_back.png');
+	xxxbackground-repeat: repeat-x;
 }
 
 .aqua .dijitSelectHover .dijitButtonContents {

@@ -25,11 +25,12 @@
 .aqua .dijitInputField .dijitPlaceHolder {
 	padding: 2px;
 }
-
+/*harjeets*/
 .aqua .dijitTextBox,
 .aqua .dijitTextBox .dijitButtonNode {
 	/* color for (outer) border on *TextBox widgets, and border between input and buttons on ComboBox and Spinner */
-	border-color: #b5bcc7;
+	xxxborder-color: #b5bcc7;
+	border-color: #D3D3D3;
 	-webkit-transition-property:background-color, border;
  	-webkit-transition-duration:.35s;
 }
@@ -37,16 +38,17 @@
 	background-color: #f7fcff;
 }
 
-/* hover */
+/* harjeet hover */
 .aqua .dijitTextBoxHover,
 .aqua .dijitTextBoxHover .dijitButtonNode {
-	border-color: #769dc0;
+	xxxborder-color: #769dc0;
+	border-color: #ED8714;
  	-webkit-transition-duration:.25s;
 }
 .aqua .dijitTextBoxHover {
-	background-color: #e9f4fe;
-	background-image: url('images/textBox_back.png');
-	background-repeat: repeat-x;
+	xxxbackground-color: #e9f4fe;
+	xxxbackground-image: url('images/textBox_back.png');
+	xxxbackground-repeat: repeat-x;
 }
 
 /* error state */
@@ -93,7 +95,7 @@
 /*========================= for special widgets =========================*/
 
 /* ComboBox */
-
+/*harjeet*/
 .aqua .dijitComboBox .dijitArrowButtonInner {
 	background-image: url("images/commonFormArrows.png");
 	background-position:-35px 53%;
@@ -101,7 +103,8 @@
 	margin: 0px;
 	width:16px;
 	height:100%;
-	border: 1px solid #fff;
+	xxxborder: 1px solid #fff;
+	border: 1px solid transparent;
 }
 
 .aqua .dijitTextBox .dijitInputField {
@@ -132,7 +135,8 @@
 
 /* focused state */
 .aqua .dijitComboBoxFocused .dijitButtonNode {
-	background-color:#7dbefa;
+	xxxbackground-color:#7dbefa;
+	background-color:#7DBEFA;
 	background-position:0px -177px;
 	padding: 1px;
 }	

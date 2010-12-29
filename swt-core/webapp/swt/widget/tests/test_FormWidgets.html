@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>Form Widgets Test (Aqua)</title>
+
+	<link rel="stylesheet" href="../../../../dojo/dojo/resources/dojo.css">
+	<link rel="stylesheet" href="../../../../dojo/dijit/tests/css/dijitTests.css">
+	<style type="text/css">
+	.widgetContainer {
+		padding-top: 10px;
+	}
+	.testTitle {
+		padding-bottom: 10px;
+	}
+	</style>
+
+	<!-- required: a default dijit theme: -->
+	<link id="themeStyles" rel="stylesheet" href="../../themes/aqua/AquaBase.css">
+
+	<!-- required: dojo.js -->
+	<script type="text/javascript" src="../../../../dojo/dojo/dojo.js"
+		djConfig="parseOnLoad: true, isDebug: true"></script>
+
+	<!-- not needed, for testing alternate themes -->
+	<script type="text/javascript" src="../../../../dojo/dijit/tests/_testCommon.js"></script>
+
+	<script language="JavaScript" type="text/javascript">
+		dojo.require("dijit.dijit"); // optimize: load dijit layer
+		dojo.require("dijit.form.ComboBox");
+		dojo.require("dijit.form.Select");
+		dojo.require("dijit.form.Button");
+		dojo.require("dijit.form.MultiSelect");
+	    dojo.require("dijit.form.FilteringSelect");
+	    dojo.require("dojo.data.ItemFileReadStore");
+		dojo.require("dojo.parser");
+	    dojo.addOnLoad(function() {
+	        var stateStore = new dojo.data.ItemFileReadStore({
+	            url: "data/states.json"
+	        });
+	        var filteringSelect = new dijit.form.FilteringSelect({
+	            id: "stateSelect",
+	            name: "state",
+	            value: "KY",
+	            store: stateStore,
+	            searchAttr: "name"
+	        },
+	        "stateSelect");
+	    });
+	</script>
+
+</head>
+<body class="aqua">
+<div style="padding-top:60px;"></div>
+<div class="widgetContainer">
+	<h3 class="testTitle">Dijit ComboBox Test</h3>
+	<select dojoType="dijit.form.ComboBox" id="fruit" name="fruit">
+    	<option>Apples</option>
+    	<option selected>Oranges</option>
+    	<option>Pears</option>
+    	<option>Figs</option>
+    	<option>Guavas</option>
+    	<option>Water Melon</option>
+    	<option>Papaya</option>
+    	<option>Apricot</option>
+	</select>
+	<br>
+	<br>
+	<select dojoType="dijit.form.ComboBox" id="fruitD" name="fruitD" disabled="disabled">
+    	<option>Apples</option>
+    	<option selected>Oranges</option>
+    	<option>Pears</option>
+    	<option>Figs</option>
+    	<option>Guavas</option>
+    	<option>Water Melon</option>
+    	<option>Papaya</option>
+    	<option>Apricot</option>
+	</select>
+</div>
+<div class="widgetContainer">
+		<h4 class="testSubtitle">Setting Defaults</h4>
+		<label for="s1">Test One: </label>
+		<select jsId="s1" name="s1" id="s1" dojoType="dijit.form.Select" >
+			<option value="TN">Tennessee</option>
+			<option value="VA" selected="selected">Virginia</option>
+			<option value="WA">Washington</option>
+			<option value="FL">Florida</option>
+			<option value="CA">California</option>
+		</select>
+		<button id="1465" dojoType="dijit.form.Button" onClick='console.log("clicked simple");' iconClass="plusIcon" value="getValue">
+			Get Value
+ 		<script type="dojo/method" event="onClick">
+				console.log(s1.get("displayedValue"));
+			</script>
+		</button>
+		<br>
+		<br>
+		<label for="s2">Test Two: </label>
+		<select jsId="s2" name="s2" id="s2" style="width: 150px;" dojoType="dijit.form.Select">
+			<option value="AL">Alabama</option>
+			<option value="AK">Alaska</option>
+			<option type="separator"></option>
+			<option value="AZ">Arizona</option>
+			<option value="AR">Arkansas</option>
+			<option type="separator"></option>
+			<option value="CA">California</option>
+		</select>
+		<br>
+		<br>
+		<label for="s3">Test Three: </label>
+		<select jsId="s3" name="s3" id="s3" style="width: 150px;" dojoType="dijit.form.Select" disabled="disabled">
+			<option value="AL">Alabama</option>
+			<option value="AK">Alaska</option>
+			<option type="separator"></option>
+			<option value="AZ">Arizona</option>
+			<option value="AR">Arkansas</option>
+			<option type="separator"></option>
+			<option value="CA">California</option>
+		</select>
+</div>
+<div class="widgetContainer">
+		<h4 class="testSubtitle">Filtering Select</h4>
+		<label for="stateSelect">Test One: </label>
+		<input id="stateSelect">
+		<br>
+		<br>
+    	<button dojoType="dijit.form.Button" onClick="alert(dijit.byId('stateSelect').attr('value'))" value="getValueFS">
+        	Get value
+    	</button>
+</div>
+<div class="widgetContainer">
+		<h4 class="testSubtitle">Multi Select</h4>
+		<label for="stateMS">Test One: </label>
+		<select dojoType="dijit.form.MultiSelect" id="fruitMS" name="fruitMS" size="4">
+    		<option value="AP">Apples</option>
+    		<option value="OR">Oranges</option>
+		   	<option value="FI">Figs</option>
+    		<option value="GU">Guavas</option>
+    		<option value="WM">Water Melon</option>
+    		<option value="PA">Papaya</option>
+    		<option value="AP">Apricot</option>
+    		<option value="PE" selected>Pears</option>
+		</select>
+</div>
+
+</body>
+</html>

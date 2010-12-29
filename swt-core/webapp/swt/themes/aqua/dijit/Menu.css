@@ -176,10 +176,12 @@ There are three areas of styling for the Menu:
 	border-style:solid;
 	border-color:#fff;
 }
+/*harjeet*/
 .aqua .dijitComboBoxMenu .dijitMenuItemSelected {
 	color:#000;
 	border-color:#768dc0;
-	background-color:#abd6ff;
+	xxxbackground-color:#abd6ff;
+	background-color:#d6ebff;
 }
 .aqua .dijitComboBoxMenuActive .dijitMenuItemSelected {
 	background-position:0px -177px;
