@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>Panels and Containers (Aqua)</title>
+
+	<link rel="stylesheet" href="../../../../dojo/dojo/resources/dojo.css">
+	<link rel="stylesheet" href="../../../../dojo/dijit/tests/css/dijitTests.css">
+	<style type="text/css">
+	.widgetContainer {
+		padding-top: 10px;
+	}
+	.testTitle {
+		padding-bottom: 10px;
+	}
+	
+	body {
+		padding-top: 50px;
+	}
+	
+	</style>
+
+	<!-- required: a default dijit theme: -->
+	<link id="themeStyles" rel="stylesheet" href="../../themes/aqua/AquaBase.css">
+
+	<!-- required: dojo.js -->
+	<script type="text/javascript" src="../../../../dojo/dojo/dojo.js"
+		djConfig="parseOnLoad: true, isDebug: true"></script>
+
+	<!-- not needed, for testing alternate themes -->
+	<script type="text/javascript" src="../../../../dojo/dijit/tests/_testCommon.js"></script>
+
+	<script language="JavaScript" type="text/javascript">
+		dojo.require("dijit.dijit"); // optimize: load dijit layer
+		dojo.require("dijit.Dialog");
+		dojo.require("dijit.form.Button");
+		dojo.require("dijit.form.TextBox");
+		dojo.require("dijit.form.DateTextBox");
+		dojo.require("dijit.form.TimeTextBox");
+		dojo.require("dijit.form.FilteringSelect");
+		dojo.require("dijit.layout.BorderContainer");
+		dojo.require("dijit.layout.ContentPane");
+		dojo.require("dijit.layout.TabContainer");
+		dojo.require("dijit.InlineEditBox");
+		dojo.require("dijit.Menu");
+		dojo.require("dojo.parser"); // scan page for widgets
+		dojo.addOnLoad(function(){
+		});
+
+		function myHandler(id,newValue){
+			console.debug("onChange for id = " + id + ", value: " + newValue);
+		}
+	</script>
+
+</head>
+<body class="aqua">
+<div class="widgetContainer">
+	<h3 class="testDialog">Dijit Dialog Test</h3>
+	<button dojoType="dijit.form.Button"  id="ABDlg1Btn" onclick="dijit.byId('ABDlg1').show()">Show Dialog With Action Buttons</button>
+	<div dojoType="dijit.Dialog" id="ABDlg1" title="ActionBar Dialog 1" 
+			onExecute="console.log('OK button pressed')"
+			onCancel="console.log('Cancel button pressed')"
+			aria-describedby="intro"
+			execute="console.log('submitted w/args:\n' + dojo.toJson(arguments[0], true));">
+		<div class="dijitDialogPaneContentArea">
+			<div id="ABintro1" style="width:30em;">Introductory information spoken by screen reader if aria-describedby is
+			added to the declaration of dialog above with value equal to the id of the container element for this text. This technique
+			will work in Dojo 1.4. </div>
+		</div>
+		
+		
+		<div class="dijitDialogPaneActionBar">
+			<button dojoType="dijit.form.Button" type="submit" id="ABdialog1button1">OK</button>
+			<button dojoType="dijit.form.Button" type="button" onClick="dijit.byId('ABDlg1').onCancel();" 
+					id="ABdialog1button2">Cancel</button>
+		</div>
+	</div>
+</div>
+</body>
+</html>
