@@ -32,7 +32,15 @@
 		dojo.require("dijit.form.Button");
 		dojo.require("dijit.form.MultiSelect");
 	    dojo.require("dijit.form.FilteringSelect");
+	    dojo.require("dijit.form.SimpleTextarea");
 	    dojo.require("dojo.data.ItemFileReadStore");
+		dojo.require("dijit.form.HorizontalSlider");
+		dojo.require("dijit.form.VerticalSlider");
+		dojo.require("dijit.form.HorizontalRule");
+		dojo.require("dijit.form.VerticalRule");
+		dojo.require("dijit.form.HorizontalRuleLabels");
+		dojo.require("dijit.form.VerticalRuleLabels");
+		dojo.require("dijit.form.NumberSpinner");
 		dojo.require("dojo.parser");
 	    dojo.addOnLoad(function() {
 	        var stateStore = new dojo.data.ItemFileReadStore({
@@ -141,6 +149,78 @@
     		<option value="AP">Apricot</option>
     		<option value="PE" selected>Pears</option>
 		</select>
+</div>
+<div class="widgetContainer">
+		<h4 class="testTextArea">Text Area</h4>
+		<label for="stateMS">Text Area: </label>
+		<textarea id="ta1" dojoType="dijit.form.SimpleTextarea" name="ta1" rows="5" cols="50"
+			onFocus="console.log('user focus handler')"
+			onBlur="console.log('user blur handler')"
+	        onChange="dojo.byId('oc1').value=''+arguments[0]"
+			selectOnClick="true"
+		>
+			Some text area test go here.
+		</textarea>
+</div>
+<div class="widgetContainer">
+		<h4 class="hSlider">Horizontal Slider</h4>
+		<label for="slider1"><strong>Horizontal Slider Example</strong></label>
+		<div dojoType="dijit.form.HorizontalSlider" name="horizontal1"
+			onChange="dojo.byId('slider1input').value=dojo.number.format(arguments[0]/100,{places:1,pattern:'#%'});"
+			value="10"
+			maximum="100"
+			minimum="0"
+			pageIncrement="100"
+			showButtons="true"
+			intermediateChanges="true"
+			slideDuration="500"
+			style="width:500px; height: 20px;"
+			id="slider1">
+				<ol dojoType="dijit.form.HorizontalRuleLabels" container="topDecoration" style="height:1.2em;font-size:75%;" count="6" numericMargin="1"></ol>
+				<div dojoType="dijit.form.HorizontalRule" container="topDecoration" count=6 style="height:5px;"></div>
+				<div dojoType="dijit.form.HorizontalRule" container="bottomDecoration" count=5 style="height:5px;"></div>
+				<ol dojoType="dijit.form.HorizontalRuleLabels" container="bottomDecoration" style="height:1em;font-size:75%;">
+					<li>lowest</li>
+					<li>normal</li>
+					<li>highest</li>
+
+				</ol>
+		</div>
+		<label for="slider2"><strong>Vertical Slider Example</strong></label>
+		<div dojoType="dijit.form.VerticalSlider" name="vertical1"
+			onChange="dojo.byId('slider2input').value=arguments[0];"
+			value="10"
+			maximum="100"
+			minimum="0"
+			discreteValues="11"
+			style="height:300px;"
+			id="slider2">
+				<ol dojoType="dijit.form.VerticalRuleLabels" container="leftDecoration" style="width:2em;" labelStyle="right:0px;">
+					<li>0</li>
+					<li>100</li>
+				</ol>
+
+				<div dojoType="dijit.form.VerticalRule" container="leftDecoration" count=11 style="width:5px;" ruleStyle="border-color: #888"></div>
+				<div dojoType="dijit.form.VerticalRule" container="rightDecoration" count=11 style="width:5px;" ruleStyle="border-color: #888"></div>
+				<ol dojoType="dijit.form.VerticalRuleLabels" container="rightDecoration" style="width:2em;" count="6" numericMargin="1" maximum="100" constraints="{pattern:'#'}"></ol>
+		</div>
+</div>
+<div class="widgetContainer">
+		<h4 class="testTextArea">Number Spinner</h4>
+		<label for="integerspinner1">Spinbox #1: </label><br>
+		<input dojoType="dijit.form.NumberSpinner"
+			onChange="dojo.byId('oc1').value=arguments[0]"
+			value="900"
+			class="bigFont"
+			constraints="{max:1550,places:0}"
+			name="integerspinner1"
+			id="integerspinner1">
+		    onChange:<input id="oc1" disabled value="not fired yet!" autocomplete="off">
+		<button dojoType="dijit.form.Button" id="sv1_1" value="Set value to 400" onClick="dijit.byId('integerspinner1').set('value',400)" tabIndex="-1">Set value to 400</button>
+		<button dojoType="dijit.form.Button" id="sv1_2" value="Set value to null" onClick="dijit.byId('integerspinner1').set('value',null)" tabIndex="-1">Set value to null</button>
+		<button dojoType="dijit.form.Button" id="sv1_3" value="Set required to false" onClick="dijit.byId('integerspinner1').set('required',false)" tabIndex="-1">Set required to false</button>
+		<button dojoType="dijit.form.Button" id="sv1_4" value="Set required to true" onClick="dijit.byId('integerspinner1').set('required',true)" tabIndex="-1">Set required to true</button>
+		<br>
 </div>
 
 </body>
