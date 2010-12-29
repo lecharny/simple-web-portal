@@ -47,9 +47,10 @@
 .aqua .dijitSpinner .dijitSpinnerButtonInner {
 	width: 15px;
 }
-/* up & down button icons */
+/* harjeet up & down button icons */
 .aqua .dijitSpinner .dijitArrowButtonInner {
-	border:solid 1px #fff;
+	xxxborder:solid 1px #fff;
+	border:solid 1px transparent;
 	border-bottom-width: 0; /* 2 top borders = 1 top+bottom border in ComboBox */
 	background-image: url("images/commonFormArrows.png");
 	background-repeat: no-repeat;
@@ -57,14 +58,11 @@
 	width:15px;
 	padding-left: 1px;
 	padding-right: 1px;
-
 	/* for up arrow */
 	background-position:-139px center;
-
 	/* override button.css (TODO: move to Common.css since ComboBox needs this too) */
 	display: block;
 	margin: -1px 0px -1px 0px;	/* compensate for inner border */
-	#margin-top: 0; /* since its bottom aligned */
 }
 .dj_iequirks .aqua .dijitSpinner .dijitArrowButtonInner {
 	width: 19px;

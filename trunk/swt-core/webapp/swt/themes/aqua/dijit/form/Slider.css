@@ -92,29 +92,35 @@
 .aqua .dijitSliderLeftBumper {
 	border-left: solid 1px #b5bcc7;
 }
-.aqua .dijitSliderHover .dijitSliderProgressBarH,
-.aqua .dijitSliderHover .dijitSliderLeftBumper{
-	background-position:0 -20px;
-	background-color: #abd6ff;
-	border-color: #769dc0;
-}
-.aqua .dijitSliderHover .dijitSliderRemainingBarH,
-.aqua .dijitSliderHover .dijitSliderRightBumper{
-	background-position:0 0px;
-	background-color: #fff;
-	border-color: #769dc0;
-}
+/*harjeet*/
 .aqua .dijitSliderFocused .dijitSliderProgressBarH,
 .aqua .dijitSliderFocused .dijitSliderLeftBumper{
 	background-position:0 -30px;
 	background-color: #abd6ff;
 	border-color: #769dc0;
 }
+/*harjeet*/
 .aqua .dijitSliderFocused .dijitSliderRemainingBarH,
 .aqua .dijitSliderFocused .dijitSliderRightBumper{
 	background-position:0 -9px;
 	background-color: #fff;
 	border-color: #769dc0;
+}
+/*harjeet*/
+.aqua .dijitSliderHover .dijitSliderProgressBarH,
+.aqua .dijitSliderHover .dijitSliderLeftBumper{
+	background-position:0 -20px;
+	background-color: #abd6ff;
+	xxxborder-color: #769dc0;
+	border-color: #ED8714;
+}
+/*harjeet*/
+.aqua .dijitSliderHover .dijitSliderRemainingBarH,
+.aqua .dijitSliderHover .dijitSliderRightBumper{
+	background-position:0 0px;
+	background-color: #fff;
+	xxxborder-color: #769dc0;
+	border-color: #ED8714;
 }
 .aqua .dijitSliderDisabled .dijitSliderProgressBarH,
 .aqua .dijitSliderDisabled .dijitSliderLeftBumper{
@@ -153,15 +159,19 @@
 .aqua .dijitSliderTopBumper {
 	border-top: solid 1px #b5bcc7;
 }
+/*harjeet*/
 .aqua .dijitSliderHover .dijitSliderProgressBarV,
 .aqua .dijitSliderHover .dijitSliderBottomBumper{
 	background-position:-36px 0;
 	background-color: #abd6ff;
+	border-color: #ED8714;
 }
+/*harjeet*/
 .aqua .dijitSliderHover .dijitSliderRemainingBarV,
 .aqua .dijitSliderHover .dijitSliderTopBumper{
 	background-position:0 0;
 	background-color: #fff;
+	border-color: #ED8714;
 }
 .aqua .dijitSliderFocused .dijitSliderProgressBarV,
 .aqua .dijitSliderFocused .dijitSliderBottomBumper{
