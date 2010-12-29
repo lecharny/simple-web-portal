@@ -41,6 +41,7 @@
 		dojo.require("dijit.form.HorizontalRuleLabels");
 		dojo.require("dijit.form.VerticalRuleLabels");
 		dojo.require("dijit.form.NumberSpinner");
+		dojo.require("dijit.form.TimeTextBox");
 		dojo.require("dojo.parser");
 	    dojo.addOnLoad(function() {
 	        var stateStore = new dojo.data.ItemFileReadStore({
@@ -220,6 +221,19 @@
 		<button dojoType="dijit.form.Button" id="sv1_2" value="Set value to null" onClick="dijit.byId('integerspinner1').set('value',null)" tabIndex="-1">Set value to null</button>
 		<button dojoType="dijit.form.Button" id="sv1_3" value="Set required to false" onClick="dijit.byId('integerspinner1').set('required',false)" tabIndex="-1">Set required to false</button>
 		<button dojoType="dijit.form.Button" id="sv1_4" value="Set required to true" onClick="dijit.byId('integerspinner1').set('required',true)" tabIndex="-1">Set required to true</button>
+		<br>
+</div>
+<div class="widgetContainer">
+		<h4 class="testTimeBox">TimeTextBox</h4>
+		<label for="q1">Time using local conventions with seconds</label>
+		<span class="noticeMessage">TimeTextBox class, 	Attributes: {formatLength:'medium'}</span>
+		<input id="q1" type="text" name="time1" value="T17:45:00"
+			dojoType="dijit.form.TimeTextBox"
+			constraints="{formatLength:'medium'}"
+			required="true"
+			onChange="dojo.byId('oc1').value=arguments[0]"
+			invalidMessage="Invalid time." />
+			onChange:<input id="oc1" size="34" disabled value="not fired yet!" autocomplete="off">
 		<br>
 </div>
 
