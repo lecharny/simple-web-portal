@@ -28,10 +28,12 @@
 .aqua .dijitProgressBar {
 	margin:2px 0px 2px 0px;
 }
+/*harjeet*/
 .aqua .dijitProgressBarEmpty {
 	/* outer container and background of the bar that's not finished yet*/
 	background:#fff url("images/progressBarEmpty.png") repeat-none left;
-	border-color: #769dc0;
+	xxxborder-color: #769dc0;
+	border-color: #d3d3d3;
 }
 .aqua .dijitProgressBarTile {
 	/* inner container for finished portion when in 'tile' (image) mode */

@@ -116,34 +116,37 @@
 	/* the outermost dom node, holding the connector and container */
 	background: transparent;	/* make the area on the sides of the arrow transparent */
 }
+/*harjeet*/
 .dijitTooltipBelow {
 	/* leave room for arrow above content */
-	padding-top: 13px;
-	padding-left:3px;
-	padding-right:3px;
+	xxxpadding-top: 13px;
+	xxxpadding-left:3px;
+	xxxpadding-right:3px;
+	padding: 13px 3px 3px;
 }
-
+/*harjeet*/
 .dijitTooltipAbove {
 	/* leave room for arrow below content */
-	padding-bottom: 13px;
-	padding-left:3px;
-	padding-right:3px;
+	xxxpadding-bottom: 13px;
+	xxxpadding-left:3px;
+	xxxpadding-right:3px;
+	padding: 3px 3px 13px;
 }
-
+/*harjeet*/
 .aqua .dijitTooltipContainer {
 	/* the part with the text */
 	background-color:#fff;
-	background-image:url("images/tooltip.png");
-	background-repeat:repeat-x;
-	background-position:-575px 100%;
+	xxxbackground-image:url("images/tooltip.png");
+	xxxbackground-repeat:repeat-x;
+	xxxbackground-position:-575px 100%;
 	border:1px solid #769DC0;
 	padding:6px 8px;
 	border-radius: 4px;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	box-shadow:0px 1px 3px rgba(0,0,0,0.25);
-	-webkit-box-shadow:0px 1px 3px rgba(0,0,0,0.25);
-	-moz-box-shadow: 0px 1px 3px rgba(0,0,0,0.25);
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	box-shadow:0px 0px 5px rgba(0,0,0,0.25);
+	-webkit-box-shadow:0px 0px 5px rgba(0,0,0,0.25);
+	-moz-box-shadow: 0px 0px 5px rgba(0,0,0,0.25);
 	font-size: 1em;
 } 
 
