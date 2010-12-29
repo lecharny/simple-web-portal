@@ -38,7 +38,7 @@
 .aqua .dijitComboButton .dijitButtonNode,
 .aqua .dijitToggleButton .dijitButtonNode {
 	/* rules for the dijit.form.*Button widgets (see also ComboButton section below) */
-	padding:2px 4px 4px 4px;
+	padding:0 4px;
 	border-radius: 2px;
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
@@ -53,7 +53,7 @@
 .aqua .dijitArrowButtonInner {
 	width: 15px;
 	height: 15px;
-	margin: 0 auto;
+	margin: 1px auto 0;
 	background-image:url("images/buttonArrows.png");
 	background-repeat:no-repeat;
 	background-position:-51px 53%;
@@ -81,7 +81,7 @@
 }
 
 .aqua .dijitButtonText {
-	padding: 0 0.3em;
+	padding: 0 0.3em 0.1em;
 	text-align: center;
 }
 
@@ -106,7 +106,7 @@
 
 .aqua .dijitComboButton .dijitArrowButton {
 	border-left-width: 1px;
-	padding: 4px 2px 4px 1px;	/* TODO: still needed? */
+	padding: 1px 2px 1px 1px;
 	border-left-color: transparent;
 }
 .aqua .dijitComboButton .dijitArrowButton:HOVER {
