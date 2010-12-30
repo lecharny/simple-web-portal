@@ -28,20 +28,24 @@ Splitters and gutters:
 .dijitSplitterVHover .dijitSplitterThumb - for background-color of a hovered thumb on a vertical splitter
 .dijitSplitterHActive - for background-color of an active horizontal splitter
 .dijitSplitterVActive - for background-color of an active horizontal splitter
-
-
 */
+/*harjeet*/
 .aqua .dijitBorderContainer {
-	border: 1px #b5bcc7 solid;
+	xxxborder: 1px #b5bcc7 solid;
+	border: 1px #d3d3d3 solid;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
 	padding: 5px;
 }
-
+/*harjeet*/
 .aqua .dijitSplitContainer-child,
 .aqua .dijitBorderContainer-child {
-	/* By default put borders on all children of BorderContainer,
-	 *  to give illusion of borders on the splitters themselves.
-	 */
-	border: 1px #b5bcc7 solid;
+	xxxborder: 1px #b5bcc7 solid;
+	border: 1px #d3d3d3 solid;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
 }
 
 .aqua .dijitBorderContainer-dijitTabContainerTop,
@@ -96,17 +100,25 @@ Splitters and gutters:
 /* hovered splitter */
 .aqua .dijitSplitterHHover {
 	font-size: 1px;
-	background: url("images/splitterHorizontalHover.png") no-repeat center top;
+	xxxbackground: url("images/splitterHorizontalHover.png") no-repeat center top;
+	background-image: -moz-linear-gradient(top center , #EFF1F3, #B8C3CC); 
+	background-image: -webkit-gradient(linear, center top, center bottom, from(#EFF1F3), to(#B8C3CC));
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#EFF1F3', endColorstr='#B8C3CC', gradientType='0');
+	
 }
 
 
 .aqua .dijitSplitterHHover .dijitSplitterThumb {
 	background:#769dc0 none;
 }
-
+/*harjeet*/
 .aqua .dijitSplitterVHover {
 	font-size: 1px;
-	background: url("images/splitterVerticalHover.png") no-repeat center left;
+	xxxbackground: url("images/splitterVerticalHover.png") no-repeat center left;
+	background:#EFF1F3;
+	background-image: -moz-linear-gradient(left center , #EFF1F3, #B8C3CC); 
+	background-image: -webkit-gradient(linear, left center, right center, from(#EFF1F3), to(#B8C3CC));
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#EFF1F3', endColorstr='#B8C3CC', gradientType='1');
 }
 
 .aqua .dijitSplitterVHover .dijitSplitterThumb {
@@ -119,16 +131,21 @@ Splitters and gutters:
 	background-image:none;
 }
 
-/* active splitter */
+/* harjeet active splitter */
 .aqua .dijitSplitterHActive {
 	font-size: 1px;
-	background-color:#abd4fb;
-	border-top:blue;
-
+	xxxbackground-color:#abd4fb;
+	xxxborder-top:blue;
+	background-image: -moz-linear-gradient(top center , #B8C3CC, #EFF1F3); 
+	background-image: -webkit-gradient(linear, center top, center bottom, from(#B8C3CC), to(#EFF1F3));
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#B8C3CC', endColorstr='#EFF1F3', gradientType='0');
+	
 }
-
+/*harjeet*/
 .aqua .dijitSplitterVActive {
 	font-size: 1px;
-	background-color:#abd4fb;
-
+	xxxbackground-color:#abd4fb;
+	background-image: -moz-linear-gradient(left center , #B8C3CC, #EFF1F3); 
+	background-image: -webkit-gradient(linear, left center, right center, from(#B8C3CC), to(#EFF1F3));
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#B8C3CC', endColorstr='#EFF1F3', gradientType='1');
 }
