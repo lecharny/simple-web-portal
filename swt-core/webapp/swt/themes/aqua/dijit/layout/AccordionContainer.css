@@ -31,9 +31,13 @@
 .aqua .dijitAccordionContainer {
 	border:none;
 }
+/*harjeet*/
 .aqua .dijitAccordionInnerContainer {
 	background-color: #e6e6e7;	/* gray, for closed pane */
 	border:solid 1px #b5bcc7;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
 	margin-bottom:1px;
 	-webkit-transition-property:background-color,border;
  	-webkit-transition-duration:.3s;
@@ -59,7 +63,8 @@
 	 */
 	border:1px solid #92bce1 !important;
 	margin: 0px 2px 2px;
-	padding: 9px;
+	xxxpadding: 9px;
+	padding: 5px;
 }
 
 /* Active state for closed pane */
@@ -77,12 +82,15 @@
 /* Open pane */
 
 .aqua .dijitAccordionInnerContainerSelected {
-	border-color:#92bce1;
-	background-color: #cde8ff;
+	xxxborder-color:#92bce1;
+	xxxbackground-color: #cde8ff;
+	background-color: #d3d3d3;
 }
+/*harjet*/
 .aqua .dijitAccordionInnerContainerSelected .dijitAccordionTitle {
 	color:#000;
 	background-position: 0 0;	/* avoid effect when clicking the title of the open pane */
+	font-weight: bold;
 }
 
 /* Hovering open or closed pane */
@@ -91,11 +99,12 @@
 	/* both open and closed */
 	color:#000;
 }
-
+/*harjeet*/
 .aqua .dijitAccordionInnerContainerHover,
 .aqua .dijitAccordionInnerContainerSelectedActive {
-	border:1px solid #769DC0;
-	background-color:#9dcfff;
+	xxxborder:1px solid #769DC0;
+	border:1px solid #ED8714;
+	xxxbackground-color:#9dcfff;
 	-webkit-transition-duration:.2s;
 }
 
