@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>BorderContainer Test (Aqua)</title>
+
+	<link rel="stylesheet" href="../../../../dojo/dojo/resources/dojo.css">
+	<link rel="stylesheet" href="../../../../dojo/dijit/tests/css/dijitTests.css">
+	<style type="text/css">
+		.widgetContainer {
+		padding-top: 10px;
+	}
+	.testTitle {
+		padding-bottom: 10px;
+	}
+	
+	body {
+		padding-top: 60px;
+	}
+	.somePadding .dijitAccordionBody {
+		padding: 5px;
+	}
+	.extremePadding .dijitAccordionBody {
+		padding: 50px;
+	}
+	
+	</style>
+
+	<!-- required: a default dijit theme: -->
+	<link id="themeStyles" rel="stylesheet" href="../../themes/aqua/AquaBase.css">
+
+	<!-- required: dojo.js -->
+	<script type="text/javascript" src="../../../../dojo/dojo/dojo.js"
+		djConfig="parseOnLoad: true, isDebug: true"></script>
+
+	<!-- not needed, for testing alternate themes -->
+	<script type="text/javascript" src="../../../../dojo/dijit/tests/_testCommon.js"></script>
+
+	<script language="JavaScript" type="text/javascript">
+		dojo.require("dijit.dijit"); // optimize: load dijit layer
+		dojo.require("dijit.layout.AccordionContainer");
+		dojo.require("dijit.layout.ContentPane");
+		dojo.require("dijit.layout.BorderContainer");
+		dojo.require("dijit.layout.TabContainer");
+		dojo.require("dijit.form.ComboBox");
+	 	dojo.require("dijit.form.Button");
+	 	dojo.require("dijit.form.TextBox");
+	 	dojo.require("dijit.form.Select");
+	 	dojo.require("dijit.form.FilteringSelect");
+		dojo.require("dojo.parser"); // scan page for widgets
+		dojo.addOnLoad(function(){
+			watchSplitters( dijit.byId("watchedBC"));
+		});
+		function watchSplitters(bc) {
+			var out = dojo.byId("watchedOutput");
+			var moveConnects = {};
+			dojo.forEach(["top", "left"], function(region) {
+				var spl = bc.getSplitter(region);
+				dojo.connect(spl, "_startDrag", function() {
+					dojo.style(spl.child.domNode, "opacity", "0.4");
+					moveConnects[spl.widgetId] = dojo.connect(spl.domNode, "onmousemove", function(evt) {
+						out.innerHTML = spl.region + ": " + dojo.toJson({
+							x: !spl.horizontal ? spl.domNode.style[spl.region] : 0,
+							y: spl.horizontal ? spl.domNode.style[spl.region] : 0
+						});
+					})
+
+				});
+				dojo.connect(spl, "_stopDrag", function(evt) {
+					dojo.style(spl.child.domNode, "opacity", 1);
+					dojo.disconnect(moveConnects[spl.widgetId]);
+					delete moveConnects[spl.widgetId];
+				});
+			})
+		}
+		function myHandler(id,newValue){
+			console.debug("onChange for id = " + id + ", value: " + newValue);
+		}
+	</script>
+
+</head>
+<body class="aqua">
+<div class="widgetContainer">
+	<h2 class="testTitle">BorderContainer Tests</h2>
+	<p>Headline layout (default), left is constrained - min:150, max:250</p>
+	<div id="border1" dojoType="dijit.layout.BorderContainer" style="width: 100%; height: 400px;">
+		<div id="border1-top" dojoType="dijit.layout.ContentPane" region="top" style="height: 30px;" splitter="true" role="banner">
+			top bar (resizable)
+		</div>
+		<div id="border1-left" dojoType="dijit.layout.ContentPane" region="left" style="width: 100px;" role="navigation" splitter="true" minSize="150" maxSize="250">
+			left (resizable b/w 150 &rarr; 250)
+		</div>
+		<div id="border1-center" dojoType="dijit.layout.ContentPane" region="center" role="main">
+			main panel with <a href="http://www.dojotoolkit.org/">a link</a>.<br />
+			(to check we're copying children around properly).<br />
+			<select dojoType="dijit.form.FilteringSelect">
+				<option value="1">foo</option>
+				<option value="2">bar</option>
+				<option value="3">baz</option>
+			</select>
+			Here's some text that comes AFTER the combo box.
+		</div>
+		<div id="border1-right" dojoType="dijit.layout.ContentPane" region="right" style="width: 50px;">
+			right (fixed size)
+		</div>
+		<div id="border1-bottom" dojoType="dijit.layout.ContentPane" region="bottom" style="height: 30px;" splitter="true" role="contentinfo">
+			bottom bar (resizable)
+		</div>
+	</div>
+	<br>
+	<button dojoType="dijit.form.Button" id="toggleLeftButton" onClick="togglePanel(this, 'border1-left')">Remove left panel</button>
+	<br />
+</div>
+<div class="widgetContainer">
+	<p>Sidebar layout, BiDi sensitive, liveSplitters: false</p>
+	<div id="border2" dojoType="dijit.layout.BorderContainer" design="sidebar" liveSplitters="false"
+		style="width: 100%; height: 300px;">
+		<div id="border2-leading" dojoType="dijit.layout.ContentPane" region="leading" style="width: 100px;">
+			leading (fixed size)
+		</div>
+		<div id="border2-top" dojoType="dijit.layout.ContentPane" region="top" style="height: 80px;">
+			top bar (fixed size)
+		</div>
+		<div id="border2-center" dojoType="dijit.layout.ContentPane" region="center" style="">
+			main panel with <a href="http://www.dojotoolkit.org/">a link</a>.<br />
+
+			(to check we're copying children around properly).<br />
+			<select dojoType="dijit.form.FilteringSelect">
+				<option value="1">foo</option>
+				<option value="2">bar</option>
+				<option value="3">baz</option>
+			</select>
+			Here's some text that comes AFTER the combo box.
+		</div>
+
+		<div id="border2-bottom" dojoType="dijit.layout.ContentPane" region="bottom" style="height: 40px;" splitter="true">
+			bottom bar (resizable)
+		</div>
+		<div id="border2-trailing" dojoType="dijit.layout.ContentPane" region="trailing" style="width: 100px;" splitter="true">
+			trailing (resizable)
+		</div>
+	</div>
+</div>
+<div class="widgetContainer">
+	<p>gutters=false layout</p>
+	<div dojoType="dijit.layout.BorderContainer" design="sidebar" gutters="false"
+		style="width: 100%; height: 300px;">
+		<div dojoType="dijit.layout.ContentPane" region="leading" style="width: 100px;">
+			leading
+		</div>
+		<div dojoType="dijit.layout.ContentPane" region="top" style="height: 50px;">
+			top bar
+		</div>
+		<div dojoType="dijit.layout.ContentPane" region="center" style="">
+			main panel with <a href="http://www.dojotoolkit.org/">a link</a>.<br />
+
+			(to check we're copying children around properly).<br />
+			<select dojoType="dijit.form.FilteringSelect">
+				<option value="1">foo</option>
+				<option value="2">bar</option>
+				<option value="3">baz</option>
+			</select>
+			Here's some text that comes AFTER the combo box.
+		</div>
+
+		<div dojoType="dijit.layout.ContentPane" region="bottom" style="height: 40px;">
+			bottom bar
+		</div>
+		<div dojoType="dijit.layout.ContentPane" region="trailing" style="width: 100px;">
+			trailing
+		</div>
+	</div>
+</div>
+</body>
+</html>
