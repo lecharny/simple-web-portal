@@ -29,11 +29,12 @@
 .aqua .dijitTreeIsRoot {
     background-image: none;
 }
+/*harjeet*/
 .aqua .dijitTreeRow {
 	/* so insert line shows up on IE when dropping after a target element */
 	padding: 4px 1px 2px 0px;
 	margin-left: 1px;
-	background-image: url("images/commonHighlight.png");
+	xxxbackground-image: url("images/commonHighlight.png");
 	background-position:0px 0px;
 	background-repeat:repeat-x;
 	border-color: rgba(118,157,192,0);
@@ -45,29 +46,43 @@
 .dj_ie6 .aqua .dijitTreeRow {
 	background-image: none;
 }
-
+/*harjeet*/
 .aqua .dijitTreeRowSelected {
-	background-repeat:repeat-x;
-	background-color:#d8edff;
-	padding: 3px 0px 1px;
+	xxxbackground-repeat:repeat-x;
+	xxxbackground-color:#d8edff;
+    background-color: #F6F6F6;
+ 	padding: 3px 0px 1px;
 	margin-left: 0px;
-	border:solid 1px #c3e2fd;
-	color:#000;
+	xxxborder:solid 1px #c3e2fd;
+	border: 1px solid #D3D3D3;
+ 	color:#000;
 }
+/*harjeet*/
 .aqua .dijitTreeRowHover {
-	background-color:#abd6ff;
+	xxxbackground-color:#abd6ff;
 	padding: 3px 0px 1px;
 	margin-left: 0px;
-	border:solid 1px #769dc0;
+	border:solid 1px transparent;
 	color:#000;
 	-webkit-transition-duration:.25s ; 
 }
+/*harjeet*/
+.aqua .dijitTreeRowHover.dijitTreeRowSelected {
+	border-color:#d3d3d3;
+}
+.aqua .dijitTreeRowHover .dijitTreeLabel{
+	xxxcolor:#ED8714;
+	text-decoration: underline;	
+}
+/*harjeet*/
 .aqua .dijitTreeRowActive {
-	background-color:#7dbefa;
+	xxxbackground-color:#7dbefa;
+	background-color:#d3d3d3;
 	background-position:0px -177px;
 	padding: 3px 0px 1px;
 	margin-left: 0px;
-	border:solid 1px #769dc0;
+	xxxborder:solid 1px #769dc0;
+	border:solid 1px #ED8714;
 	color:#000;
 }
 .dj_ie6 .aqua .dijitTreeRowActive {
@@ -119,4 +134,8 @@
 }
 .aqua .dijitTreeNode .dojoDndItemAfter .dijitTreeContent {
 	border-bottom: 2px solid #369;
+}
+/*harjeet*/
+.aqua .dijitTreeRow .dijitFolderOpened, .aqua .dijitTreeRow .dijitFolderClosed, .aqua .dijitTreeRow .dijitTreeExpando.dijitTreeExpandoLeaf {
+	display: none;
 }
