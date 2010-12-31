@@ -112,7 +112,7 @@
 	<br />
 </div>
 <div class="widgetContainer">
-	<p>Sidebar layout, BiDi sensitive, liveSplitters: false</p>
+	<h3>Sidebar layout, BiDi sensitive, liveSplitters: false</h3>
 	<div id="border2" dojoType="dijit.layout.BorderContainer" design="sidebar" liveSplitters="false"
 		style="width: 100%; height: 300px;">
 		<div id="border2-leading" dojoType="dijit.layout.ContentPane" region="leading" style="width: 100px;">
@@ -142,16 +142,16 @@
 	</div>
 </div>
 <div class="widgetContainer">
-	<p>gutters=false layout</p>
+	<h3>gutters=false layout</h3>
 	<div dojoType="dijit.layout.BorderContainer" design="sidebar" gutters="false"
 		style="width: 100%; height: 300px;">
-		<div dojoType="dijit.layout.ContentPane" region="leading" style="width: 100px;">
+		<div dojoType="dijit.layout.ContentPane" region="leading" style="width: 100px;background: #D6EBFF; ">
 			leading
 		</div>
-		<div dojoType="dijit.layout.ContentPane" region="top" style="height: 50px;">
+		<div dojoType="dijit.layout.ContentPane" region="top" style="height: 50px;background: #D6AFFF;">
 			top bar
 		</div>
-		<div dojoType="dijit.layout.ContentPane" region="center" style="">
+		<div dojoType="dijit.layout.ContentPane" region="center" style="background: #FFD6EB;">
 			main panel with <a href="http://www.dojotoolkit.org/">a link</a>.<br />
 
 			(to check we're copying children around properly).<br />
@@ -163,12 +163,50 @@
 			Here's some text that comes AFTER the combo box.
 		</div>
 
-		<div dojoType="dijit.layout.ContentPane" region="bottom" style="height: 40px;">
+		<div dojoType="dijit.layout.ContentPane" region="bottom" style="height:40px;background: #D6AFFF;">
 			bottom bar
 		</div>
-		<div dojoType="dijit.layout.ContentPane" region="trailing" style="width: 100px;">
+		<div dojoType="dijit.layout.ContentPane" region="trailing" style="width: 100px;background: #C5FF88;">
 			trailing
 		</div>
+	</div>
+</div>
+<div class="widgetContainer">
+	<h3>Watching the splitter events</h3>
+	<div dojoType="dijit.layout.BorderContainer" id="watchedBC" persist="false" gutters="false" style="height: 200px; width: 100%">
+
+		<div dojoType="dijit.layout.ContentPane" region="top" splitter="true" style="background-color: #ccffcc; height: 50px;">Top:</div>
+		<div dojoType="dijit.layout.ContentPane" region="left" style="background-color: #ccccff; width: 40px" splitter="true"><span>Bottom</span></div>
+		<div dojoType="dijit.layout.ContentPane" region="center" style="background-color: #ffffcc"><span>Center</span></div>
+	</div>
+
+	<p>Splitter coords output:</p>
+	<div id="watchedOutput" style="border: 1px solid #999">nothing moving</div>
+</div>
+<div class="widgetContainer">
+	<h3>More fun with layouts</h3>
+	<div id="mondrian" dojoType="dijit.layout.BorderContainer" design="sidebar" gutters="true" persist="true" style="height: 300px; width: 100%;;">
+		<div id="mondrian_top" dojoType="dijit.layout.ContentPane" region="top" style="height: 100px" splitter="true">
+			<div  id="mondrian_top_bc" dojoType="dijit.layout.BorderContainer" persist="true" gutters="false" style="height: 100px; width: 100%">
+				<div id="top_a" dojoType="dijit.layout.ContentPane" region="leading" style="width: 125px" splitter="true"><span>top a</span></div>
+				<div id="top_b" dojoType="dijit.layout.ContentPane" region="center" style="background-color: yellow" splitter="true"><span>top b</span></div>
+			</div>
+		</div>
+		<div id="mondrian_bottom" dojoType="dijit.layout.ContentPane" region="bottom" style="height: 100px" splitter="true">
+			<div id="mondrian_bottom_bc" dojoType="dijit.layout.BorderContainer" persist="true" gutters="false" style="height: 100px; width: 100%">
+				<div id="bottom_c" dojoType="dijit.layout.ContentPane" region="top" style="height: 40px" splitter="true"><span>bottom c</span></div>
+
+				<div id="bottom_d" dojoType="dijit.layout.ContentPane" region="center"><span>bottom d</span></div>
+			</div>
+		</div>
+		<div id="mondrian_leading" dojoType="dijit.layout.ContentPane" region="leading" style="width: 100px" splitter="true">
+			<div id="mondrian_leading_bc" dojoType="dijit.layout.BorderContainer" persist="true" gutters="false" style="height: 300px; width: 100%">
+				<div id="leading_e" dojoType="dijit.layout.ContentPane" region="center"><span>leading e</span></div>
+				<div id="leading_f" dojoType="dijit.layout.ContentPane" region="bottom" style="height: 100px; background-color: red" splitter="true"><span>leading f</span></div>
+
+			</div>
+		</div>
+		<div id="trailing_g" dojoType="dijit.layout.ContentPane" region="trailing" style="width: 100px" splitter="true"><span>trailing g</span></div>
 	</div>
 </div>
 </body>
