@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>BorderContainer Test (Aqua)</title>
+
+	<link rel="stylesheet" href="../../../../dojo/dojo/resources/dojo.css">
+	<link rel="stylesheet" href="../../../../dojo/dijit/tests/css/dijitTests.css">
+	<style type="text/css">
+		html, body {
+			height: 100%;
+			width: 100%;
+			padding: 0px;
+			margin: 0px;
+			border: 0;
+			background: #fff;
+		}
+		#main {
+			height: 100%;
+			width: 100%;
+			padding: 5px;
+			margin: 0px;
+		}
+
+		/* initial sizing */
+		#leftAccordion {
+			width: 25%;
+		}
+		#bottomTabs {
+			height: 40%;
+		}
+	</style>
+
+	<!-- required: a default dijit theme: -->
+	<link id="themeStyles" rel="stylesheet" href="../../themes/aqua/AquaBase.css">
+
+	<!-- required: dojo.js -->
+	<script type="text/javascript" src="../../../../dojo/dojo/dojo.js"
+		djConfig="parseOnLoad: true, isDebug: true"></script>
+
+	<!-- not needed, for testing alternate themes -->
+	<script type="text/javascript" src="../../../../dojo/dijit/tests/_testCommon.js"></script>
+
+	<script language="JavaScript" type="text/javascript">
+		dojo.require("dijit.dijit"); // optimize: load dijit layer
+		dojo.require("dijit.layout.AccordionContainer");
+		dojo.require("dijit.layout.ContentPane");
+		dojo.require("dijit.layout.BorderContainer");
+		dojo.require("dijit.layout.TabContainer");
+		dojo.require("dijit.form.ComboBox");
+	 	dojo.require("dijit.form.Button");
+	 	dojo.require("dijit.form.TextBox");
+	 	dojo.require("dijit.form.Select");
+	 	dojo.require("dijit.form.FilteringSelect");
+		dojo.require("dijit.layout.TabContainer");
+		dojo.require("dijit.TitlePane");
+		dojo.require("dojo.parser"); // scan page for widgets
+
+		dojo.addOnLoad(function(){
+		});
+		function myHandler(id,newValue){
+			console.debug("onChange for id = " + id + ", value: " + newValue);
+		}
+	</script>
+
+</head>
+<body class="aqua">
+	<div dojoType="dijit.layout.BorderContainer" style="height:100%; width:100%"> 
+		<div dojoType="dijit.layout.ContentPane" region="top" style="height:35px" splitter="true"> 
+			<p>Outer Top</p> 
+		</div> 
+		<div dojoType="dijit.layout.ContentPane" region="left" style="width:100px" splitter="true"> 
+			<p>Outer Left</p> 
+		</div> 
+		<div id="iconTabs" dojoType="dijit.layout.TabContainer" region="bottom" style="height:115px" tabPosition="left" tabStrip="true">
+		<div id="iconTab1" dojoType="dijit.layout.ContentPane" title="Cut" tooltip="tooltip for cut button" showTitle="false" iconClass="dijitEditorIcon dijitEditorIconCut">Cut icon tab</div>
+			<div id="iconTab2" dojoType="dijit.layout.ContentPane" title="Copy" showTitle="false" iconClass="dijitEditorIcon dijitEditorIconCopy">Copy icon tab</div>
+			<div id="iconTab3" dojoType="dijit.layout.ContentPane" title="Paste" showTitle="false" iconClass="dijitEditorIcon dijitEditorIconPaste">Paste icon tab</div>
+		</div>
+		 
+		<div dojoType="dijit.layout.AccordionContainer" region="right" style="width:200px"> 
+			<div dojoType="dijit.layout.ContentPane" title="Pane 1"><p>Lorem</p></div> 
+			<div dojoType="dijit.layout.ContentPane" title="Pane 2"><p>Lorem</p></div> 
+			<div dojoType="dijit.layout.ContentPane" title="Pane 3"><p>Lorem</p></div> 
+		</div> 
+		<div dojoType="dijit.layout.BorderContainer" region="center"> 
+			<div dojoType="dijit.layout.ContentPane" region="left" style="width:70px" splitter="true"> 
+				<p>Center Left</p> 
+			</div> 
+			<div dojoType="dijit.layout.ContentPane" region="right" style="width:70px" splitter="true"> 
+				<p>Center Right</p> 
+			</div> 
+			<div dojoType="dijit.layout.BorderContainer" region="center"> 
+				<div dojoType="dijit.layout.BorderContainer" region="left" style="width:100px"> 
+					<div dojoType="dijit.layout.ContentPane" region="top" style="height:50%"> 
+						<p>Core Left Top</p> 
+					</div> 
+					<div dojoType="dijit.layout.ContentPane" region="center"> 
+						<p>Core Left 'center'</p> 
+					</div> 
+				</div> 
+				<div dojoType="dijit.layout.ContentPane" region="right" style="width:70px"> 
+					<p>Core Right</p> 
+				</div> 
+				<div dojoType="dijit.layout.ContentPane" region="top" style="height:70px"> 
+					<p>Core Top</p> 
+				</div> 
+				<div dojoType="dijit.layout.ContentPane" region="bottom" style="height:70px"> 
+					<p>Core Bottom</p> 
+				</div> 
+				<div dojoType="dijit.layout.TabContainer" region="center" tabStrip="true"> 
+					<div dojoType="dijit.layout.ContentPane" title="Dojo"> 
+						<p>Dojo Toolkit</p> 
+					</div> 
+					<div dojoType="dijit.layout.ContentPane" title="Dojo"> 
+						<p>Dojo Toolkit</p> 
+					</div> 
+					<div dojoType="dijit.layout.ContentPane" title="Dojo"> 
+						<p>Dojo Toolkit</p> 
+					</div> 
+				</div> 
+			</div>	
+		</div> 
+	</div> 
+</body>
+</html>
