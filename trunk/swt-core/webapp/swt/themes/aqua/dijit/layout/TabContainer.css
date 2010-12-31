@@ -82,18 +82,24 @@
  	-webkit-transition-duration:.35s;
 	color:#4a4a4a;
 }
+/*harjeet*/
 .aqua .dijitTabHover .dijitTabInnerDiv {
-	background-color:#a9d6ff;
+	xxxbackground-color:#a9d6ff;
+	xxxbackground-color:#ED8714;
  	-webkit-transition-duration:.25s;
 	color:#000;
 }
+/*harjeet*/
 .aqua .dijitTabActive .dijitTabInnerDiv {
-	background-color:#8bc4f9;
+	xxxbackground-color:#8bc4f9;
+	background-color: #FFD740;/*#F8AE19;*/
 	color:#000;
 	-webkit-transition-duration:.1s;
 }
+/*harjeet*/
 .aqua .dijitTabChecked .dijitTabInnerDiv {
-	background-color:#b2d4f3;
+	xxxbackground-color:#b2d4f3;
+	background-color:#d3d3d3;
 	color:#000;
 }
 
@@ -102,7 +108,8 @@
 }
 .aqua .dijitTabHover .dijitTabContent,
 .aqua .dijitTabActive .dijitTabContent {
-	border-color: #769dc0;
+	xxxborder-color: #769dc0;
+	border-color: #ED8714;
 }
 .aqua .dijitTabChecked .dijitTabContent {
 	color:#000;
@@ -137,9 +144,10 @@
 	min-width: 60px;
 	text-align: center;
 }
+/*harjeet*/
 .aqua .dijitTabContainerTop-tabs .dijitTabChecked .dijitTabContent {
-	padding-bottom: 4px;
-	padding-top: 6px;
+	xxxpadding-bottom: 4px;
+	xxxpadding-top: 6px;
 }
 .dj_ie .aqua .dijitTabContainerTop-tabs .dijitTabChecked .dijitTabContent {
 	border-bottom: none;
@@ -201,9 +209,10 @@
 }
 
 /* checked status */
+/*harjeet*/
 .aqua .dijitTabContainerBottom-tabs .dijitTabChecked .dijitTabContent {
-	padding-bottom: 7px;
-	padding-top: 4px;
+	xxxpadding-bottom: 7px;
+	xxxpadding-top: 4px;
 	background-position:0px -119px;
 }
 .aqua .dijitTabContainerBottom-tabs .dijitTabChecked {
@@ -312,13 +321,18 @@
 }
 
 /************ left/right scroll buttons + menu button ************/
+/*harjeet*/
 .aqua .tabStripButton {
-	background-color:#deecf9;
+	xxxbackground-color:#deecf9;
+	background-color:#d3d3d3;
 	border: 1px solid #b5bcc7;
 }
+/*harjeet*/
 .aqua .dijitTabListContainer-top .tabStripButton {
-	padding: 4px 3px;
-	margin-top:7px;
+	xxxpadding: 4px 3px;
+    padding: 4px 3px 10px;
+	xxxmargin-top:7px;
+	margin-top: 4px;
 	background-image: url("images/tabTop.png");
 	background-position:0px 0px;
 }
@@ -329,8 +343,11 @@
 	background-position:0px -248px;
 	background-position:bottom;
 }
+/*harjeet*/
 .aqua .tabStripButtonHover {
-	background-color:#a6d2fb;
+	xxxbackground-color:#a6d2fb;
+	background-color:#ffffff;
+	border-color: #ED8714;
 }
 .aqua .tabStripButtonActive {
 	background-color:#7dbefa;
@@ -392,12 +409,14 @@
 	-webkit-box-shadow: none;
 	-moz-box-shadow: none;
 }
+/*harjeet*/
 .aqua .dijitTabContainerTabListNested .dijitTabHover .dijitTabContent {
-	background-color:#eaf4fc;
+	xxxbackground-color:#eaf4fc;
 	border-radius: 2px 2px 2px 2px;
 	-moz-border-radius: 2px 2px 2px 2px;
 	-webkit-border-radius:2px;
-	border:solid 1px #c8dff3;
+	xxxborder:solid 1px #c8dff3;
+	border:solid 1px #ED8714;
 	padding: 3px;
 	webkit-transition-duration:.2s;
 }
@@ -413,14 +432,17 @@
 	background:#b9d9f5 url("images/tabNested.png") repeat-x;
 	-webkit-transition-duration:.1s;
 }
+/*harjeet*/
 .aqua .dijitTabContainerTabListNested .dijitTabChecked .dijitTabContent {
 	border-radius: 2px 2px 2px 2px;
 	-moz-border-radius: 2px 2px 2px 2px;
 	-webkit-border-radius:2px;
 	padding: 3px;
-	border:solid 1px #a8c7e2;
+	xxxborder:solid 1px #a8c7e2;
+	border:solid 1px #d3d3d3;
 	background-position: 0px 105px;
-	background-color:#d4e8f9;
+	xxxbackground-color:#d4e8f9;
+	background-color: #F6F6F6;
 }
 .aqua .dijitTabContainerTabListNested .dijitTabChecked .tabLabel {
 	text-decoration: none;
