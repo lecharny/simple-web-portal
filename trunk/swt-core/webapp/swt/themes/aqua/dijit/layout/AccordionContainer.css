@@ -68,10 +68,11 @@
 }
 
 /* Active state for closed pane */
-
+/*harjeet*/
 .aqua .dijitAccordionInnerContainerActive {
 	border:1px solid #769DC0;
-	background-color:#7dbefa;
+	xxxbackground-color:#7dbefa;
+	background-color: #FFD740;
 	-webkit-transition-duration:.1s;
 }
 .aqua .dijitAccordionInnerContainerActive .dijitAccordionTitle {
