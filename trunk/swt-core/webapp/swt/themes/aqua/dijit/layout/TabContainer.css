@@ -423,13 +423,15 @@
 .aqua .dijitTabContainerTabListNested .dijitTabHover .tabLabel {
 	text-decoration: none;
 }
+/*harjeet*/
 .aqua .dijitTabContainerTabListNested .dijitTabActive .dijitTabContent {
 	border-radius: 2px 2px 2px 2px;
 	-moz-border-radius: 2px 2px 2px 2px;
 	-webkit-border-radius:2px;
 	border:solid 1px #a8c7e2;
 	padding: 3px;
-	background:#b9d9f5 url("images/tabNested.png") repeat-x;
+	xxxbackground:#b9d9f5 url("images/tabNested.png") repeat-x;
+	background:#FFD740 url("images/tabNested.png") repeat-x;
 	-webkit-transition-duration:.1s;
 }
 /*harjeet*/
