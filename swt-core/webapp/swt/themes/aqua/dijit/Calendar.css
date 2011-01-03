@@ -208,7 +208,8 @@
 	xxxborder:solid 1px #fefefe;
 	border:solid 1px #ED8714;
 	padding: 0px 5px 0px 5px;	/* reduced by 1 to make room for border */
-	background-color:#eaf4fe;
+	xxxbackground-color:#eaf4fe;
+	background-color:#ffffff;
 	border-radius: 2px;
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
