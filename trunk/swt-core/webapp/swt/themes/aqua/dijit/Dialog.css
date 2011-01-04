@@ -39,14 +39,16 @@
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 } 
-
+/*harjeet*/
 .aqua .dijitDialog.dijitDialogHover {
-	border: 1px solid #605180;/*#ED8714;*/
+	xxxborder: 1px solid #605180;
+	border: 1px solid #9D9DA1;
 } 
-
+/*harjeet*/
 .aqua .dijitDialogPaneContent {
 	background: #fff repeat-x top left;
-	border-top: 1px solid #769dc0;
+	xxxborder-top: 1px solid #769dc0;
+	border-top: 1px solid #9D9DA1;
 	padding:10px 8px;
 	position: relative;
 }
@@ -139,7 +141,8 @@
 	xxxbackground-image:url("images/tooltip.png");
 	xxxbackground-repeat:repeat-x;
 	xxxbackground-position:-575px 100%;
-	border:1px solid #769DC0;
+	xxxborder:1px solid #769DC0;
+	border:1px solid #9D9DA1;
 	padding:6px 8px;
 	border-radius: 4px;
 	-webkit-border-radius: 3px;
