@@ -59,9 +59,11 @@ Splitters and gutters:
 	 border: none;
 
 }
+/*harjeet*/
 .aqua .dijitBorderContainer-dijitBorderContainer {
 	/* also, make nested BorderContainers look like a single big widget with lots of splitters */
-	border: 1px #c0ccdf solid;
+	xxxborder: 1px #c0ccdf solid;
+	border: 1px #d3d3d3 solid;
 	padding: 5px;
 }
 
