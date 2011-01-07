@@ -114,7 +114,8 @@ There are three areas of styling for the Menu:
 	margin-top: -3px;
 }
 .aqua .dijitMenuActive .dijitMenuItemActive{
-	background-color: #7dbefa;
+	xxxbackground-color: #7dbefa;
+	background-color: #FFD740;
 	background-position:0px -177px;
 }
 .aqua .dijitMenuItemActive {
