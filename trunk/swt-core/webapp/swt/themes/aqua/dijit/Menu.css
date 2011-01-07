@@ -46,8 +46,8 @@ There are three areas of styling for the Menu:
 .aqua .dijitMenu {
 	background-repeat:repeat-y;
 	background-color:#fff;
-	border: 1px solid #769dc0;
-
+	xxxborder: 1px solid #769dc0;
+	border: 1px solid #d3d3d3;
 	/* so adjoining borders of MenuBar/ComboBox and Menu overlap, avoiding double border */
 	margin: -1px 0;
 }
@@ -76,9 +76,9 @@ There are three areas of styling for the Menu:
 .aqua .dijitMenuPassive .dijitMenuItemHover,
 .aqua .dijitMenuPassive .dijitMenuItemSelected {
 	xxxbackground-color: #abd6ff;
-	background-color: #D6EBFF;
+	background-color: #d3d3d3;
 	xxxborder:solid 1px #769dc0;
-	border:solid 1px #AFD8FF;
+	border:solid 1px #9D9DA1;
 	border-radius: 2px;
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
@@ -97,10 +97,11 @@ There are three areas of styling for the Menu:
 /* harjeet MenuBarItem that has been selected and menu drops down from it */
 .aqua .dijitMenuActive .dijitMenuItemHover,
 .aqua .dijitMenuActive .dijitMenuItemSelected {
-	border:solid 1px #769dc0;
+	xxxborder:solid 1px #769dc0;
+	border:solid 1px #9D9DA1;
 	padding: 5px 9px 6px;
 	xxbackground-color: #9dcfff;
-	background-color: #D6EBFF;
+	background-color: #d3d3d3;
 	background-position:0px 0px;
 	color:#000;
 }
