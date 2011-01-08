@@ -107,3 +107,14 @@ table.dojoTabular tfoot tr td {
 	padding: 0.25em 0.5em;
 }
 
+/*harjeet*/
+select {
+    background-color: #FAFAFB;
+    border: 1px solid #D3D3D3;
+    font-family: Tahoma,Helvetica,Verdana,Arial,sans-serif;
+    font-size: 1em;
+}
+/*harjeet*/
+select option {
+	padding: 2px 5px;
+}

@@ -62,10 +62,11 @@
 	background-color: #fdf7f7;
 }
 
-/* focused state */
+/* harjeet focused state */
 .aqua .dijitTextBoxFocused,
 .aqua .dijitTextBoxFocused .dijitButtonNode {
-	border-color:#769dc0;
+	xxxborder-color:#769dc0;
+	border-color:#d3d3d3;
  	-webkit-transition-duration:.1s;
 }
 .aqua .dijitTextBoxFocused {
