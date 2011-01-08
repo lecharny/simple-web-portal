@@ -26,6 +26,7 @@
 	xxxborder: 1px solid #b5bcc7;
 	border: 1px solid #d3d3d3;
 	background-color: #f7fcff;
+	background-color: #FAFAFB;
 	border-collapse: separate;
 }
 .dj_ie6 .aqua .dijitSelect,
@@ -64,7 +65,7 @@
 	xxxborder: 1px solid #769dc0;
 	border: 1px solid #ED8714;
 	xxxbackground-color: #e9f4fe;
-	background-color: #F7FCFF;
+	xxxbackground-color: #F7FCFF;
 	xxxbackground-image: url('images/textBox_back.png');
 	xxxbackground-repeat: repeat-x;
 }
@@ -72,9 +73,10 @@
 .aqua .dijitSelectHover .dijitButtonContents {
 	border-color:#81a5c6;
 }
-
+/*harjeet*/
 .aqua .dijitSelectHover .dijitArrowButton {
-	background-color:#abd6ff;
+	xxxbackground-color:#abd6ff;
+	background-color:#d3d3d3;
 }
 .aqua .dijitSelectHover .dijitArrowButton .dijitArrowButtonInner {
 	background-position:-70px 70%;
@@ -82,13 +84,15 @@
 
 /* focused status */
 .aqua .dijitSelectFocused {
-	border: 1px solid #769dc0;
+	xxxborder: 1px solid #769dc0;
 }
 .aqua .dijitSelectFocused .dijitButtonContents {
 	border-color:#81a5c6;
 }
+/*harjeet*/
 .aqua .dijitSelectFocused .dijitArrowButton {
-	background-color:#7dbefa;
+	xxxbackground-color:#7dbefa;
+	background-color:#d3d3d3;
 	background-position:0px -177px;
 	border: none;
 	padding: 0px 1px;
