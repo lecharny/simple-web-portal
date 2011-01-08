@@ -38,15 +38,16 @@
 .aqua .dijitComboButton .dijitButtonNode,
 .aqua .dijitToggleButton .dijitButtonNode {
 	/* rules for the dijit.form.*Button widgets (see also ComboButton section below) */
-	padding:0 4px;
+	xxxpadding:0 4px;
+	padding:1px 4px;
 	border-radius: 2px;
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
 	border: 1px solid #d3d3d3;
-	background: #f6f6f6 url(../../images/ui-bg_highlight-soft_100_f6f6f6_1x100.png) 50% 50% repeat-x;
-	xxbackground: #e6e6e6 url(../../images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
-	font-weight: bold;
-	color: #2E679B;
+	xxxbackground: #f6f6f6 url(../../images/ui-bg_highlight-soft_100_f6f6f6_1x100.png) 50% 50% repeat-x;
+	background: #e6e6e6 url(../../images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
+	xxxfont-weight: bold;
+	xxxcolor: #2E679B;
 }
 
 /*arrow styles for down/up/left/right directions*/
@@ -84,9 +85,10 @@
 	padding: 0 0.3em 0.1em;
 	text-align: center;
 }
-
+/*harjeet*/
 .aqua .dijitDisabled .dijitButtonText {
 	color: #7F7F7F;
+	text-decoration: line-through;
 }
 
 /* harjeet hover status */
@@ -99,7 +101,7 @@
 	border: 1px solid #ED8714;
  	background-color: #FFFFFF;
 	background-image: none;
-	font-weight: bold;
+	xxxfont-weight: bold;
 	text-decoration: none;
 	-webkit-transition-duration:.2s;
 }
@@ -119,7 +121,9 @@
 .aqua .dijitDropDownButtonActive .dijitButtonNode,
 .aqua .dijitComboButtonActive .dijitButtonNode,
 .aqua .dijitToggleButtonActive .dijitButtonNode {
-	background-color: #99cfff;
+	xxxbackground-color: #99cfff;
+	background-image: none;
+	background-color: #FFD740;
 	box-shadow:0px 0px 0px rgba(0,0,0,0);
 	-webkit-box-shadow:0px 0px 0px rgba(0,0,0,0);
 	-moz-box-shadow: 0px 0px 0px rgba(0,0,0,0);

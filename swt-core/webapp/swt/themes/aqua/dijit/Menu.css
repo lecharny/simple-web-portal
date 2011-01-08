@@ -183,11 +183,13 @@ There are three areas of styling for the Menu:
 	color:#000;
 	border-color:#768dc0;
 	xxxbackground-color:#abd6ff;
-	background-color:#d6ebff;
+	background-color:#d2d2d2;
 }
+/*harjeet*/
 .aqua .dijitComboBoxMenuActive .dijitMenuItemSelected {
 	background-position:0px -177px;
-	background-color:#7dbefa;
+	xxxbackground-color:#7dbefa;
+	background-color:#FFD740;
 }
 .aqua .dijitMenuPreviousButton, .aqua .dijitMenuNextButton {
 	font-style: italic;

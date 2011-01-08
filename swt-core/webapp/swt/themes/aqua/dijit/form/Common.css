@@ -35,7 +35,8 @@
  	-webkit-transition-duration:.35s;
 }
 .aqua .dijitTextBox {
-	background-color: #f7fcff;
+	xxxbackground-color: #f7fcff;
+	background-color: #FAFAFB;
 }
 
 /* harjeet hover */
@@ -125,9 +126,10 @@
 	background-repeat:repeat-x;
 }
 
-/* hover state */
+/* harjeet hover state */
 .aqua .dijitComboBoxHover .dijitButtonNode {
-	background-color:#abd6ff;
+	xxxbackground-color:#abd6ff;
+	background-color:#d3d3d3;
 }
 .aqua .dijitComboBoxHover .dijitArrowButtonInner {
 	background-position:-70px 53%;
@@ -136,7 +138,7 @@
 /* focused state */
 .aqua .dijitComboBoxFocused .dijitButtonNode {
 	xxxbackground-color:#7dbefa;
-	background-color:#7DBEFA;
+	background-color:#d3d3d3;
 	background-position:0px -177px;
 	padding: 1px;
 }	
