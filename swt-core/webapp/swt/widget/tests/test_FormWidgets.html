@@ -7,11 +7,18 @@
 	<link rel="stylesheet" href="../../../../dojo/dojo/resources/dojo.css">
 	<link rel="stylesheet" href="../../../../dojo/dijit/tests/css/dijitTests.css">
 	<style type="text/css">
+	body {
+		padding: 6.0em !important;
+	}
 	.widgetContainer {
 		padding-top: 10px;
 	}
 	.testTitle {
 		padding-bottom: 10px;
+	}
+	
+	select {
+		background-color: #d3d3d3;
 	}
 	</style>
 
@@ -140,7 +147,7 @@
 <div class="widgetContainer">
 		<h4 class="testSubtitle">Multi Select</h4>
 		<label for="stateMS">Test One: </label>
-		<select dojoType="dijit.form.MultiSelect" id="fruitMS" name="fruitMS" size="4">
+		<select dojoType="dijit.form.MultiSelect" id="fruitMS" name="fruitMS" size="6">
     		<option value="AP">Apples</option>
     		<option value="OR">Oranges</option>
 		   	<option value="FI">Figs</option>
