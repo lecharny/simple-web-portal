@@ -175,3 +175,16 @@
 	-webkit-border-bottom-right-radius: 2px;
 	-webkit-border-bottom-left-radius: 0px;
 }
+/*harjeet*/
+.aqua .dijitToggleButton .dijitRadio,
+.aqua .dijitButton .dijitRadioIcon,
+.aqua .dijitDropDownButton .dijitCheckBox,
+.aqua .dijitComboButton .dijitCheckBoxIcon {
+    height: 18px !important;
+}
+.aqua .dijitToggleButton .dijitIcon,
+.aqua .dijitButton .dijitIcon,
+.aqua .dijitDropDownButton .dijitIcon,
+.aqua .dijitComboButton .dijitIcon {
+    height: 18px !important;
+}
