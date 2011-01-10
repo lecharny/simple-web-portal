@@ -117,6 +117,17 @@
 	/* left padding helps line up input text with menu text */
 	padding: 1px 2px 1px 0; /* match 1px vertical border on button */
 }
+/*harjeet*/
+.aqua .dijitTextBox.dijitTextBoxDisabled .dijitInputInner {
+    text-decoration: line-through;
+}
+.aqua .dijitSelect.dijitSelectDisabled .dijitButtonText {
+	text-decoration: none;
+}
+.aqua .dijitSelect.dijitSelectDisabled .dijitButtonText .dijitSelectLabel{
+	text-decoration: line-through;
+}
+
 .aqua .dijitTextBox .dijitValidationContainer {
 	padding: 0 0 2px 0; /* match 1px border height in button */
 }
