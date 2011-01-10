@@ -5,7 +5,10 @@
 	margin:0px;
 	padding:0px;
 	border-collapse:collapse;	
-	background-color:#fff;	
+	background-color:#fff;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;	
 }
 /*  messages */
 .aqua .dojoxGridMasterMessages {
@@ -35,6 +38,7 @@
 .aqua .dojoxGridHeader .dojoxGridCell { 
 	xxxbackground:url("images/header.png") #e5edf4 repeat-x top;
 	background: -moz-linear-gradient(center top , #F7FAFD, #D3D3D3) repeat scroll 0 0 #ECF1F5;
+	background: -webkit-gradient(linear, center top, center bottom, from(#F7FAFD), to(#D3D3D3));
 	border-style:solid;
 	border-width:1px;
 	xxxborder-color:#BCBCBC #BCBCBC #BCBCBC transparent;
@@ -58,8 +62,15 @@
 .dj_ie6 .aqua .dojoxGridSortNode {
 	background-image:none;
 }
+/*harjeet*/
 .aqua .dojoxGridCellOver .dojoxGridSortNode {
-	background-color:#9dcfff;
+	xxxbackground-color:#9dcfff;
+	xxxbackground-color:#F4F3F5;
+}
+/*+harjeet*/
+.aqua .dojoxGridHeader .dojoxGridCell.dojoxGridCellOver {
+	background: -moz-linear-gradient(center top , #d3d3d3, #F7FAFD) repeat scroll 0 0 #ECF1F5;
+	background: -webkit-gradient(linear, center top, center bottom, from(#D3D3D3), to(#F7FAFD));
 }
 .aqua .dojoxGridArrowButtonChar {
 	display:none;
@@ -128,11 +139,15 @@
 .aqua .dojoxGridRowTable tr {
 	xxxbackground:url("images/row_back.png") #fff repeat-x;
 }
+/*harjeet*/
 .aqua .dojoxGridRowOdd .dojoxGridRowTable tr {
-	background-color:#f4f9fd;
+	xxxbackground-color:#f4f9fd;
+	background-color: #F8F8F9;
 }
+/*harjeet*/
 .aqua .dojoxGridRowSelected .dojoxGridRowTable tr {
-	background-color:#d3e9fb;
+	xxxbackground-color:#d3e9fb;
+	background-color:#E3E6E8;
 }
 
 /* cells */
@@ -164,17 +179,22 @@
 
 /*  Single Affordance Hover Effect */
 .aqua .dojoxGridRowOver .dojoxGridCell {
-	background:url("images/row_back.png") #ABD6FF;
+	xxxbackground:url("images/row_back.png") #ABD6FF;
+	background: #EEEEEE;
 	border-top:1px solid #769DC0;
 	border-bottom:1px solid #769DC0;
+	xxxborder-top:1px solid #ED8714;
+	xxxborder-bottom:1px solid #ED8714;
 }
 .dj_ie6 .aqua .dojoxGridRowOver .dojoxGridCell,
 .dj_ie7 .aqua .dojoxGridRowOver .dojoxGridCell {
 	border-left:1px solid #ABD6FF;
 	border-right:1px solid #ABD6FF;
 }
+/*harjeet*/
 .aqua .dojoxGridRowActive .dojoxGridCell {
-	background:url("images/td_button_down.png") #7DBEFA repeat-x;
+	xxxbackground:url("images/td_button_down.png") #7DBEFA repeat-x;
+	background:url("images/td_button_down.png") #FFD740 repeat-x;
 }
 .dj_ie6 .aqua .dojoxGridRowActive .dojoxGridCell,
 .dj_ie7 .aqua .dojoxGridRowActive .dojoxGridCell {
