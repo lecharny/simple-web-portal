@@ -21,7 +21,7 @@
 	padding-left:25px;
 }
 .aqua .dojoxGridLoading {
-	background-image:url("../../../dijit/themes/aqua/images/loadingAnimation.gif");
+	background-image:url("../../../dijit/images/loadingAnimation.gif");
 }
 .aqua .dojoxGridError {
 	background-image: url('../../../dijit/icons/images/commonIconsObjActEnabled.png'); 
