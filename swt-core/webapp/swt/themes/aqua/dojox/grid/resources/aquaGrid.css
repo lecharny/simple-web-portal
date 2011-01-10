@@ -167,8 +167,10 @@
 	border-right-color:#d3e9fb;
 }
 .aqua .dojoxGridRowSelected .dojoxGridCell {
-	border-top:1px solid #BFD6EB;
-	border-bottom:1px solid #BFD6EB;
+	xxxborder-top:1px solid #BFD6EB;
+	border-top:1px solid #d3d3d3;
+	xxxborder-bottom:1px solid #BFD6EB;
+	border-bottom:1px solid #d3d3d3;
 }
 .aqua .dojoxGridCellFocus {
 	border:1px dashed darkblue !important;
@@ -178,11 +180,14 @@
 }
 
 /*  Single Affordance Hover Effect */
+/*harjeet*/
 .aqua .dojoxGridRowOver .dojoxGridCell {
 	xxxbackground:url("images/row_back.png") #ABD6FF;
-	background: #EEEEEE;
-	border-top:1px solid #769DC0;
-	border-bottom:1px solid #769DC0;
+	xxxbackground: #EEEEEE;
+	xxxborder-top:1px solid #769DC0;
+	border-top:1px solid #d3d3d3;
+	xxxborder-bottom:1px solid #769DC0;
+	border-bottom:1px solid #d3d3d3;
 	xxxborder-top:1px solid #ED8714;
 	xxxborder-bottom:1px solid #ED8714;
 }
