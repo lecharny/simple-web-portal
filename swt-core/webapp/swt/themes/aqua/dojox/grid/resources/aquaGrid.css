@@ -1,4 +1,4 @@
-/* Claro styles for DataGrid */
+/* Aqua styles for DataGrid */
 @import url("Grid.css");
 
 .aqua .dojoxGrid {
@@ -31,23 +31,29 @@
 .aqua .dojoxGridHeader {
 	background-color:#FFF;
 }
+/*harjeet*/
 .aqua .dojoxGridHeader .dojoxGridCell { 
-	background:url("images/header.png") #e5edf4 repeat-x top;
+	xxxbackground:url("images/header.png") #e5edf4 repeat-x top;
+	background: -moz-linear-gradient(center top , #F7FAFD, #D3D3D3) repeat scroll 0 0 #ECF1F5;
 	border-style:solid;
 	border-width:1px;
-	border-color:#BCBCBC #BCBCBC #BCBCBC transparent;
+	xxxborder-color:#BCBCBC #BCBCBC #BCBCBC transparent;
+	border-color:#D3D3D3 #D3D3D3 #D3D3D3 transparent;
+	xxxfont-size: 1.091em;
 }
 .dj_ie6 .aqua .dojoxGridHeader .dojoxGridCell { 
 	border-color:#BCBCBC #BCBCBC #BCBCBC #e5edf4;
 }
 
 /* header sorting arrow */
+/*harjeet*/
 .aqua .dojoxGridSortNode {
-	background:url("images/header_shadow.png") #e5edf4 repeat-x bottom;
+	xxxbackground:url("images/header_shadow.png") #e5edf4 repeat-x bottom;
 	text-decoration:none;
 	display:block;
 	padding:4px 6px 5px 6px;
-	border:1px solid #e0eefb;
+	xxxborder:1px solid #e0eefb;
+	border:1px solid transparent;
 }
 .dj_ie6 .aqua .dojoxGridSortNode {
 	background-image:none;
@@ -60,7 +66,7 @@
 	float:right;
 }
 .aqua .dojoxGridArrowButtonNode {
-	background:transparent url("../../../dijit/themes/aqua/images/spriteArrows.png") no-repeat scroll left center;
+	background:transparent url("../../../dijit/images/spriteArrows.png") no-repeat scroll left center;
 	display:block;
 	float:right;
 	height:1em;
@@ -118,8 +124,9 @@
 .dj_ie .aqua .dojoxGridMasterView .dojoxGridRowTable {
 	border-collapse:separate;/*IE, separate is must to show the border of tr and td*/
 }
+/*harjeet*/
 .aqua .dojoxGridRowTable tr {
-	background:url("images/row_back.png") #fff repeat-x;
+	xxxbackground:url("images/row_back.png") #fff repeat-x;
 }
 .aqua .dojoxGridRowOdd .dojoxGridRowTable tr {
 	background-color:#f4f9fd;
