@@ -114,6 +114,9 @@ select {
     font-family: Tahoma,Helvetica,Verdana,Arial,sans-serif;
     font-size: 1em;
 }
+select:HOVER {
+	border-color: #ed8714;
+}
 /*harjeet*/
 select option {
 	padding: 2px 5px;
