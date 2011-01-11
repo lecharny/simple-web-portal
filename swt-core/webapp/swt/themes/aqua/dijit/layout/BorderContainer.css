@@ -77,9 +77,10 @@ Splitters and gutters:
 }
 
 .aqua .dijitSplitterH .dijitSplitterThumb {
-	background:#dde2e9 none;
-	height:1px;
-	top:2px;
+	xxxbackground:#EA8908 none;
+	background: url("images/handleHoriz.png") no-repeat transparent center center;
+	height:5px;
+	xxxtop:2px;
 	width:19px;
 }
 
@@ -90,12 +91,13 @@ Splitters and gutters:
 	width:5px;
 	margin: 0;
 }
-
+/*harjeet*/
 .aqua .dijitSplitterV .dijitSplitterThumb {
-	background:#dde2e9 none;
+	xxxbackground:#dde2e9 none;
+	background: url("images/handleVert.png") no-repeat transparent center center;
 	height:19px;
-	left:2px;
-	width:1px;
+	xxxleft:2px;
+	width:5px;
 	margin: 0;
 }
 
@@ -109,9 +111,9 @@ Splitters and gutters:
 	
 }
 
-
+/*harjeet*/
 .aqua .dijitSplitterHHover .dijitSplitterThumb {
-	background:#769dc0 none;
+	xxxbackground:#769dc0 none;
 }
 /*harjeet*/
 .aqua .dijitSplitterVHover {
@@ -122,9 +124,9 @@ Splitters and gutters:
 	background-image: -webkit-gradient(linear, left center, right center, from(#EFF1F3), to(#B8C3CC));
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#EFF1F3', endColorstr='#B8C3CC', gradientType='1');
 }
-
+/*harjeet*/
 .aqua .dijitSplitterVHover .dijitSplitterThumb {
-	background:#769dc0 none;
+	xxxbackground:#769dc0 none;
 }
 
 .dj_ie6 .dijitSplitterHHover,

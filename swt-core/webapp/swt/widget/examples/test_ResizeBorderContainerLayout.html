@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>BorderContainer Resize Manual (Aqua)</title>
+
+	<link rel="stylesheet" href="../../../../dojo/dojo/resources/dojo.css">
+	<link rel="stylesheet" href="../../../../dojo/dijit/tests/css/dijitTests.css">
+	<style type="text/css">
+		html, body {
+			height: 100%;
+			width: 100%;
+			padding: 0px;
+			margin: 0px;
+			border: 0;
+			background: #fff;
+		}
+		#main {
+			height: 100%;
+			width: 100%;
+			padding: 5px;
+			margin: 0px;
+		}
+
+		/* initial sizing */
+		#leftAccordion {
+			width: 25%;
+		}
+		#bottomTabs {
+			height: 40%;
+		}
+	</style>
+
+	<!-- required: a default dijit theme: -->
+	<link id="themeStyles" rel="stylesheet" href="../../themes/aqua/AquaBase.css">
+
+	<!-- required: dojo.js -->
+	<script type="text/javascript" src="../../../../dojo/dojo/dojo.js"
+		djConfig="parseOnLoad: true, isDebug: true"></script>
+
+	<!-- not needed, for testing alternate themes -->
+	<script type="text/javascript" src="../../../../dojo/dijit/tests/_testCommon.js"></script>
+
+	<script language="JavaScript" type="text/javascript">
+		dojo.require("dijit.dijit"); // optimize: load dijit layer
+		dojo.require("dijit.layout.AccordionContainer");
+		dojo.require("dijit.layout.ContentPane");
+		dojo.require("dijit.layout.BorderContainer");
+		dojo.require("dijit.layout.TabContainer");
+		dojo.require("dijit.form.ComboBox");
+	 	dojo.require("dijit.form.Button");
+	 	dojo.require("dijit.form.TextBox");
+	 	dojo.require("dijit.form.Select");
+	 	dojo.require("dijit.form.FilteringSelect");
+		dojo.require("dijit.layout.TabContainer");
+		dojo.require("dijit.TitlePane");
+		dojo.require("dojo.parser"); // scan page for widgets
+
+		dojo.addOnLoad(function(){
+			var minHeightClients = 250;
+            var bc = dijit.byId('bc');
+            var clients = dijit.byId('clients');
+            var clientDetails = dijit.byId('clientDetails');
+            var showButton = dijit.byId("showButton");             
+            dojo.connect(showButton,"onClick", function(evt){
+                console.log("showButton called!");
+                var heightBc = dojo.marginBox(bc.domNode).h;
+                var heightClients = dojo.marginBox(clients.domNode).h;
+                if(!(heightBc/3 < minHeightClients)){
+               	 	minHeightClients = Math.round(heightBc/3);
+                }
+                var changeSize = {h: (heightBc-minHeightClients)};
+                clientDetails.resize(changeSize);
+                bc._layoutChildren();
+            });
+		});
+		function myHandler(id,newValue){
+			console.debug("onChange for id = " + id + ", value: " + newValue);
+		}
+	</script>
+
+</head>
+<body class="aqua">
+	<div dojoType="dijit.layout.BorderContainer" gutters="false" id="bc" style="height:100%; width:100%"> 
+            <div dojoType="dijit.layout.ContentPane" id="clients" region="center" splitter="true" minSize:"200" style="background: #FFF";> 
+                <br><br>
+                <p>If one has to manually resize a region of BorderContainer without using the gripper provided.</p>
+                <br><br>
+                <button dojoType="dijit.form.Button" id="showButton">Show Details </button>
+            </div> 
+            <div dojoType="dijit.layout.ContentPane" id="clientDetails" region="bottom" style="height:0px" splitter="true" style="background: #7FFD74";> 
+                <p>Client Details go here.</p> 
+            </div> 
+	</div>
+</body>
+</html>
