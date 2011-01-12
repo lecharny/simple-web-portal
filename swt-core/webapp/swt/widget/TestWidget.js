@@ -1,4 +1,4 @@
-dojo.provide("xwt.widget.SampleWidget");
+dojo.provide("swt.widget.TestWidget");
 dojo.require("dijit._Widget");
 dojo.require("dijit._Templated");
 
