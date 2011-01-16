@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>TitlePane Test (Aqua)</title>
+
+	<link rel="stylesheet" href="../../../../../dojo/dojo/resources/dojo.css">
+	<link rel="stylesheet" href="../../../../../dojo/dijit/tests/css/dijitTests.css">
+	<style type="text/css">
+	.widgetContainer {
+		padding-top: 10px;
+	}
+	.testTitle {
+		padding-bottom: 10px;
+	}
+	
+	body {
+		padding-top: 60px;
+	}
+	</style>
+
+	<!-- required: a default dijit theme: -->
+	<link rel="stylesheet" href="../../../themes/aqua/AquaBase.css">
+	<link rel="stylesheet" href="../../../themes/aqua/swt.css">
+
+	 <script type="text/javascript">
+            djConfig = {
+                isDebug : true,
+                debugAtAllCosts : false,
+                parseOnLoad : true,
+                baseUrl : "../../../../../dojo/dojo/",
+                modulePaths : {
+                	'swt' : '../../swt-core/swt'
+                }
+            };
+    </script>
+	<script type="text/javascript" src="../../../../../dojo/dojo/dojo.js"></script>
+
+	<script language="JavaScript" type="text/javascript">
+		dojo.require("dijit.dijit"); // optimize: load dijit layer
+		dojo.require("swt.widget.navigation.flyoutmenu.FlyoutMenu");
+		dojo.require("swt.widget.navigation.flyoutmenu.FlyoutMenuItem");
+		dojo.require("dojo.parser");	// scan page for widgets and instantiate them
+
+		function myHandler(args){
+			console.debug("myHandler-->" +args);
+		}
+	</script>
+
+</head>
+<body class="aqua">
+<div class="widgetContainer">
+<ul dojoType="swt.widget.navigation.flyoutmenu.FlyoutMenu">
+	<li dojoType="swt.widget.navigation.flyoutmenu.FlyoutMenuItem" label="Item One" iconClass="someClass" href="http://www.google.com"></li>
+	<li dojoType="swt.widget.navigation.flyoutmenu.FlyoutMenuItem" label="Item Two" iconClass="someClass" href="http://www.google.com" target="target1"></li>
+	<li dojoType="swt.widget.navigation.flyoutmenu.FlyoutMenuItem" label="Item Three" iconClass="someClass" handler="myHandler"></li>
+</ul>
+</div>
+</body>
+</html>
