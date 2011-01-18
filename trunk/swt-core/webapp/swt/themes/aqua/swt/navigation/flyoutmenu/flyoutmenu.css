@@ -49,7 +49,7 @@
 .aqua .flyoutMenu .subMenuIndicator {
 	position: absolute;
 	right: 2px;
-	background: transparent url(arrow.gif) no-repeat center right;
+	background: red url(arrow.gif) no-repeat center right;
 }
 
 .aqua .flyoutMenu li a:visited, .aqua .flyoutMenu li a:active {

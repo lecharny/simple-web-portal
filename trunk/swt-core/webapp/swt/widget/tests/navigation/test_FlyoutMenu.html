@@ -54,6 +54,13 @@
 	<li dojoType="swt.widget.navigation.flyoutmenu.FlyoutMenuItem" label="Item One" iconClass="someClass" href="http://www.google.com"></li>
 	<li dojoType="swt.widget.navigation.flyoutmenu.FlyoutMenuItem" label="Item Two" iconClass="someClass" href="http://www.google.com" target="target1"></li>
 	<li dojoType="swt.widget.navigation.flyoutmenu.FlyoutMenuItem" label="Item Three" iconClass="someClass" handler="myHandler"></li>
+	<li dojoType="swt.widget.navigation.flyoutmenu.FlyoutMenuItem" label="Item Four" iconClass="someClass" href="#">
+		<ul dojoType="swt.widget.navigation.flyoutmenu.FlyoutMenu">
+			<li dojoType="swt.widget.navigation.flyoutmenu.FlyoutMenuItem" label="Inner Item One" iconClass="someClass" href="http://www.google.com"></li>
+			<li dojoType="swt.widget.navigation.flyoutmenu.FlyoutMenuItem" label="Inner Item Two" iconClass="someClass" href="http://www.google.com" target="target1"></li>
+			<li dojoType="swt.widget.navigation.flyoutmenu.FlyoutMenuItem" label="Inner Item Three" iconClass="someClass" handler="myHandler"></li>
+		</ul>
+	</li>
 </ul>
 </div>
 </body>
