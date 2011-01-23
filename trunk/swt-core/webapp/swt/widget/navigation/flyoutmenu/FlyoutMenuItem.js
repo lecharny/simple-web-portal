@@ -32,6 +32,8 @@ dojo.declare("swt.widget.navigation.flyoutmenu.FlyoutMenuItem",[dijit._Widget, d
     
     innerMenuIndicator: null,
     
+    innerMenuOffset: -2,
+    
     constructor : function() {
 		this.inherited(arguments);
     },
@@ -51,10 +53,10 @@ dojo.declare("swt.widget.navigation.flyoutmenu.FlyoutMenuItem",[dijit._Widget, d
    	 	if (this._started) {
    	 		return;
    	 	}
-   	 	var _im = dojo.query("ul",this.containerNode);
+   	 	var _im = this.getChildren();//dojo.query("ul",this.containerNode);
     	if(_im.length>0){
     		this.hasInnerMenu = true;
-    		this.innerMenuReference = _im;
+    		this.innerMenuReference = _im[0];
     		this.connectInnerMenu();
     		console.log("Inner menu found");
     	}
@@ -70,19 +72,19 @@ dojo.declare("swt.widget.navigation.flyoutmenu.FlyoutMenuItem",[dijit._Widget, d
     	dojo.addClass(this.domNode, this.hoverClass);
     	this.getParent()._onItemOver(this, evt);
     	this.onMouseOver(evt);
-    	dojo.stopEvent(evt);
+    	//dojo.stopEvent(evt);
     },
     _onMouseOut: function(evt){
     	dojo.removeClass(this.domNode, this.hoverClass);
     	this.getParent()._onItemOut(this, evt);
     	this.onMouseOut(evt);
-    	dojo.stopEvent(evt);
+    	//dojo.stopEvent(evt);
     },
     _onClick: function(evt){
     	console.log("_onClick called!");
     	this.getParent()._onItemClick(this, evt);
 	    this.onClick(this, evt);
-	    dojo.stopEvent(evt);
+	    //dojo.stopEvent(evt);
     },
     
     onClick: function(evt){
@@ -92,30 +94,30 @@ dojo.declare("swt.widget.navigation.flyoutmenu.FlyoutMenuItem",[dijit._Widget, d
     onMouseOver: function(evt){
     	// summary:
     	//		Call-back to connect to on mouse over.
+    	console.log("onMouseOver::"+ this.id);
     },
     
     onMouseOut: function(evt){
     	// summary:
-    	//		Call-back to connect to on mouse out. 
+    	//		Call-back to connect to on mouse out.
+    	console.log("onMouseOut::"+ this.id);
     },
 
     connectInnerMenu: function(){
-
-    	this.innerMenuIndicator = dojo.create("span", {'class':'subMenuIndicator', innerHTML:'&nbsp;&nbsp;'}, this.labelNode, "last"); 
-    		    
-    		
-    		/*
-    		ultags[t].parentNode.onmouseover=function(){
-    		    this.getElementsByTagName("ul")[0].style.left=this.parentNode.offsetWidth+submenuoffset+"px"
-    		    this.getElementsByTagName("ul")[0].style.display="block"
-    		    }
-    		    ultags[t].parentNode.onmouseout=function(){
-    		    this.getElementsByTagName("ul")[0].style.display="none"
-    		    }
-    		    
-    		    
-    		    }
-    		  }*/
+    	this.innerMenuIndicator = dojo.create("span", {'class':'subMenuIndicator', innerHTML:'&nbsp;&nbsp;&nbsp;'}, this.labelNode, "last");
+    	//dojo.style(this.subMenuIndicator, 'visibility','visible');
+    	dojo.marginBox(this.innerMenuReference.domNode, {w: this.domNode.offsetWidth});
+    	this.connect(this, "onMouseOver", dojo.hitch(this, "_showInnerMenu"));
+    	this.connect(this, "onMouseOut", dojo.hitch(this, "_hideInnerMenu"));
+    },
+    
+    _showInnerMenu: function(evt){
+    	var _l = this.domNode.offsetWidth + this.innerMenuOffset + "px";
+    	dojo.style(this.innerMenuReference.domNode, {'visibility':'visible','left': _l});
+    },
+    _hideInnerMenu: function(evt){
+    	dojo.style(this.innerMenuReference.domNode, {'visibility':'hidden'});
     }
+
 
 });

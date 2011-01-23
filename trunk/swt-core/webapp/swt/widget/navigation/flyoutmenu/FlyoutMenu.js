@@ -22,7 +22,6 @@ dojo.declare("swt.widget.navigation.flyoutmenu.FlyoutMenu",[dijit._Widget, dijit
     postCreate : function() {
     	this.inherited(arguments);
     },
-
     startup : function() {
     	 if (this._started) {
              return;
@@ -36,11 +35,9 @@ dojo.declare("swt.widget.navigation.flyoutmenu.FlyoutMenu",[dijit._Widget, dijit
          
     	this.inherited(arguments);
     },
-    
     destroy: function(){
     	this.inherited(arguments);
     },
-
     _onItemClick: function(item, evt){
     	this.selected = item;
     },
