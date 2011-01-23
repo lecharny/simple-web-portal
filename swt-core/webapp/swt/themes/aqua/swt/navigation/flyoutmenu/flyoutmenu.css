@@ -11,8 +11,9 @@
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
-	width: 185px; /*WIDTH OF MAIN MENU ITEMS*/
-	xxxborder: 1px solid black;
+	xxxwidth: 185px; /*WIDTH OF MAIN MENU ITEMS*/
+	border: 1px solid transparent;
+	-moz-border-radius: 3px;
 }
 
 .aqua .flyoutMenu li {
@@ -24,26 +25,27 @@
 	color: #131313;
 	display: block;
 	width: auto;
-	padding: 2px 5px 2px 18px;
+	padding: 2px 5px 2px 20px;
 	text-decoration: none;
 	background-position: left center;
 }
 /*sub menu style*/
 .aqua .flyoutMenu li ul {
 	position: absolute;
-	width: 190px; /*TODO harjeet WIDTH OF SUB MENU ITEMS*/
+	xxxwidth: 190px; /*TODO harjeet WIDTH OF SUB MENU ITEMS*/
 	left: 0;
 	top: 0;
-	display: none;
+	visibility: hidden;
 	z-index: 500;
+	border-color: #d3d3d3;
 }
 
 .aqua .flyoutMenu li ul li {
-	float: left;
+	xxxfloat: left;
 }
 /*TODO WIDTH OF SUB MENU ITEMS - 10px padding-left for A elements */
 .aqua .flyoutMenu li ul a {
-	width: 180px;
+	xxxwidth: 180px;
 }
 
 .aqua .flyoutMenu .subMenuIndicator {
@@ -61,6 +63,11 @@
 	text-decoration: underline;
 }
 
+.aqua .flyoutMenu .subMenuIndicator {
+	width: 8px;
+	xxxheight: 8px;
+	xxxvisibility: hidden;
+}
 /*
 .aqua .flyoutMenuItem .iconClass {
 	padding-left: 21px;
