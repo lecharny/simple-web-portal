@@ -1,13 +1,13 @@
-dojo.provide("swt.widget.navigation.flyoutmenu.FlyoutMenuItem");
+dojo.provide("swt.widget.navigation.NavigationMenuItem");
 dojo.require("dijit._Widget");
 dojo.require("dijit._Templated");
 dojo.require("dijit._Contained");
 dojo.require("dijit._Container");
-dojo.declare("swt.widget.navigation.flyoutmenu.FlyoutMenuItem",[dijit._Widget, dijit._Templated, dijit._Contained, dijit._Container],{
+dojo.declare("swt.widget.navigation.NavigationMenuItem",[dijit._Widget, dijit._Templated, dijit._Contained, dijit._Container],{
 
-	baseClass: "flyoutMenuItem",
+	baseClass: "navigationMenuItem",
     
-    templateString: dojo.cache("swt", "widget/navigation/flyoutmenu/templates/FlyoutMenuItem.html"),
+    templateString: dojo.cache("swt", "widget/navigation/templates/NavigationMenuItem.html"),
     
     attributeMap: dojo.delegate(dijit._Widget.prototype.attributeMap, {
 		label: { node: "labelNode", type: "innerHTML" }
@@ -16,7 +16,7 @@ dojo.declare("swt.widget.navigation.flyoutmenu.FlyoutMenuItem",[dijit._Widget, d
 	// iconClass for the item, default size is 16x16, override if needed.
     iconClass:"",
     
-    hoverClass: "flyoutMenuItemHover",
+    hoverClass: "navigationMenuItemHover",
     
     handler:"",
     

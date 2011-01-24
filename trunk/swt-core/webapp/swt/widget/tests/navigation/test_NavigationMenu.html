@@ -39,8 +39,8 @@
 
 	<script language="JavaScript" type="text/javascript">
 		dojo.require("dijit.dijit"); // optimize: load dijit layer
-		dojo.require("swt.widget.navigation.flyoutmenu.FlyoutMenu");
-		dojo.require("swt.widget.navigation.flyoutmenu.FlyoutMenuItem");
+		dojo.require("swt.widget.navigation.NavigationMenu");
+		dojo.require("swt.widget.navigation.NavigationMenuItem");
 		dojo.require("dojo.parser");	// scan page for widgets and instantiate them
 
 		function myHandler(args){
@@ -51,18 +51,18 @@
 </head>
 <body class="aqua">
 <div class="widgetContainer">
-<ul dojoType="swt.widget.navigation.flyoutmenu.FlyoutMenu">
-	<li dojoType="swt.widget.navigation.flyoutmenu.FlyoutMenuItem" label="Item One" iconClass="someClass" href="http://www.google.com"></li>
-	<li dojoType="swt.widget.navigation.flyoutmenu.FlyoutMenuItem" label="Item Two" iconClass="someClass" href="http://www.google.com" target="target1"></li>
-	<li dojoType="swt.widget.navigation.flyoutmenu.FlyoutMenuItem" label="Item Three" iconClass="someClass" handler="myHandler"></li>
-	<li dojoType="swt.widget.navigation.flyoutmenu.FlyoutMenuItem" label="Item Four" iconClass="someClass" href="#">
-		<ul dojoType="swt.widget.navigation.flyoutmenu.FlyoutMenu">
-			<li dojoType="swt.widget.navigation.flyoutmenu.FlyoutMenuItem" label="Inner Item One" iconClass="someClass" href="http://www.google.com"></li>
-			<li dojoType="swt.widget.navigation.flyoutmenu.FlyoutMenuItem" label="Inner Item Two" iconClass="someClass" href="http://www.google.com" target="target1"></li>
-			<li dojoType="swt.widget.navigation.flyoutmenu.FlyoutMenuItem" label="Inner Item Three" iconClass="someClass" handler="myHandler"></li>
+<ul dojoType="swt.widget.navigation.NavigationMenu">
+	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Item One" iconClass="someClass" href="http://www.google.com"></li>
+	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Item Two" iconClass="someClass" href="http://www.google.com" target="target1"></li>
+	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Item Three" iconClass="someClass" handler="myHandler"></li>
+	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Item Four" iconClass="someClass" href="#">
+		<ul dojoType="swt.widget.navigation.NavigationMenu">
+			<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Inner Item One" iconClass="someClass" href="http://www.google.com"></li>
+			<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Inner Item Two" iconClass="someClass" href="http://www.google.com" target="target1"></li>
+			<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Inner Item Three" iconClass="someClass" handler="myHandler"></li>
 		</ul>
 	</li>
-	<li dojoType="swt.widget.navigation.flyoutmenu.FlyoutMenuItem" label="Item Five" iconClass="someClass" handler="myHandler"></li>
+	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Item Five" iconClass="someClass" handler="myHandler"></li>
 </ul>
 </div>
 </body>

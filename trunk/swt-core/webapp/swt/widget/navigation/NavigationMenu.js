@@ -1,13 +1,13 @@
-dojo.provide("swt.widget.navigation.flyoutmenu.FlyoutMenu");
+dojo.provide("swt.widget.navigation.NavigationMenu");
 dojo.require("dijit._Widget");
 dojo.require("dijit._Templated");
 dojo.require("dijit._Container");
 dojo.require("dijit._Contained");
-dojo.declare("swt.widget.navigation.flyoutmenu.FlyoutMenu",[dijit._Widget, dijit._Templated, dijit._Container, dijit._Contained],{
+dojo.declare("swt.widget.navigation.NavigationMenu",[dijit._Widget, dijit._Templated, dijit._Container, dijit._Contained],{
 
-	baseClass: "flyoutMenu",
+	baseClass: "navigationMenu",
     
-    templateString: dojo.cache("swt", "widget/navigation/flyoutmenu/templates/FlyoutMenu.html"),
+    templateString: dojo.cache("swt", "widget/navigation/templates/NavigationMenu.html"),
     
     selected: -1,
     

@@ -7,7 +7,7 @@
 .aqua {
 }
 
-.aqua .flyoutMenu, .aqua .flyoutMenu li ul {
+.aqua .navigationMenu, .aqua .navigationMenu li ul {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
@@ -16,11 +16,11 @@
 	-moz-border-radius: 3px;
 }
 
-.aqua .flyoutMenu li {
+.aqua .navigationMenu li {
 	position: relative;
 }
 
-.aqua .flyoutMenu li a {
+.aqua .navigationMenu li a {
 	background: #FFFFFF;
 	color: #131313;
 	display: block;
@@ -30,7 +30,7 @@
 	background-position: left center;
 }
 /*sub menu style*/
-.aqua .flyoutMenu li ul {
+.aqua .navigationMenu li ul {
 	position: absolute;
 	xxxwidth: 190px; /*TODO harjeet WIDTH OF SUB MENU ITEMS*/
 	left: 0;
@@ -40,45 +40,45 @@
 	border-color: #d3d3d3;
 }
 
-.aqua .flyoutMenu li ul li {
+.aqua .navigationMenu li ul li {
 	xxxfloat: left;
 }
 /*TODO WIDTH OF SUB MENU ITEMS - 10px padding-left for A elements */
-.aqua .flyoutMenu li ul a {
+.aqua .navigationMenu li ul a {
 	xxxwidth: 180px;
 }
 
-.aqua .flyoutMenu .subMenuIndicator {
+.aqua .navigationMenu .subMenuIndicator {
 	position: absolute;
 	right: 2px;
 	background: red url(arrow.gif) no-repeat center right;
 }
 
-.aqua .flyoutMenu li a:visited, .aqua .flyoutMenu li a:active {
+.aqua .navigationMenu li a:visited, .aqua .navigationMenu li a:active {
 	xxxcolor: white;
 }
 
-.aqua .flyoutMenu li a:hover {
+.aqua .navigationMenu li a:hover {
 	background: #DBE9EE;
 	text-decoration: underline;
 }
 
-.aqua .flyoutMenu .subMenuIndicator {
+.aqua .navigationMenu .subMenuIndicator {
 	width: 8px;
 	xxxheight: 8px;
 	xxxvisibility: hidden;
 }
 /*
-.aqua .flyoutMenuItem .iconClass {
+.aqua .navigationMenuItem .iconClass {
 	padding-left: 21px;
 	background-position: center center;
 }
 */
 /*This is for menu name or group*/
-.aqua .flyoutMenuGroup {
+.aqua .navigationMenuGroup {
 	float: left;
 }
 
-.aqua .flyoutMenuGroup span:hover {
+.aqua .navigationMenuGroup span:hover {
 	background-color: red;
 }
