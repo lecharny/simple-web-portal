@@ -1,9 +1,9 @@
 /* ========= Styling rules to affect widgets ========= */
 
 .aqua .dijitPopup {
-	box-shadow: 1px 2px 2px rgba(0,0,0,0.25);
-	-webkit-box-shadow: 1px 2px 2px rgba(0,0,0,0.25);
-	-moz-box-shadow: 1px 2px 2px rgba(0,0,0,0.25);
+	box-shadow: 1px 2px 2px rgba(0,0,0,0.50);
+	-webkit-box-shadow: 1px 2px 2px rgba(0,0,0,0.50);
+	-moz-box-shadow: 2px 3px 3px rgba(0,0,0,0.50);
 }
 .aqua .dijitTooltipDialogPopup {
 	/* exception popups: do not use a shadow on these because they aren't rectangular */

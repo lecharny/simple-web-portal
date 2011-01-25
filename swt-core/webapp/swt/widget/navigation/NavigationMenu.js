@@ -11,6 +11,9 @@ dojo.declare("swt.widget.navigation.NavigationMenu",[dijit._Widget, dijit._Templ
     
     selected: -1,
     
+    // alignment vertical (default) or horizontal.
+    alignment: "vertical",
+    
     constructor : function() {
 		this.inherited(arguments);
     },
@@ -20,6 +23,7 @@ dojo.declare("swt.widget.navigation.NavigationMenu",[dijit._Widget, dijit._Templ
     },
 
     postCreate : function() {
+    	dojo.addClass(this.domNode, this.alignment);
     	this.inherited(arguments);
     },
     startup : function() {
@@ -54,6 +58,10 @@ dojo.declare("swt.widget.navigation.NavigationMenu",[dijit._Widget, dijit._Templ
     	if(!this.selected == -1){
         	this.getIndexOfChild(this.selected);
     	}
+    },
+    
+    getAlignment: function(){
+    	return this.alignment;
     }
     
 });

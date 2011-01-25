@@ -104,19 +104,28 @@ dojo.declare("swt.widget.navigation.NavigationMenuItem",[dijit._Widget, dijit._T
     },
 
     connectInnerMenu: function(){
-    	this.innerMenuIndicator = dojo.create("span", {'class':'subMenuIndicator', innerHTML:'&nbsp;&nbsp;&nbsp;'}, this.labelNode, "last");
+    	if(this.getParent().getAlignment()=="horizontal"){
+    		return;
+    	}
+    	this.innerMenuIndicator = dojo.create("span", {'class':'subMenuIndicator dijitArrowButtonInner', innerHTML:'&nbsp;'}, this.labelNode, "last");
+    	dojo.addClass(this.labelNode, "hasInnerMenu");
     	//dojo.style(this.subMenuIndicator, 'visibility','visible');
     	dojo.marginBox(this.innerMenuReference.domNode, {w: this.domNode.offsetWidth});
     	this.connect(this, "onMouseOver", dojo.hitch(this, "_showInnerMenu"));
     	this.connect(this, "onMouseOut", dojo.hitch(this, "_hideInnerMenu"));
+    	
+    	//add cosmetic effects if any.
+    	dojo.addClass(this.innerMenuReference.domNode, "dijitPopup");
     },
     
     _showInnerMenu: function(evt){
     	var _l = this.domNode.offsetWidth + this.innerMenuOffset + "px";
     	dojo.style(this.innerMenuReference.domNode, {'visibility':'visible','left': _l});
+    	dojo.addClass(this.domNode,"innerMenuOpen");
     },
     _hideInnerMenu: function(evt){
     	dojo.style(this.innerMenuReference.domNode, {'visibility':'hidden'});
+    	dojo.removeClass(this.domNode,"innerMenuOpen");
     }
 
 
