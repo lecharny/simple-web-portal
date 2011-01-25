@@ -104,23 +104,39 @@ dojo.declare("swt.widget.navigation.NavigationMenuItem",[dijit._Widget, dijit._T
     },
 
     connectInnerMenu: function(){
-    	if(this.getParent().getAlignment()=="horizontal"){
-    		return;
-    	}
+//    	if(this.getParent().getAlignment()=="horizontal"){
+//    		return;
+//    	}
     	this.innerMenuIndicator = dojo.create("span", {'class':'subMenuIndicator dijitArrowButtonInner', innerHTML:''}, this.labelNode, "last");
     	dojo.addClass(this.labelNode, "hasInnerMenu");
     	//dojo.style(this.subMenuIndicator, 'visibility','visible');
-    	dojo.marginBox(this.innerMenuReference.domNode, {w: this.domNode.offsetWidth});
+    	if(this.getParent().getAlignment()=="horizontal"){
+    		var _w = (this.domNode.offsetWidth*this.innerMenuReference.getChildren().length) + 30;
+    		dojo.marginBox(this.innerMenuReference.domNode, {w: _w});
+    	} else {
+        	dojo.marginBox(this.innerMenuReference.domNode, {w: this.domNode.offsetWidth});
+        	//add cosmetic effects if any.
+        	dojo.addClass(this.innerMenuReference.domNode, "dijitPopup");
+    	}
+
     	this.connect(this, "onMouseOver", dojo.hitch(this, "_showInnerMenu"));
     	this.connect(this, "onMouseOut", dojo.hitch(this, "_hideInnerMenu"));
     	
-    	//add cosmetic effects if any.
-    	dojo.addClass(this.innerMenuReference.domNode, "dijitPopup");
     },
     
     _showInnerMenu: function(evt){
-    	var _l = this.domNode.offsetWidth + this.innerMenuOffset + "px";
-    	dojo.style(this.innerMenuReference.domNode, {'visibility':'visible','left': _l});
+    	var _l="", _t="";
+    	if(this.getParent().getAlignment()=="horizontal"){
+        	var _mb = dojo.position(this.domNode, true);
+        	console.log(dojo.toJson(_mb));
+    		_l = 0 + "px";
+    		_t = _mb.h+ this.innerMenuOffset + "px";
+    		console.log("_l, _t::" + _l +" - "+ _t);
+    		dojo.style(this.innerMenuReference.domNode, {'visibility':'visible','left': _l, 'top': _t});
+    	} else {
+    		_l = this.domNode.offsetWidth + this.innerMenuOffset + "px";
+    		dojo.style(this.innerMenuReference.domNode, {'visibility':'visible','left': _l});
+    	}
     	dojo.addClass(this.domNode,"innerMenuOpen");
     },
     _hideInnerMenu: function(evt){

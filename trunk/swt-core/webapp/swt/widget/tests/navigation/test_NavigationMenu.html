@@ -55,6 +55,7 @@
 </head>
 <body class="aqua">
 <div class="widgetContainer">
+<div>Group One</div>
 <ul dojoType="swt.widget.navigation.NavigationMenu">
 	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Item One" iconClass="someClass" href="http://www.google.com"></li>
 	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Item Two" iconClass="dijitEditorIconPaste dijitEditorIcon" href="http://www.google.com" target="target1"></li>
@@ -71,12 +72,13 @@
 </div>
 
 <div class="widgetContainerH">
+<p>Horizontal Menu can be used from dijit, will fix if have time later.</p>
 <ul dojoType="swt.widget.navigation.NavigationMenu" alignment="horizontal">
 	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Item One" iconClass="someClass" href="http://www.google.com"></li>
 	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Item Two" iconClass="dijitEditorIconPaste dijitEditorIcon" href="http://www.google.com" target="target1"></li>
 	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Item Three Item Three Item Three Item Three" iconClass="someClass" handler="myHandler"></li>
 	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Item Four" iconClass="someClass" href="#">
-		<ul dojoType="swt.widget.navigation.NavigationMenu">
+		<ul dojoType="swt.widget.navigation.NavigationMenu" alignment="horizontal">
 			<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Inner Item One" iconClass="someClass" href="http://www.google.com"></li>
 			<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Inner Item Two" iconClass="someClass" href="http://www.google.com" target="target1"></li>
 			<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Inner Item Three" iconClass="someClass" handler="myHandler"></li>
