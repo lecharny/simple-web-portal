@@ -2,7 +2,7 @@
 * Copyright (c) 2011 Harjeet Singh
 * All rights reserved. 
 * @author harjeet
-* All the CSS elements for flyout menu go here.
+* All the CSS elements for navigation menu go here.
 */
 .aqua {
 }
@@ -12,7 +12,6 @@
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
-	xxxwidth: 185px; /*WIDTH OF MAIN MENU ITEMS*/
 	border: 1px solid transparent;
 	border-radius: 3px;
 	-moz-border-radius: 3px;
@@ -21,31 +20,36 @@
 .aqua .navigationMenu li ul:HOVER {
 	border-color: #ed8714;
 }
+.aqua .navigationMenu.horizontal li ul:HOVER {
+	border-color: transparent;
+}
 .aqua .navigationMenu li {
 	position: relative;
 	border: 1px solid #FFFFFF;
-	xxxmargin-right: 5px;
 	width: auto;
 	height: auto;
 	text-align: left;
-	xxxborder-radius: 3px;
-	xxx-moz-border-radius: 3px;
-	xxx-webkit-border-radius: 3px;
 }
-.aqua .navigationMenu.horizontal .navigationMenuItemHover {
+.aqua .navigationMenu.horizontal .navigationMenuItemHover .navigationMenuItemHover, .aqua .navigationMenu.horizontal li.navigationMenuItemHover {
 	border-color: #9D9DA1;
 	background-color: #d3d3d3;
 }
-.aqua .navigationMenu.horizontal .navigationMenuItemHover a {
+.aqua .navigationMenu.horizontal li.navigationMenuItemHover.innerMenuOpen {
+	background-color: #FFFFFF;
+	border-color: transparent;
+}
+
+.aqua .navigationMenu.horizontal .navigationMenuItemHover .navigationMenuItemHover a {
 	background-color: #d3d3d3;
 }
 
-.aqua .navigationMenu.horizontal li, .aqua .navigationMenu.horizontal li a {
+/*, .aqua .navigationMenu.horizontal li a*/
+.aqua .navigationMenu.horizontal li {
 	float: left;
 	border-color: #ffffff;
 }
 .aqua .navigationMenu.horizontal li ul li {
-	float: none;
+	float: left;
 }
 
 .aqua .navigationMenu.horizontal {
@@ -62,7 +66,6 @@
 	margin-left: 19px;
 	text-decoration: none;
 	background-position: left center;
-	xxxtext-overflow: ellipses;
 	text-overflow: ellipsis;
 	-o-text-overflow: ellipsis;
 	-ms-text-overflow: ellipsis;
@@ -72,20 +75,14 @@
 /*sub menu style*/
 .aqua .navigationMenu li ul {
 	position: absolute;
-	xxxwidth: 190px; /*TODO harjeet WIDTH OF SUB MENU ITEMS*/
 	left: 0;
 	top: 0;
 	visibility: hidden;
 	z-index: 500;
 	border-color: #d3d3d3;
 }
-
-.aqua .navigationMenu li ul li {
-	xxxfloat: left;
-}
-/*TODO WIDTH OF SUB MENU ITEMS - 10px padding-left for A elements */
-.aqua .navigationMenu li ul a {
-	xxxwidth: 180px;
+.aqua .navigationMenu.horizontal li ul {
+	border-color: transparent;
 }
 
 .aqua .navigationMenu .subMenuIndicator {
@@ -109,30 +106,21 @@
 	margin: 0 0 0 19px;
 }
 .aqua .navigationMenu li a:visited, .aqua .navigationMenu li a:active {
-	xxxcolor: white;
 }
 /*.aqua .navigationMenu .navigationMenuItemHover, .aqua .navigationMenuItem.innerMenuOpen */
-.aqua .navigationMenu a:HOVER{
-	background-color: #d3d3d3;
+.aqua .navigationMenu .navigationMenuItemHover a:HOVER{
 	text-decoration: underline;
 }
-
+.aqua .navigationMenu.horizontal .navigationMenuItemHover a:HOVER{
+	background-color: #d3d3d3;
+}
 .aqua .navigationMenuItem.innerMenuOpen .subMenuIndicator {
-	xxxborder-color: #d3d3d3;
 	background-position: -26px 53% !important;
 }
-
-/*
-.aqua .navigationMenuItem .iconClass {
-	padding-left: 21px;
-	background-position: center center;
-}
-*/
 /*This is for menu name or group*/
 .aqua .navigationMenuGroup {
 	float: left;
 }
-
 .aqua .navigationMenuGroup span:hover {
 	background-color: red;
 }
