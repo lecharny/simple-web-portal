@@ -107,7 +107,7 @@ dojo.declare("swt.widget.navigation.NavigationMenuItem",[dijit._Widget, dijit._T
     	if(this.getParent().getAlignment()=="horizontal"){
     		return;
     	}
-    	this.innerMenuIndicator = dojo.create("span", {'class':'subMenuIndicator dijitArrowButtonInner', innerHTML:'&nbsp;'}, this.labelNode, "last");
+    	this.innerMenuIndicator = dojo.create("span", {'class':'subMenuIndicator dijitArrowButtonInner', innerHTML:''}, this.labelNode, "last");
     	dojo.addClass(this.labelNode, "hasInnerMenu");
     	//dojo.style(this.subMenuIndicator, 'visibility','visible');
     	dojo.marginBox(this.innerMenuReference.domNode, {w: this.domNode.offsetWidth});
