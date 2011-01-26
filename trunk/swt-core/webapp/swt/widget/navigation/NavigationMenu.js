@@ -9,7 +9,7 @@ dojo.declare("swt.widget.navigation.NavigationMenu",[dijit._Widget, dijit._Templ
     
     templateString: dojo.cache("swt", "widget/navigation/templates/NavigationMenu.html"),
     
-    selected: -1,
+    selectedIndex: -1,
     
     // alignment vertical (default) or horizontal.
     alignment: "vertical",
@@ -43,7 +43,18 @@ dojo.declare("swt.widget.navigation.NavigationMenu",[dijit._Widget, dijit._Templ
     	this.inherited(arguments);
     },
     _onItemClick: function(item, evt){
-    	this.selected = item;
+    	if(this.selectedIndex >= 0){
+    		var sItem = this.getChildren()[this.selectedIndex];
+    		if(sItem){
+    			sItem._setSelected(false);
+    		}
+    		this.selectedIndex = this.getIndexOfChild(item);
+    		item._setSelected(true);
+    	} else {
+    		this.selectedIndex = this.getIndexOfChild(item);
+    		item._setSelected(true);
+    	}
+    	console.log("SelectedIndex is for "+ this.id +" :: " + this.selectedIndex);
     },
     
     _onItemOver: function(item, evt){

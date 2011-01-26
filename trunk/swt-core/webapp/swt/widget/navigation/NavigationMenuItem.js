@@ -94,13 +94,13 @@ dojo.declare("swt.widget.navigation.NavigationMenuItem",[dijit._Widget, dijit._T
     onMouseOver: function(evt){
     	// summary:
     	//		Call-back to connect to on mouse over.
-    	console.log("onMouseOver::"+ this.id);
+    	//console.log("onMouseOver::"+ this.id);
     },
     
     onMouseOut: function(evt){
     	// summary:
     	//		Call-back to connect to on mouse out.
-    	console.log("onMouseOut::"+ this.id);
+    	//console.log("onMouseOut::"+ this.id);
     },
 
     connectInnerMenu: function(){
@@ -128,10 +128,10 @@ dojo.declare("swt.widget.navigation.NavigationMenuItem",[dijit._Widget, dijit._T
     	var _l="", _t="";
     	if(this.getParent().getAlignment()=="horizontal"){
         	var _mb = dojo.position(this.domNode, true);
-        	console.log(dojo.toJson(_mb));
+        	//console.log(dojo.toJson(_mb));
     		_l = 0 + "px";
     		_t = _mb.h+ this.innerMenuOffset + "px";
-    		console.log("_l, _t::" + _l +" - "+ _t);
+    		//console.log("_l, _t::" + _l +" - "+ _t);
     		dojo.style(this.innerMenuReference.domNode, {'visibility':'visible','left': _l, 'top': _t});
     	} else {
     		_l = this.domNode.offsetWidth + this.innerMenuOffset + "px";
@@ -142,6 +142,21 @@ dojo.declare("swt.widget.navigation.NavigationMenuItem",[dijit._Widget, dijit._T
     _hideInnerMenu: function(evt){
     	dojo.style(this.innerMenuReference.domNode, {'visibility':'hidden'});
     	dojo.removeClass(this.domNode,"innerMenuOpen");
+    },
+    _setSelected: function(/*boolean*/selected){
+        // summary:
+        //    Select this navigation menu item. Applications should not set 
+        //    the selection on the navigation menu item directly. The selection
+        //    must be set on the parent navigation menu.
+        // tags:
+        //    private
+        if (selected) {
+            dojo.addClass(this.domNode, "navigationMenuItemSelected");
+            this.selected = true;
+        } else {
+            dojo.removeClass(this.domNode, "navigationMenuItemSelected");
+            this.selected = false;
+        }
     }
 
 
