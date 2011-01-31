@@ -104,9 +104,11 @@ dojo.declare("swt.widget.navigation.NavigationMenuItem",[dijit._Widget, dijit._T
     },
 
     connectInnerMenu: function(){
-//    	if(this.getParent().getAlignment()=="horizontal"){
-//    		return;
-//    	}
+    	// no support for inner manu if using as horizontal.
+    	// comment it out if want to support horizontal.
+    	if(this.getParent().getAlignment()=="horizontal"){
+    		return;
+    	}
     	this.innerMenuIndicator = dojo.create("span", {'class':'subMenuIndicator dijitArrowButtonInner', innerHTML:''}, this.labelNode, "last");
     	dojo.addClass(this.labelNode, "hasInnerMenu");
     	//dojo.style(this.subMenuIndicator, 'visibility','visible');
