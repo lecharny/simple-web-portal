@@ -17,6 +17,22 @@
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 }
+
+.aqua .navigationMenu.horizontal {
+	border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    background: url("../../images/ui-bg_glass_75_e6e6e6_1x400.png") repeat-x scroll 50% 50% #E6E6E6;
+    border: 1px solid #D3D3D3;
+}
+
+.aqua .navigationMenu.horizontal li a {
+	background: url("../../images/ui-bg_glass_75_e6e6e6_1x400.png") repeat-x scroll 50% 50% #E6E6E6;
+}
+.aqua .navigationMenu.horizontal .navigationMenuItemHover a {
+	background: none repeat scroll left center #f4f5f3; 
+}
+
 .aqua .navigationMenu li ul:HOVER {
 	border-color: #ed8714;
 }
@@ -30,9 +46,12 @@
 	height: auto;
 	text-align: left;
 }
-.aqua .navigationMenu.horizontal .navigationMenuItemHover .navigationMenuItemHover, .aqua .navigationMenu.horizontal li.navigationMenuItemHover {
-	border-color: #9D9DA1;
-	background-color: #d3d3d3;
+/*.aqua .navigationMenu.horizontal .navigationMenuItemHover .navigationMenuItemHover,*/
+.aqua .navigationMenu.horizontal li.navigationMenuItemHover {
+	border-color: #ed8714;/*#9D9DA1;*/
+	background-color: #f4f5f3;/*#d3d3d3;*/
+	border-radius: 3px;
+	-moz-border-radius: 4px;
 }
 .aqua .navigationMenu.horizontal li.navigationMenuItemHover.innerMenuOpen {
 	background-color: #FFFFFF;
@@ -46,7 +65,7 @@
 /*, .aqua .navigationMenu.horizontal li a*/
 .aqua .navigationMenu.horizontal li {
 	float: left;
-	border-color: #ffffff;
+	border-color: transparent #D3D3D3 transparent transparent;
 }
 .aqua .navigationMenu.horizontal li ul li {
 	float: left;
@@ -102,7 +121,7 @@
 	white-space: normal;
 }
 .aqua .navigationMenu.horizontal a {
-	padding: 2px 10px 2px 1px;
+	padding: 1px 18px 2px 1px;
 	margin: 0 0 0 19px;
 }
 .aqua .navigationMenu li a:visited, .aqua .navigationMenu li a:active {
@@ -110,9 +129,6 @@
 /*.aqua .navigationMenu .navigationMenuItemHover, .aqua .navigationMenuItem.innerMenuOpen */
 .aqua .navigationMenu .navigationMenuItemHover a:HOVER{
 	text-decoration: underline;
-}
-.aqua .navigationMenu.horizontal .navigationMenuItemHover a:HOVER{
-	background-color: #d3d3d3;
 }
 .aqua .navigationMenuItem.innerMenuOpen .subMenuIndicator {
 	background-position: -26px 53% !important;
