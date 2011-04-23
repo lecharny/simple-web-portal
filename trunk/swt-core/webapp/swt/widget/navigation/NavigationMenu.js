@@ -54,7 +54,13 @@ dojo.declare("swt.widget.navigation.NavigationMenu",[dijit._Widget, dijit._Templ
     		this.selectedIndex = this.getIndexOfChild(item);
     		item._setSelected(true);
     	}
-    	console.log("SelectedIndex is for "+ this.id +" :: " + this.selectedIndex);
+    	if(item.handler){
+    		if(dojo.isFunction(item.handler)){
+    			item.handler(item);
+    		} else {
+    		}
+    	}
+    	//console.log("SelectedIndex is for "+ this.id +" :: " + this.selectedIndex);
     },
     
     _onItemOver: function(item, evt){

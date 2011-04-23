@@ -18,7 +18,7 @@ dojo.declare("swt.widget.navigation.NavigationMenuItem",[dijit._Widget, dijit._T
     
     hoverClass: "navigationMenuItemHover",
     
-    handler:"",
+    handler:null,
     
     href:"javascript: void;",
     
@@ -45,7 +45,8 @@ dojo.declare("swt.widget.navigation.NavigationMenuItem",[dijit._Widget, dijit._T
     postCreate : function() {
     	this.inherited(arguments);
     	if(this.iconClass && this.iconClass.length>1){
-    		dojo.addClass(this.containerNode, this.iconClass);
+    		//dojo.addClass(this.containerNode, this.iconClass);
+    		this.iconNode = dojo.create("span", {'class':'navigationItemIcon ' + this.iconClass, innerHTML:''}, this.labelNode, "first");
     	}
     },
 
@@ -81,7 +82,7 @@ dojo.declare("swt.widget.navigation.NavigationMenuItem",[dijit._Widget, dijit._T
     	//dojo.stopEvent(evt);
     },
     _onClick: function(evt){
-    	console.log("_onClick called!");
+    	//console.log("_onClick called!");
     	this.getParent()._onItemClick(this, evt);
 	    this.onClick(this, evt);
 	    //dojo.stopEvent(evt);
