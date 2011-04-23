@@ -17,17 +17,17 @@
  * 4. actived widget inside toolbar (ie, mouse down on the widget inside)
  * 			.dijitToolbar .dijitButtonNodeActive  - mouse down on Button widget
  */
-
+/*harjeet*/
 .aqua .dijitToolbar {
-	border-bottom: 1px solid #b5bcc7;
-	background-color: #f1f1f1;
-	background-image: url("images/commonHighlight.png");
-	background-position:0px 0px;
-	background-repeat:repeat-x;
-	padding: 2px 0px 2px 4px;
-	zoom: 1;
+    background-color: #F5F5F5;
+    background-image: url("images/commonHighlight.png");
+    background-position: 0 0;
+    background-repeat: repeat-x;
+    border-bottom: 1px solid #F2F2F2;
+    border-top: 1px solid #F5F5F5;
+    padding: 0 0 0 5px;
+    zoom: 1;
 }
-
 .aqua .dijitToolbar label {
 	padding: 0px 3px 0 6px;
 }
@@ -50,6 +50,9 @@
 }
 .aqua .dijitToolbar .dijitComboButton .dijitButtonNode{
 	padding: 3px 2px 3px 2px;	/* make the ComboButton in toolbar more stable when mouse hovering */
+		border-radius: 0px;	
+	-moz-border-radius: 0px;	
+	-webkit-border-radius: 0px;	
 }
 .dj_ie .aqua .dijitToolbar .dijitButtonNode {
 	background-color: transparent;   /* for IE, which doesn't understand rgba(...) */
@@ -65,18 +68,22 @@
 .aqua .dijitToolbar .dijitComboButton {
 	padding: 1px;
 }
-/* hover status */
+/* hover status harjeet */
 .aqua .dijitToolbar .dijitButtonHover .dijitButtonNode,
 .aqua .dijitToolbar .dijitDropDownButtonHover .dijitButtonNode,
 .aqua .dijitToolbar .dijitToggleButtonHover .dijitButtonNode {
 	background-position:0 0;
 	border:solid 1px #769dc0;
-	background-color: #abd6ff;
+	background-color: #d4d4d4;
 	padding: 1px;
 }
+/*harjeet*/
 .aqua .dijitToolbar .dijitComboButtonHover {
-	background-color: #abd6ff;
+	background-color: #d4d4d4;
 	border: solid 1px #769dc0;
+	border-radius: 2px;	
+	-moz-border-radius: 2px;	
+	-webkit-border-radius: 2px;	
 	padding: 0px;
 }
 .aqua .dijitToolbar .dijitComboButtonHover .dijitButtonNode,
@@ -84,15 +91,16 @@
 	background-position:0 0;
 	padding: 2px;
 }
+/*harjeet*/
 .aqua .dijitToolbar .dijitComboButtonHover .dijitDownArrowButton {
-	background-color: #7dd6fa;
+	background-color: #d4d4d4;
 }
 /* actve status */
 .aqua .dijitToolbar .dijitButtonActive .dijitButtonNode,
 .aqua .dijitToolbar .dijitDropDownButtonActive .dijitButtonNode,
 .aqua .dijitToolbar .dijitToggleButtonActive .dijitButtonNode {
 	border:solid 1px #769dc0;
-	background-color:#7dbefa;
+	background-color:#ffd740;
 	background-position:0px -177px;
 	padding: 1px;
 }
@@ -102,12 +110,12 @@
 	padding: 0px;
 }
 .aqua .dijitToolbar .dijitComboButtonActive .dijitButtonNode {
-	background-color: #7dbefa;
+	background-color: #ffd740;
 	background-position:0px -177px;
 	padding: 2px;
 }
 .aqua .dijitToolbar .dijitComboButton .dijitDownArrowButtonActive {
-	background-color: #7dbefa;
+	background-color: #ffd740;
 }
 /* toggle button checked status */
 .aqua .dijitToolbar .dijitToggleButtonChecked .dijitButtonNode {
