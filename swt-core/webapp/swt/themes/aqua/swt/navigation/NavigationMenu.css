@@ -29,9 +29,6 @@
 .aqua .navigationMenu.horizontal li a {
 	background: url("../../images/ui-bg_glass_75_e6e6e6_1x400.png") repeat-x scroll 50% 50% #E6E6E6;
 }
-.aqua .navigationMenu.horizontal .navigationMenuItemHover a {
-	background: none repeat scroll left center #f4f5f3; 
-}
 
 .aqua .navigationMenu li ul:HOVER {
 	border-color: #ed8714;
@@ -48,16 +45,25 @@
 }
 /*.aqua .navigationMenu.horizontal .navigationMenuItemHover .navigationMenuItemHover,*/
 .aqua .navigationMenu.horizontal li.navigationMenuItemHover {
-	border-color: #ed8714;/*#9D9DA1;*/
+	xxxborder-color: #ed8714;/*#9D9DA1;*/
 	background-color: #f4f5f3;/*#d3d3d3;*/
 	border-radius: 3px;
 	-moz-border-radius: 4px;
 }
+.aqua .navigationMenu.horizontal .navigationMenuItemHover a {
+	background: none repeat scroll left center #f4f5f3; 
+}
+
+.aqua .navigationMenu.horizontal li.navigationMenuItemSelected {
+	border-color: transparent #ffd740 transparent #ffd740; 
+}
+
+/*
 .aqua .navigationMenu.horizontal li.navigationMenuItemHover.innerMenuOpen {
 	background-color: #FFFFFF;
 	border-color: transparent;
 }
-
+*/
 .aqua .navigationMenu.horizontal .navigationMenuItemHover .navigationMenuItemHover a {
 	background-color: #d3d3d3;
 }
@@ -74,7 +80,6 @@
 .aqua .navigationMenu.horizontal {
 	height: 21px;
 }
-
 
 .aqua .navigationMenu li a {
 	background: #FFFFFF;
@@ -139,4 +144,11 @@
 }
 .aqua .navigationMenuGroup span:hover {
 	background-color: red;
+}
+
+.aqua .navigationMenu .navigationItemIcon {
+	xxxpadding: 8px;
+	position: absolute;
+	left: 2px;
+	xxxbackground: red;
 }
