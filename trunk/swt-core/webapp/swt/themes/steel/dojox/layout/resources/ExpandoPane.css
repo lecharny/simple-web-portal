@@ -1,0 +1,51 @@
+	/* steel styles */
+	.steel .dojoxExpandoTitle {
+		font-weight: bold;
+		border:1px solid #769DC0;
+		border-bottom:none;
+        background-color:#cde8ff;
+		background-image: url("../../../dijit/layout/images/accordion.png");
+        background-position:0px 0px;
+        background-repeat:repeat-x;
+		padding: 5px 7px 2px 7px;
+        min-height:17px;
+        color:#4a4a4a;
+	}
+		
+	.steel .dojoxExpandoClosed .dojoxExpandoTitle {
+		background: none;
+		background-color: #E6E6E7;
+		border: none;
+		padding:3px;
+	}
+	
+	.steel .dojoxExpandoClosed {
+		background: none;
+		background-color: #E6E6E7;
+		border: 1px solid #769DC0 !important;
+	}
+
+	.steel .dojoxExpandoRight .dojoxExpandoTitle,
+	.steel .dojoxExpandoLeft .dojoxExpandoTitle,
+	.steel .dojoxExpandoClosed .dojoxExpandoTitle{
+		background-color: #E6E6E7;
+	}
+	.steel .dojoxExpandoClosed .dojoxExpandoTitle{
+		background-image: url("../../../dijit/layout/images/accordion.png");
+		background-position:0 0;
+	}
+	
+	/* FIXME: use tundra spriteRoundedIconsSmall for now,
+	because there is no compatible image files in steel (15x15
+	icon, and icons are arranged in the same order as in 
+	spriteRoundedIconsSmall.gif */
+	.steel .dojoxExpandoIcon {
+		background-image: url('../../../dijit/images/spriteRoundedIconsSmall.gif');
+	}
+	
+	.steel .dojoxExpandoClosed .dojoxExpandoIconLeft,
+	.steel .dojoxExpandoClosed .dojoxExpandoIconRight,
+	.steel .dojoxExpandoClosed .dojoxExpandoIconTop,
+	.steel .dojoxExpandoClosed .dojoxExpandoIconBottom {
+		margin-top: 3px;
+	}

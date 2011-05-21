@@ -1,0 +1,248 @@
+/* steel styles for DataGrid */
+@import url("Grid.css");
+
+.steel .dojoxGrid {
+	margin:0px;
+	padding:0px;
+	border-collapse:collapse;	
+	background-color:#fff;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;	
+}
+/*  messages */
+.steel .dojoxGridMasterMessages {
+	background-color: #fefefe;
+}
+.steel .dojoxGridLoading, 
+.steel .dojoxGridError {
+	background-position:left center;
+	background-repeat: no-repeat;
+	padding-left:25px;
+}
+.steel .dojoxGridLoading {
+	background-image:url("../../../dijit/images/loadingAnimation.gif");
+}
+.steel .dojoxGridError {
+	background-image: url('../../../dijit/icons/images/commonIconsObjActEnabled.png'); 
+	background-position: -496px;
+	width: 16px;
+	height: 16px;
+}
+
+/* header */
+.steel .dojoxGridHeader {
+	background-color:#FFF;
+}
+/*harjeet*/
+.steel .dojoxGridHeader .dojoxGridCell { 
+	xxxbackground:url("images/header.png") #e5edf4 repeat-x top;
+	background: -moz-linear-gradient(center top , #F7FAFD, #D3D3D3) repeat scroll 0 0 #ECF1F5;
+	background: -webkit-gradient(linear, center top, center bottom, from(#F7FAFD), to(#D3D3D3));
+	border-style:solid;
+	border-width:1px;
+	xxxborder-color:#BCBCBC #BCBCBC #BCBCBC transparent;
+	border-color:#D3D3D3 #D3D3D3 #D3D3D3 transparent;
+	xxxfont-size: 1.091em;
+}
+.dj_ie6 .steel .dojoxGridHeader .dojoxGridCell { 
+	border-color:#BCBCBC #BCBCBC #BCBCBC #e5edf4;
+}
+
+/* header sorting arrow */
+/*harjeet*/
+.steel .dojoxGridSortNode {
+	xxxbackground:url("images/header_shadow.png") #e5edf4 repeat-x bottom;
+	text-decoration:none;
+	display:block;
+	padding:4px 6px 5px 6px;
+	xxxborder:1px solid #e0eefb;
+	border:1px solid transparent;
+}
+.dj_ie6 .steel .dojoxGridSortNode {
+	background-image:none;
+}
+/*harjeet*/
+.steel .dojoxGridCellOver .dojoxGridSortNode {
+	xxxbackground-color:#9dcfff;
+	xxxbackground-color:#F4F3F5;
+}
+/*+harjeet*/
+.steel .dojoxGridHeader .dojoxGridCell.dojoxGridCellOver {
+	background: -moz-linear-gradient(center top , #d3d3d3, #F7FAFD) repeat scroll 0 0 #ECF1F5;
+	background: -webkit-gradient(linear, center top, center bottom, from(#D3D3D3), to(#F7FAFD));
+}
+.steel .dojoxGridArrowButtonChar {
+	display:none;
+	float:right;
+}
+.steel .dojoxGridArrowButtonNode {
+	background:transparent url("../../../dijit/images/spriteArrows.png") no-repeat scroll left center;
+	display:block;
+	float:right;
+	height:1em;
+	margin:2px 4px 0 5px;
+	padding-left:0;
+	width:7px;
+}
+.steel .dojoxGridSortUp .dojoxGridArrowButtonNode {
+	background-position:-21px 50%;
+}
+
+/* header rows */
+.dj_ie .steel .dojoxGridHeader .dojoxGridRowTable {
+	border-collapse:separate;
+}
+
+/* Grid view content */
+.steel .dojoxGridScrollbox {
+	background-color: #fefefe;
+}
+
+/* rowbar - row headers */
+.steel .dojoxGridRowbar { 
+	background:url("images/header.png") #e5edf4 repeat-x top;
+	border:none;
+	border-right:1px solid #BCBCBC;
+}
+.steel .dojoxGridRowbarTable { 
+	background:transparent url("images/header_shadow.png") repeat-x scroll center bottom;
+}
+.dj_ie6 .steel .dojoxGridRowbar,
+.dj_ie6 .steel .dojoxGridRowbarTable { 
+	background-image:none;
+}
+.steel .dojoxGridRowbarInner {
+	border:none;
+	border-bottom:1px solid #ccc;
+}
+.steel .dojoxGridRowbarOver .dojoxGridRowbarTable {
+	background-color:#abd5fd;
+}
+.steel .dojoxGridRowBarActive .dojoxGridRowbarTable {
+	background-color:#91c9fe;
+}
+.steel .dojoxGridRowbarSelected {
+	background-color:#abd5fd;
+	border-right:1px solid #ccc;
+}
+
+/* rows */
+.steel .dojoxGridRow {
+	border:none;
+	background-color:#fff;
+}
+.dj_ie .steel .dojoxGridMasterView .dojoxGridRowTable {
+	border-collapse:separate;/*IE, separate is must to show the border of tr and td*/
+}
+/*harjeet*/
+.steel .dojoxGridRowTable tr {
+	xxxbackground:url("images/row_back.png") #fff repeat-x;
+}
+/*harjeet*/
+.steel .dojoxGridRowOdd .dojoxGridRowTable tr {
+	xxxbackground-color:#f4f9fd;
+	background-color: #F8F8F9;
+}
+/*harjeet*/
+.steel .dojoxGridRowSelected .dojoxGridRowTable tr {
+	xxxbackground-color:#d3e9fb;
+	background-color:#E3E6E8;
+}
+
+/* cells */
+.steel .dojoxGridCell {
+	padding:0px;
+	border:1px solid transparent;
+}
+.dj_ie6 .steel .dojoxGridCell {
+	border-color:#fff
+}
+.dj_ie6 .steel .dojoxGridRowOdd .dojoxGridCell {
+	border-left-color:#f4f9fd;
+	border-right-color:#f4f9fd;
+}
+.dj_ie6 .steel .dojoxGridRowSelected .dojoxGridCell {
+	border-left-color:#d3e9fb;
+	border-right-color:#d3e9fb;
+}
+.steel .dojoxGridRowSelected .dojoxGridCell {
+	xxxborder-top:1px solid #BFD6EB;
+	border-top:1px solid #d3d3d3;
+	xxxborder-bottom:1px solid #BFD6EB;
+	border-bottom:1px solid #d3d3d3;
+}
+.steel .dojoxGridCellFocus {
+	border:1px dashed darkblue !important;
+}
+.steel .dojoxGridCellContent {
+	padding:4px 6px 4px 6px;
+}
+
+/*  Single Affordance Hover Effect */
+/*harjeet*/
+.steel .dojoxGridRowOver .dojoxGridCell {
+	xxxbackground:url("images/row_back.png") #ABD6FF;
+	xxxbackground: #EEEEEE;
+	xxxborder-top:1px solid #769DC0;
+	border-top:1px solid #d3d3d3;
+	xxxborder-bottom:1px solid #769DC0;
+	border-bottom:1px solid #d3d3d3;
+	xxxborder-top:1px solid #ED8714;
+	xxxborder-bottom:1px solid #ED8714;
+}
+.dj_ie6 .steel .dojoxGridRowOver .dojoxGridCell,
+.dj_ie7 .steel .dojoxGridRowOver .dojoxGridCell {
+	border-left:1px solid #ABD6FF;
+	border-right:1px solid #ABD6FF;
+}
+/*harjeet*/
+.steel .dojoxGridRowActive .dojoxGridCell {
+	xxxbackground:url("images/td_button_down.png") #7DBEFA repeat-x;
+	background:url("images/td_button_down.png") #FFD740 repeat-x;
+}
+.dj_ie6 .steel .dojoxGridRowActive .dojoxGridCell,
+.dj_ie7 .steel .dojoxGridRowActive .dojoxGridCell {
+	border-left:1px solid #7DBEFA;
+	border-right:1px solid #7DBEFA;	
+}
+
+/*  Double Affordance Hover Effect */
+.steel .dojoxGridDoubleAffordance .dojoxGridRowOver .dojoxGridCellOver {
+	border:solid 1px #769dc0;
+	background-color:#93cafe;
+	border-collapse:separate;/*FF*/
+}
+.steel .dojoxGridDoubleAffordance .dojoxGridRowActive .dojoxGridCell{	
+	background-image:url("images/row_back.png");
+}
+.steel .dojoxGridDoubleAffordance .dojoxGridRowActive .dojoxGridCellActive {	
+	background:url("images/td_button_down.png") #93cafe repeat-x;
+}
+.dj_ie6 .steel .dojoxGridCell {
+	background-image:none !important;
+}
+
+/* editing */
+.steel .dojoxGridRowEditing td {
+	/* background-color: #F4FFF4; */
+	background-color: #60a1ea; 
+	/* padding: 0px 3px 0px 3px; */
+}
+.steel .dojoxGridRow-inserting td {
+	background-color: #F4FFF4;
+}
+.steel .dojoxGridRow-inflight td {
+	background-color: #F2F7B7;
+}
+.steel .dojoxGridRow-error td {
+	background-color: #F8B8B6;
+}
+
+/* Drag and Drop */
+.steel .dojoxGrid .dojoDndItemBefore {
+	border-left-color: #3559ac;
+}
+.steel .dojoxGrid .dojoDndItemAfter {
+	border-right-color: #3559ac;
+}
