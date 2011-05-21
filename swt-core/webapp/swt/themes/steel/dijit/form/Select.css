@@ -1,0 +1,134 @@
+/* Select
+ * 
+ * Styling Select mainly includes:
+ * 
+ * 1. Containers
+ * 		.dijitSelect - for border, background-color
+ * 		.dijitButtonContents - for border
+ *
+ * 2. Arrow
+ * 		.dijitArrowButton - for border, padding and background-color|image
+ * 		.dijitArrowButtonInner - for border, background-color|image, display and width|height
+ * 
+ * 3. Menu
+ * 		.dijitSelectMenu .* - for border, padding
+ * 
+ * 4. Various states
+ * 		.dijitSelectHover|.dijitSelectFocused|.dijitSelectDisabled .* - for border, padding and background-color|image 
+ */
+
+.steel .dijitSelect .dijitButtonText {
+	padding: 0px 5px 2px 5px;
+}
+
+/* harjeet normal status */
+.steel .dijitSelect {
+	xxxborder: 1px solid #b5bcc7;
+	border: 1px solid #d3d3d3;
+	background-color: #f7fcff;
+	background-color: #FAFAFB;
+	border-collapse: separate;
+}
+.dj_ie6 .steel .dijitSelect,
+.dj_ie6 .steel .dijitSelect .dijitButtonNode {
+	background-image:none;
+}
+
+.steel .dijitSelect .dijitButtonContents {
+	xxxborder: 0px solid #b5bcc7;
+	border: 0px solid #d3d3d3;
+	border-right-width: 1px;
+}
+/*harjeet*/
+.steel .dijitSelect .dijitArrowButton {
+	padding: 0;
+	xxxborder: 1px solid #fff;	/* inner white border on button node */
+	border: 1px solid transparent;
+	border-top:none;
+	background-color:#ebeef4;
+	background-image: url("images/formHighlight.png");
+	background-repeat:repeat-x;
+}
+
+.steel .dijitSelect .dijitArrowButton .dijitArrowButtonInner {
+	background-image: url("images/commonFormArrows.png");
+	background-position:-35px 70%;
+	background-repeat: no-repeat;
+	width:16px;
+	height:16px;
+	display:block;
+	margin: 0 auto;
+}
+
+/* harjeet hover status */
+.steel .dijitSelectHover {
+	xxxborder: 1px solid #769dc0;
+	border: 1px solid #ED8714;
+	xxxbackground-color: #e9f4fe;
+	xxxbackground-color: #F7FCFF;
+	xxxbackground-image: url('images/textBox_back.png');
+	xxxbackground-repeat: repeat-x;
+}
+
+.steel .dijitSelectHover .dijitButtonContents {
+	border-color:#81a5c6;
+}
+/*harjeet*/
+.steel .dijitSelectHover .dijitArrowButton {
+	xxxbackground-color:#abd6ff;
+	background-color:#d3d3d3;
+}
+.steel .dijitSelectHover .dijitArrowButton .dijitArrowButtonInner {
+	background-position:-70px 70%;
+}
+
+/* focused status */
+.steel .dijitSelectFocused {
+	xxxborder: 1px solid #769dc0;
+}
+.steel .dijitSelectFocused .dijitButtonContents {
+	border-color:#81a5c6;
+}
+/*harjeet*/
+.steel .dijitSelectFocused .dijitArrowButton {
+	xxxbackground-color:#7dbefa;
+	background-color:#d3d3d3;
+	background-position:0px -177px;
+	border: none;
+	padding: 0px 1px;
+}
+.steel .dijitSelectFocused .dijitArrowButton .dijitArrowButtonInner {
+	background-position:-70px 70%;
+	margin-bottom: 1px;
+}
+
+/* disable status */
+.steel .dijitSelectDisabled {
+	border: 1px solid #d3d3d3;
+	background-color: #efefef;
+	background-image: none;
+	color: #818181;
+}
+.steel .dijitSelectDisabled .dijitArrowButton { 
+	background-color: #efefef;
+}
+.steel .dijitSelectDisabled .dijitArrowButton .dijitArrowButtonInner {
+	background-position:0px 70%
+}
+
+/* Dropdown menu style for select */
+
+.steel .dijitSelectMenu td.dijitMenuItemIconCell,
+.steel .dijitSelectMenu td.dijitMenuArrowCell { 
+	/* so that arrow and icon cells from MenuItem are not displayed */
+	display: none;  
+}
+.steel .dijitSelectMenu td.dijitMenuItemLabel {
+	/* line up menu text with text in select box (in LTR and RTL modes) */
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.steel .dijitSelectMenu .dijitMenuSeparatorTop {
+	border-bottom:1px solid #769dc0;
+}

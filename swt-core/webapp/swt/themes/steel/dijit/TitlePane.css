@@ -1,0 +1,107 @@
+/* TitlePane 
+ * 
+ * Styling TitlePane means styling the TitlePane title and its content container  (dijitTitlePane)
+ * 
+ * TitlePane title:
+ * 1. TitlePane title (default styling): 
+ * 		.dijitTitlePaneTitle - TitlePane's title div style: background-color, border
+ *
+ * 2. hovered TitlePane title (ie, mouse hover on a title bar)
+ * 		.dijitTitlePaneTitleHover - styles when mouse hover on the title div
+ * 
+ * 3. active TitlePane title (ie, mouse down on a title bar)
+ * 		.dijitTitlePaneTitleActive - styles when mouse down on the title div
+ * 
+ * 
+ * TitlePane Content Container:
+ * 1. outer/inner container: 
+ * 		.dijitTitlePaneContentOuter / dijitTitlePaneContentInner - styles for the content outer div
+ */
+/*harjeet*/
+.steel .dijitTitlePaneTitle {
+	background-color: #e6e6e7;
+	background-image: url("images/titlebar.png");
+	background-repeat:repeat-x;
+	///border:1px solid #b5bcc7;
+	border:1px solid #d3d3d3;
+	border-radius: 2px 2px 0 0;
+	-moz-border-radius: 2px 2px 0 0;
+	-webkit-border-radius: 2px 2px 0 0;
+	padding: 0px 7px 3px 7px;
+	min-height:17px;
+	color:#131313;
+}
+/*harjeet*/
+.steel .dijitTitlePaneHover .dijitTitlePaneTitle {
+	border-color: #ED8714 #ED8714 #d3d3d3 #ED8714;
+}
+/*harjeet*/
+.steel .dijitTitlePaneFocused .dijitTitlePaneTitle {
+	background-color: #CDCCCB;
+}
+/*harjeet*/
+.steel .dijitTitlePaneActive .dijitTitlePaneTitle {
+	background-color: #FFD740;
+}
+/*harjeet*/
+.steel .dijitTitlePaneTitle.dijitClosed {
+	border:1px solid #b5bcc7;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+}
+
+.dj_ie6 .steel .dijitTitlePaneTitle {
+	background-image: none;
+}
+/*harjeet*/
+.steel .dijitTitlePaneTitleHover {
+	xxxbackground-color: #abd6ff;
+	xxxborder-color: #769dc0;
+}
+.steel .dijitTitlePaneTitleActive {
+	background-color: #7dbefa;
+	border-color: #769dc0;
+	background-position:0px -136px;
+}
+.steel .dijitTitlePaneTitleFocus {
+	margin-top:3px;
+	padding-bottom:2px;
+}
+.steel .dijitTitlePane .dijitArrowNode {
+	background-image: url('images/spriteArrows.png');
+	background-repeat: no-repeat;
+	height: 8px;
+	width: 7px;
+}
+.steel .dijitTitlePane .dijitOpen .dijitArrowNode {
+	background-position: 0px 0px;
+}
+.steel .dijitTitlePane .dijitClosed .dijitArrowNode {
+	background-position: -14px 0px;
+}
+.steel .dijitTitlePaneFocused .dijitTitlePaneTextNode {
+	color:#000;
+}
+/*harjeet*/
+.steel .dijitTitlePaneContentOuter {
+	background: #ffffff;
+	xxxborder:1px solid #b5bcc7;
+	border:1px solid #d3d3d3;
+	border-radius: 0 0 2px 2px;
+	-moz-border-radius: 0 0 2px 2px;
+	-webkit-border-radius: 0 0 2px 2px;
+	border-top:none;
+}
+/*harjeet*/
+.steel .dijitTitlePaneHover .dijitTitlePaneContentOuter {
+	border-color: #ED8714;
+}
+.steel .dijitTitlePaneContentInner {
+	padding:10px;
+}
+.steel .dijitTitlePaneTextNode {
+	margin-left: 4px;
+	margin-right: 4px;
+	vertical-align:text-top;
+}

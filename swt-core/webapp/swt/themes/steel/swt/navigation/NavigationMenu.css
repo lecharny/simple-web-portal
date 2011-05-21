@@ -1,0 +1,154 @@
+/*
+* Copyright (c) 2011 Harjeet Singh
+* All rights reserved. 
+* @author harjeet
+* All the CSS elements for navigation menu go here.
+*/
+.steel {
+}
+
+.steel .navigationMenu, .steel .navigationMenu li ul {
+	background-color: #ffffff;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	border: 1px solid transparent;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+
+.steel .navigationMenu.horizontal {
+	border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    background: url("../../images/ui-bg_glass_75_e6e6e6_1x400.png") repeat-x scroll 50% 50% #E6E6E6;
+    border: 1px solid #D3D3D3;
+}
+
+.steel .navigationMenu.horizontal li a {
+	background: url("../../images/ui-bg_glass_75_e6e6e6_1x400.png") repeat-x scroll 50% 50% #E6E6E6;
+}
+
+.steel .navigationMenu li ul:HOVER {
+	border-color: #ed8714;
+}
+.steel .navigationMenu.horizontal li ul:HOVER {
+	border-color: transparent;
+}
+.steel .navigationMenu li {
+	position: relative;
+	border: 1px solid #FFFFFF;
+	width: auto;
+	height: auto;
+	text-align: left;
+}
+/*.steel .navigationMenu.horizontal .navigationMenuItemHover .navigationMenuItemHover,*/
+.steel .navigationMenu.horizontal li.navigationMenuItemHover {
+	xxxborder-color: #ed8714;/*#9D9DA1;*/
+	background-color: #f4f5f3;/*#d3d3d3;*/
+	border-radius: 3px;
+	-moz-border-radius: 4px;
+}
+.steel .navigationMenu.horizontal .navigationMenuItemHover a {
+	background: none repeat scroll left center #f4f5f3; 
+}
+
+.steel .navigationMenu.horizontal li.navigationMenuItemSelected {
+	border-color: transparent #ffd740 transparent #ffd740; 
+}
+
+/*
+.steel .navigationMenu.horizontal li.navigationMenuItemHover.innerMenuOpen {
+	background-color: #FFFFFF;
+	border-color: transparent;
+}
+*/
+.steel .navigationMenu.horizontal .navigationMenuItemHover .navigationMenuItemHover a {
+	background-color: #d3d3d3;
+}
+
+/*, .steel .navigationMenu.horizontal li a*/
+.steel .navigationMenu.horizontal li {
+	float: left;
+	border-color: transparent #D3D3D3 transparent transparent;
+}
+.steel .navigationMenu.horizontal li ul li {
+	float: left;
+}
+
+.steel .navigationMenu.horizontal {
+	height: 21px;
+}
+
+.steel .navigationMenu li a {
+	background: #FFFFFF;
+	color: #000000;
+	display: block;
+	width: auto;
+	padding: 2px 5px 2px 3px;
+	margin-left: 19px;
+	text-decoration: none;
+	background-position: left center;
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	-ms-text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+/*sub menu style*/
+.steel .navigationMenu li ul {
+	position: absolute;
+	left: 0;
+	top: 0;
+	visibility: hidden;
+	z-index: 500;
+	border-color: #d3d3d3;
+}
+.steel .navigationMenu.horizontal li ul {
+	border-color: transparent;
+}
+
+.steel .navigationMenu .subMenuIndicator {
+	border: 1px solid transparent;
+	position: absolute;
+	right: 2px;
+	background-position: -51px 53%;
+	margin: 0;
+	-moz-border-radius: 2px;
+}
+.steel .navigationMenu.horizontal .subMenuIndicator {
+	position: relative;
+	float: right;
+	margin-left: 12px;
+}
+.steel .navigationMenu.horizontal a.hasInnerMenu {
+	white-space: normal;
+}
+.steel .navigationMenu.horizontal a {
+	padding: 1px 18px 2px 1px;
+	margin: 0 0 0 19px;
+}
+.steel .navigationMenu li a:visited, .steel .navigationMenu li a:active {
+}
+/*.steel .navigationMenu .navigationMenuItemHover, .steel .navigationMenuItem.innerMenuOpen */
+.steel .navigationMenu .navigationMenuItemHover a:HOVER{
+	text-decoration: underline;
+}
+.steel .navigationMenuItem.innerMenuOpen .subMenuIndicator {
+	background-position: -26px 53% !important;
+}
+/*This is for menu name or group*/
+.steel .navigationMenuGroup {
+	float: left;
+}
+.steel .navigationMenuGroup span:hover {
+	background-color: red;
+}
+
+.steel .navigationMenu .navigationItemIcon {
+	xxxpadding: 8px;
+	position: absolute;
+	left: 2px;
+	xxxbackground: red;
+}
