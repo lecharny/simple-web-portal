@@ -1,0 +1,21 @@
+type: 
+label
+attr
+width
+hidden
+sortable
+filterable
+editable
+align
+valign
+wrap
+formatter
+
+
+columnset: [
+            {key:"ANSI"},
+            {key:"STATE", label:"State"},
+            {key:"TOTAL_POP", label:"Total Population"},
+            {key:"LAND_AREA", label:"Land Area"},
+            {key:"POP_PER_SQ_MILE", label:"Pop/Square Mile"}
+        ]
