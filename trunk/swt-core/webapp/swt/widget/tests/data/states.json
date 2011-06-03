@@ -2,7 +2,7 @@
   identifier:"abbreviation",
   label: "name",
   items: [
-	{name:"Alabama", label:"<img width='97px' height='127px' src='images/Alabama.jpg'/>Alabama",abbreviation:"AL"},
+	{name:"Alabama", label:"Alabama",abbreviation:"AL"},
 	{name:"Alaska", label:"Alaska",abbreviation:"AK"},
 	{name:"American Samoa", label:"American Samoa",abbreviation:"AS"},
 	{name:"Arizona", label:"Arizona",abbreviation:"AZ"},

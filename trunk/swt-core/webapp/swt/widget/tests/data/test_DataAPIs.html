@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+<title>NavigationMenu Test (steel)</title>
+
+<link rel="stylesheet"
+	href="../../../../../dojo/dojo/resources/dojo.css">
+<link rel="stylesheet"
+	href="../../../../../dojo/dijit/tests/css/dijitTests.css">
+<style type="text/css">
+.testTitle {
+	padding-bottom: 10px;
+}
+
+body {
+	padding-top: 60px;
+}
+</style>
+<!-- required: a default dijit theme: -->
+<link rel="stylesheet" href="../../../themes/steel/SteelBase.css">
+<link rel="stylesheet" href="../../../themes/steel/swt.css">
+
+<script type="text/javascript">
+	djConfig = {
+		isDebug : true,
+		debugAtAllCosts : false,
+		parseOnLoad : true,
+		baseUrl : "../../../../../dojo/dojo/",
+		modulePaths : {
+			'swt' : '../../swt-core/swt'
+		}
+	};
+</script>
+<script type="text/javascript" src="../../../../../dojo/dojo/dojo.js"></script>
+
+<script language="JavaScript" type="text/javascript">
+	dojo.require("dijit.dijit"); // optimize: load dijit layer
+	dojo.require("swt.widget.navigation.NavigationMenu");
+	dojo.require("swt.widget.navigation.NavigationMenuItem");
+	dojo.require("dojo.parser"); // scan page for widgets and instantiate them
+	function myHandler(args) {
+		console.debug("myHandler-->" + args);
+	}
+	
+	dojo.addOnLoad(function(){
+
+		var states = null;
+		dojo.xhrGet({
+	        url: "states.json",
+	        sync: true,
+	        handleAs: "json",
+	        load: function(responseObject, ioArgs){
+	        	if(responseObject){
+	            	states = responseObject;
+	        	}
+	        },
+	        error: function(responseObject, ioArgs){
+	        		console.log("ERROR:: getting states.json -->" + responseObject);
+	        }
+	    });
+		
+		dojo.connect(dojo.byId("loadData"), "onclick", function(evt){
+			dojo.byId("results").value = dojo.toJson(states, true);
+			
+		});
+		
+	});
+	
+</script>
+
+</head>
+<body class="steel">
+
+	<button id="loadData">Load Data</button>
+	<br>
+	<textarea id=results rows="20" cols="100"></textarea>
+</body>
+</html>
