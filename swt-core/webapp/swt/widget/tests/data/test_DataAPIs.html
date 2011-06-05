@@ -35,17 +35,15 @@ body {
 <script type="text/javascript" src="../../../../../dojo/dojo/dojo.js"></script>
 
 <script language="JavaScript" type="text/javascript">
-	dojo.require("dijit.dijit"); // optimize: load dijit layer
-	dojo.require("swt.widget.navigation.NavigationMenu");
-	dojo.require("swt.widget.navigation.NavigationMenuItem");
+	dojo.require("dojo.store.Memory");
 	dojo.require("dojo.parser"); // scan page for widgets and instantiate them
 	function myHandler(args) {
 		console.debug("myHandler-->" + args);
 	}
-	
-	dojo.addOnLoad(function(){
 
+	dojo.addOnLoad(function(){
 		var states = null;
+		var statesStore = null;
 		dojo.xhrGet({
 	        url: "states.json",
 	        sync: true,
@@ -54,17 +52,58 @@ body {
 	        	if(responseObject){
 	            	states = responseObject;
 	        	}
+	    		statesStore = new dojo.store.Memory({data:states.items, idProperty: "abbreviation"});
+
 	        },
 	        error: function(responseObject, ioArgs){
 	        		console.log("ERROR:: getting states.json -->" + responseObject);
 	        }
 	    });
-		
+
 		dojo.connect(dojo.byId("loadData"), "onclick", function(evt){
 			dojo.byId("results").value = dojo.toJson(states, true);
-			
 		});
-		
+
+		//var statesStore = new dojo.store.Memory({data:states.items, idProperty: "abbreviation"});
+		dojo.connect(dojo.byId("runQuery"), "onclick", function(evt){
+			var qs = dojo.byId("query").value;
+			dojo.byId("results").value = "";
+			var rs = "";
+			//statesStore.query({name:"*"}).forEach(function(state){
+			//var _r = statesStore.query({name: /t/});
+			var _r = statesStore.query({name: /[a-z]/});
+			//var _r = statesStore.query({name: ""});
+			_r.forEach(function(state){
+				rs = rs + state.name + " " + state.abbreviation + "\n";
+			});
+			dojo.byId("results").value = rs;
+		});
+	
+		var localStore = null;
+		dojo.connect(dojo.byId("loadDataL"), "onclick", function(evt){
+			localStore = new dojo.store.Memory({
+				data: [
+					{id: 1, name: "one", prime: false},
+					{id: 2, name: "two", even: true, prime: true},
+					{id: 3, name: "three", prime: true},
+					{id: 4, name: "four", even: true, prime: false},
+					{id: 5, name: "five", prime: true}
+				]
+			});
+			dojo.byId("results").value = dojo.toJson(localStore, true);
+		});
+
+		dojo.connect(dojo.byId("runQueryL"), "onclick", function(evt){
+			var qs = dojo.byId("query").value;
+			dojo.byId("results").value = "";
+			var rsL = localStore.query({name: /o/});
+			var _r = "";
+			rsL.forEach(function(item){
+				_r = _r + item.name + " " + item.prime + "\n";
+			});
+			dojo.byId("results").value = _r;
+		});
+
 	});
 	
 </script>
@@ -73,7 +112,12 @@ body {
 <body class="steel">
 
 	<button id="loadData">Load Data</button>
+	<input id="query" type="text" name="query" maxlength="50" size="30"></input>
+	<button id="runQuery">Run Query</button>
+	<button id="loadDataL">Load Data Local</button>
+	<button id="runQueryL">Run Query Local</button>
 	<br>
 	<textarea id=results rows="20" cols="100"></textarea>
+	<div id="queryResults"></div>
 </body>
 </html>
