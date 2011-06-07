@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>BorderContainer Test (steel)</title>
+
+	<link rel="stylesheet" href="../../../../dojo/dojo/resources/dojo.css">
+	<link rel="stylesheet" href="../../../../dojo/dijit/tests/css/dijitTests.css">
+	<style type="text/css">
+		html, body {
+			height: 100%;
+			width: 100%;
+			padding: 0px;
+			margin: 0px;
+			border: 0;
+			background: #fff;
+		}
+		.layoutPriorityBorderContainer { width: 100%; height: 400px; }
+	</style>
+
+	<!-- required: a default dijit theme: -->
+	<link id="themeStyles" rel="stylesheet" href="../../themes/steel/SteelBase.css">
+
+	<!-- required: dojo.js -->
+	<script type="text/javascript" src="../../../../dojo/dojo/dojo.js"
+		djConfig="parseOnLoad: true, isDebug: true"></script>
+
+	<!-- not needed, for testing alternate themes -->
+	<script type="text/javascript" src="../../../../dojo/dijit/tests/_testCommon.js"></script>
+
+	<script language="JavaScript" type="text/javascript">
+		dojo.require("dijit.dijit"); // optimize: load dijit layer
+		dojo.require("dijit.layout.ContentPane");
+		dojo.require("dijit.layout.BorderContainer");
+		dojo.require("dojo.parser"); // scan page for widgets
+
+		dojo.addOnLoad(function(){
+		});
+		function myHandler(id,newValue){
+			console.debug("onChange for id = " + id + ", value: " + newValue);
+		}
+	</script>
+
+</head>
+<body class="steel">
+<div dojoType="dijit.layout.BorderContainer" design="sidebar" gutters="true"
+liveSplitters="true" class="layoutPriorityBorderContainer">
+    <div dojoType="dijit.layout.ContentPane" splitter="true" region="leading"
+    layoutPriority="1" style="width: 100px;">
+        Left #1
+    </div>
+    <div dojoType="dijit.layout.ContentPane" splitter="true" region="leading"
+    layoutPriority="2" style="width: 100px;">
+        Left #2
+    </div>
+    <div dojoType="dijit.layout.ContentPane" splitter="true" region="center">
+        Hi, I'm center
+    </div>
+</div>
+<br>
+<div dojoType="dijit.layout.BorderContainer" design="sidebar" gutters="true" persist=true liveSplitters="false" class="layoutPriorityBorderContainer">
+    <div dojoType="dijit.layout.ContentPane" splitter="true" region="leading"
+    layoutPriority="1" style="width: 100px;">
+        Left #1
+    </div>
+    <div dojoType="dijit.layout.ContentPane" splitter="true" region="leading"
+    layoutPriority="2" style="width: 100px;">
+        Left #2
+    </div>
+    <div dojoType="dijit.layout.ContentPane" splitter="true" region="center">
+        Hi, I'm center. We are using liveSplitters=false.
+    </div>
+</div>
+</body>
+</html>
