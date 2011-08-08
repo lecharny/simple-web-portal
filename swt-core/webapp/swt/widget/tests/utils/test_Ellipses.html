@@ -1,0 +1,221 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>Ellipses Test</title>
+
+	<link rel="stylesheet" href="../../../../../dojo/dojo/resources/dojo.css">
+	<link rel="stylesheet" href="../../../../../dojo/dijit/tests/css/dijitTests.css">
+	<style type="text/css">
+	.widgetContainer {
+		padding-top: 10px;
+		width: 190px;
+	}
+	.widgetContainerH {
+		padding-top: 100px;
+	}
+
+	.testTitle {
+		padding-bottom: 10px;
+	}
+	
+	body {
+		padding-top: 60px;
+	}
+	.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+	}
+	
+	.ellipsis.multiline {
+	    white-space: normal;
+	}
+	
+	.swtMultilineText {
+		white-space: normal;
+	}
+	
+	.content {
+	    cursor: pointer;
+	    height: 50px;
+	    width: 400px;
+	    overflow: hidden;
+	    word-wrap: break-word;
+	}
+	
+	.content-area {
+		width: 400px;
+		background: #e0e5f5;
+		border: 1px solid #aaaaaa;
+		border-radius: 5px;
+		-moz-border-radius: 5px;
+		-webkit-border-radius: 5px;
+		padding: 5px;
+	}
+	
+	.author-area {
+		display: inline;
+	    float: left;
+	}
+	.last-activity{
+		display: inline;
+	    float: left;
+	}
+	.post-info {
+		height: 50px;
+		display: inline;
+	    float: left;
+	}
+	.timestamp {
+		xxxfloat: left;
+	}
+	
+	ul {
+		list-style: none;
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+	}
+	.container {
+		width: 40%;
+		display: inline;
+	}
+	</style>
+
+	<!-- required: a default dijit theme: -->
+	<link rel="stylesheet" href="../../../themes/steel/SteelBase.css">
+	<link rel="stylesheet" href="../../../themes/steel/swt.css">
+
+	 <script type="text/javascript">
+            djConfig = {
+                isDebug : true,
+                debugAtAllCosts : false,
+                parseOnLoad : true,
+                baseUrl : "../../../../../dojo/dojo/",
+                modulePaths : {
+                	'swt' : '../../swt-core/swt'
+                }
+            };
+    </script>
+	<script type="text/javascript" src="../../../../../dojo/dojo/dojo.js"></script>
+
+	<script language="JavaScript" type="text/javascript">
+		dojo.require("swt.widget.util.ellipses");
+
+		function myHandler(args){
+			console.debug("myHandler-->" +args);
+		}
+	</script>
+	<script type="text/javascript">
+		dojo.addOnLoad(function(){
+			dojo.connect(dojo.byId("button1"), "onclick", function(evt){
+				var truncValue  = dojo.byId("truncVal").value;
+				truncValue = truncValue - 0;
+				console.log("Truncating to ::" + truncValue);
+				dojo.query("li", dojo.byId("mainDiv")).forEach(function(node, index, nodeList){
+					var _ts = dojo.query(".timestamp", node)[0]
+					var _str = "<span class='timestamp'>"+ _ts.innerHTML +"</span>";
+					dojo.destroy(_ts);
+					if(truncValue>1){
+						swt.widget.util.ellipses.generateEllipsis(node.firstElementChild, _str, null, truncValue);	
+					} else {
+						swt.widget.util.ellipses.generateEllipsis(node.firstElementChild, _str);	
+					}
+				});
+			});
+			
+		});
+</script>
+
+</head>
+<body class="steel">
+<br>
+	<button id="button1">Ellipses(user textbox to truncate)</button><input id="truncVal" type="text" maxlength="15" value="-1"><span>-1 means no truncation, refresh to restart</span>
+	<br>
+	<div class="content-area" id="mainDiv">
+		<ul>
+		<li>
+			<div class="content swtMultilineText" id="content1">
+				<a ecp_visible="-1" href="/c/my_places/view?groupId=310018&amp;privateLayout=0" hc_userid="310010" class="author">user1 lnuser1</a> is following
+				<a ecp_visible="-1" href="/c/my_places/view?groupId=310018&amp;privateLayout=0" hc_userid="310010" class="author">user2 lnuser2</a> 
+				Quisque scelerisque cursus ligula, eget pellentesque enim faucibus vitae. Nullam vulputate, odio ut vehicula scelerisque, lorem purus elementum diam, nec malesuada enim augue vel mauris. Aenean eget magna nibh, quis mollis mauris. Donec est metus, pretium at suscipit sit amet, congue id enim. Proin non sem non libero auctor iaculis. Donec pretium, nisi non molestie blandit, arcu ligula cursus leo, a viverra orci sem in arcu. Phasellus accumsan mi purus. Proin ornare dignissim venenatis. Praesent est leo, semper posuere suscipit feugiat, scelerisque a diam. Mauris posuere enim ut nibh feugiat rutrum. Quisque vulputate lacus et ipsum semper sit amet consequat lacus tempus. In nec ligula vitae augue tempor tincidunt. Nunc arcu lectus, imperdiet in vulputate ut, molestie eget dolor. Donec nulla purus, posuere volutpat laoreet vitae, mollis sit amet tortor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent eu nibh non diam hendrerit sagittis vel at justo. In at elit magna, vel tincidunt ipsum. Pellentesque eleifend vehicula libero ut placerat. Pellentesque consequat, magna nec faucibus dictum, neque nunc elementum leo, non luctus metus dolor et ipsum.
+				<span timestamp="1311812957000" class="timestamp">Today 5:29 PM</span>
+			</div>
+		</li>
+		<li>
+			<div class="content swtMultilineText" id="content2">
+				<a ecp_visible="-1" href="/c/my_places/view?groupId=310018&amp;privateLayout=0" hc_userid="310010" class="author">user1 lnuser1</a> is following
+				<a ecp_visible="-1" href="/c/my_places/view?groupId=310018&amp;privateLayout=0" hc_userid="310010" class="author">user2 lnuser2</a> 
+				Quisque scelerisque cursus ligula, eget pellentesque enim faucibus vitae. Nullam vulputate, odio ut vehicula scelerisque, lorem purus elementum diam, nec malesuada enim augue vel mauris. Aenean eget magna nibh, quis mollis mauris. Donec est metus, pretium at suscipit sit amet, congue id enim. Proin non sem non libero auctor iaculis. Donec pretium, nisi non molestie blandit, arcu ligula cursus leo, a viverra orci sem in arcu. Phasellus accumsan mi purus. Proin ornare dignissim venenatis. Praesent est leo, semper posuere suscipit feugiat, scelerisque a diam. Mauris posuere enim ut nibh feugiat rutrum. Quisque vulputate lacus et ipsum semper sit amet consequat lacus tempus. In nec ligula vitae augue tempor tincidunt. Nunc arcu lectus, imperdiet in vulputate ut, molestie eget dolor. Donec nulla purus, posuere volutpat laoreet vitae, mollis sit amet tortor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent eu nibh non diam hendrerit sagittis vel at justo. In at elit magna, vel tincidunt ipsum. Pellentesque eleifend vehicula libero ut placerat. Pellentesque consequat, magna nec faucibus dictum, neque nunc elementum leo, non luctus metus dolor et ipsum.
+				<span timestamp="1311812957000" class="timestamp">Today 5:29 PM</span>
+			</div>
+		</li>
+		<li>
+			<div class="content swtMultilineText" id="content3">
+				<a ecp_visible="-1" href="/c/my_places/view?groupId=310018&amp;privateLayout=0" hc_userid="310010" class="author">user1 lnuser1</a> is following
+				<a ecp_visible="-1" href="/c/my_places/view?groupId=310018&amp;privateLayout=0" hc_userid="310010" class="author">user2 lnuser2</a> 
+				Quisque scelerisque cursus ligula, eget pellentesque enim faucibus vitae. Nullam vulputate, odio ut vehicula scelerisque, lorem purus elementum diam, nec malesuada enim augue vel mauris. Aenean eget magna nibh, quis mollis mauris. Donec est metus, pretium at suscipit sit amet, congue id enim. Proin non sem non libero auctor iaculis. Donec pretium, nisi non molestie blandit, arcu ligula cursus leo, a viverra orci sem in arcu. Phasellus accumsan mi purus. Proin ornare dignissim venenatis. Praesent est leo, semper posuere suscipit feugiat, scelerisque a diam. Mauris posuere enim ut nibh feugiat rutrum. Quisque vulputate lacus et ipsum semper sit amet consequat lacus tempus. In nec ligula vitae augue tempor tincidunt. Nunc arcu lectus, imperdiet in vulputate ut, molestie eget dolor. Donec nulla purus, posuere volutpat laoreet vitae, mollis sit amet tortor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent eu nibh non diam hendrerit sagittis vel at justo. In at elit magna, vel tincidunt ipsum. Pellentesque eleifend vehicula libero ut placerat. Pellentesque consequat, magna nec faucibus dictum, neque nunc elementum leo, non luctus metus dolor et ipsum.
+				<span timestamp="1311812957000" class="timestamp">Today 5:29 PM</span>
+			</div>
+		</li>
+		<li>
+			<div class="content swtMultilineText" id="content4">
+				<a ecp_visible="-1" href="/c/my_places/view?groupId=310018&amp;privateLayout=0" hc_userid="310010" class="author">user1 lnuser1</a> is following
+				<a ecp_visible="-1" href="/c/my_places/view?groupId=310018&amp;privateLayout=0" hc_userid="310010" class="author">user2 lnuser2</a> 
+				Quisque scelerisque cursus ligula, eget pellentesque enim faucibus vitae. Nullam vulputate, odio ut vehicula scelerisque, lorem purus elementum diam, nec malesuada enim augue vel mauris. Aenean eget magna nibh, quis mollis mauris. Donec est metus, pretium at suscipit sit amet, congue id enim. Proin non sem non libero auctor iaculis. Donec pretium, nisi non molestie blandit, arcu ligula cursus leo, a viverra orci sem in arcu. Phasellus accumsan mi purus. Proin ornare dignissim venenatis. Praesent est leo, semper posuere suscipit feugiat, scelerisque a diam. Mauris posuere enim ut nibh feugiat rutrum. Quisque vulputate lacus et ipsum semper sit amet consequat lacus tempus. In nec ligula vitae augue tempor tincidunt. Nunc arcu lectus, imperdiet in vulputate ut, molestie eget dolor. Donec nulla purus, posuere volutpat laoreet vitae, mollis sit amet tortor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent eu nibh non diam hendrerit sagittis vel at justo. In at elit magna, vel tincidunt ipsum. Pellentesque eleifend vehicula libero ut placerat. Pellentesque consequat, magna nec faucibus dictum, neque nunc elementum leo, non luctus metus dolor et ipsum.
+				<span timestamp="1311812957000" class="timestamp">Today 5:29 PM</span>
+			</div>
+		</li>
+		<li>
+			<div class="content swtMultilineText" id="content5">
+				<a ecp_visible="-1" href="/c/my_places/view?groupId=310018&amp;privateLayout=0" hc_userid="310010" class="author">user1 lnuser1</a> is following
+				<a ecp_visible="-1" href="/c/my_places/view?groupId=310018&amp;privateLayout=0" hc_userid="310010" class="author">user2 lnuser2</a> 
+				Quisque scelerisque cursus ligula, eget pellentesque enim faucibus vitae. Nullam vulputate, odio ut vehicula scelerisque, lorem purus elementum diam, nec malesuada enim augue vel mauris. Aenean eget magna nibh, quis mollis mauris. Donec est metus, pretium at suscipit sit amet, congue id enim. Proin non sem non libero auctor iaculis. Donec pretium, nisi non molestie blandit, arcu ligula cursus leo, a viverra orci sem in arcu. Phasellus accumsan mi purus. Proin ornare dignissim venenatis. Praesent est leo, semper posuere suscipit feugiat, scelerisque a diam. Mauris posuere enim ut nibh feugiat rutrum. Quisque vulputate lacus et ipsum semper sit amet consequat lacus tempus. In nec ligula vitae augue tempor tincidunt. Nunc arcu lectus, imperdiet in vulputate ut, molestie eget dolor. Donec nulla purus, posuere volutpat laoreet vitae, mollis sit amet tortor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent eu nibh non diam hendrerit sagittis vel at justo. In at elit magna, vel tincidunt ipsum. Pellentesque eleifend vehicula libero ut placerat. Pellentesque consequat, magna nec faucibus dictum, neque nunc elementum leo, non luctus metus dolor et ipsum.
+				<span timestamp="1311812957000" class="timestamp">Today 5:29 PM</span>
+			</div>
+		</li>
+		<li>
+			<div class="content swtMultilineText" id="content6">
+				<a ecp_visible="-1" href="/c/my_places/view?groupId=310018&amp;privateLayout=0" hc_userid="310010" class="author">user1 lnuser1</a> is following
+				<a ecp_visible="-1" href="/c/my_places/view?groupId=310018&amp;privateLayout=0" hc_userid="310010" class="author">user2 lnuser2</a> 
+				Quisque scelerisque cursus ligula, eget pellentesque enim faucibus vitae. Nullam vulputate, odio ut vehicula scelerisque, lorem purus elementum diam, nec malesuada enim augue vel mauris. Aenean eget magna nibh, quis mollis mauris. Donec est metus, pretium at suscipit sit amet, congue id enim. Proin non sem non libero auctor iaculis. Donec pretium, nisi non molestie blandit, arcu ligula cursus leo, a viverra orci sem in arcu. Phasellus accumsan mi purus. Proin ornare dignissim venenatis. Praesent est leo, semper posuere suscipit feugiat, scelerisque a diam. Mauris posuere enim ut nibh feugiat rutrum. Quisque vulputate lacus et ipsum semper sit amet consequat lacus tempus. In nec ligula vitae augue tempor tincidunt. Nunc arcu lectus, imperdiet in vulputate ut, molestie eget dolor. Donec nulla purus, posuere volutpat laoreet vitae, mollis sit amet tortor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent eu nibh non diam hendrerit sagittis vel at justo. In at elit magna, vel tincidunt ipsum. Pellentesque eleifend vehicula libero ut placerat. Pellentesque consequat, magna nec faucibus dictum, neque nunc elementum leo, non luctus metus dolor et ipsum.
+				<span timestamp="1311812957000" class="timestamp">Today 5:29 PM</span>
+			</div>
+		</li>
+		<li>
+			<div class="content swtMultilineText" id="content7">
+				<a ecp_visible="-1" href="/c/my_places/view?groupId=310018&amp;privateLayout=0" hc_userid="310010" class="author">user1 lnuser1</a> is following
+				<a ecp_visible="-1" href="/c/my_places/view?groupId=310018&amp;privateLayout=0" hc_userid="310010" class="author">user2 lnuser2</a> 
+				Quisque scelerisque cursus ligula, eget pellentesque enim faucibus vitae. Nullam vulputate, odio ut vehicula scelerisque, lorem purus elementum diam, nec malesuada enim augue vel mauris. Aenean eget magna nibh, quis mollis mauris. Donec est metus, pretium at suscipit sit amet, congue id enim. Proin non sem non libero auctor iaculis. Donec pretium, nisi non molestie blandit, arcu ligula cursus leo, a viverra orci sem in arcu. Phasellus accumsan mi purus. Proin ornare dignissim venenatis. Praesent est leo, semper posuere suscipit feugiat, scelerisque a diam. Mauris posuere enim ut nibh feugiat rutrum. Quisque vulputate lacus et ipsum semper sit amet consequat lacus tempus. In nec ligula vitae augue tempor tincidunt. Nunc arcu lectus, imperdiet in vulputate ut, molestie eget dolor. Donec nulla purus, posuere volutpat laoreet vitae, mollis sit amet tortor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent eu nibh non diam hendrerit sagittis vel at justo. In at elit magna, vel tincidunt ipsum. Pellentesque eleifend vehicula libero ut placerat. Pellentesque consequat, magna nec faucibus dictum, neque nunc elementum leo, non luctus metus dolor et ipsum.
+				<span timestamp="1311812957000" class="timestamp">Today 5:29 PM</span>
+			</div>
+		</li>
+		<li>
+			<div class="content swtMultilineText" id="content8">
+				<a ecp_visible="-1" href="/c/my_places/view?groupId=310018&amp;privateLayout=0" hc_userid="310010" class="author">user1 lnuser1</a> is following
+				<a ecp_visible="-1" href="/c/my_places/view?groupId=310018&amp;privateLayout=0" hc_userid="310010" class="author">user2 lnuser2</a> 
+				Quisque scelerisque cursus ligula, eget pellentesque enim faucibus vitae. Nullam vulputate, odio ut vehicula scelerisque. Add little bit more here to make sure we have ellipses.
+				<span timestamp="1311812957000" class="timestamp">Today 5:29 PM</span>
+			</div>
+		</li>
+		<li>
+			<div class="content swtMultilineText" id="content9">
+				<a ecp_visible="-1" href="/c/my_places/view?groupId=310018&amp;privateLayout=0" hc_userid="310010" class="author">user1 lnuser1</a> is following
+				<a ecp_visible="-1" href="/c/my_places/view?groupId=310018&amp;privateLayout=0" hc_userid="310010" class="author">user2 lnuser2</a> 
+				Quisque scelerisque cursus ligula, eget pellentesque enim faucibus vitae. Nullam vulputate, odio ut vehicula scelerisque, lorem purus elementum diam, nec malesuada enim augue vel mauris. Aenean eget magna nibh, quis mollis mauris. Donec est metus, pretium at suscipit sit amet, congue id enim. Proin non sem non libero auctor iaculis. Donec pretium, nisi non molestie blandit, arcu ligula cursus leo, a viverra orci sem in arcu. Phasellus accumsan mi purus. Proin ornare dignissim venenatis. Praesent est leo, semper posuere suscipit feugiat, scelerisque a diam. Mauris posuere enim ut nibh feugiat rutrum. Quisque vulputate lacus et ipsum semper sit amet consequat lacus tempus. In nec ligula vitae augue tempor tincidunt. Nunc arcu lectus, imperdiet in vulputate ut, molestie eget dolor. Donec nulla purus, posuere volutpat laoreet vitae, mollis sit amet tortor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent eu nibh non diam hendrerit sagittis vel at justo. In at elit magna, vel tincidunt ipsum. Pellentesque eleifend vehicula libero ut placerat. Pellentesque consequat, magna nec faucibus dictum, neque nunc elementum leo, non luctus metus dolor et ipsum.
+				<span timestamp="1311812957000" class="timestamp">Today 5:29 PM</span>
+			</div>
+		</li>
+		<li>
+			<div class="content swtMultilineText" id="content10">
+				<a ecp_visible="-1" href="/c/my_places/view?groupId=310018&amp;privateLayout=0" hc_userid="310010" class="author">user1 lnuser1</a> is following
+				<a ecp_visible="-1" href="/c/my_places/view?groupId=310018&amp;privateLayout=0" hc_userid="310010" class="author">user2 lnuser2</a> 
+				Quisque scelerisque cursus ligula, eget pellentesque enim faucibus vitae. Nullam vulputate, odio ut vehicula scelerisque. Add little bit more here to make sure we have ellipses.
+				<span timestamp="1311812957000" class="timestamp">Today 5:29 PM</span>
+			</div>
+		</li>
+		</ul>
+	</div>	
+
+</body>
+</html>
