@@ -1,0 +1,58 @@
+.swtTable {
+	
+}
+/*Pagination START*/
+.swtTablePagination > label {
+	padding: 3px;
+}
+.swtTablePagination .totalCount {
+	
+}
+.swtTablePagination .dijitTextBox.numberText {
+	width: 35px;
+}
+/*Pagination END*/
+
+/*Layout START*/
+.swtTableLayout .titleArea {
+	height: 26px;
+}
+.swtTableLayout .titleArea .tableTitle {
+	line-height: 26px;
+	font-weight: bold;
+}
+.swtTableLayout .titleArea .swtTableToolbar {
+	clear: both;
+	float: right;
+}
+.swtTableLayout .ctxTooolbarArea .swtTableContextualToolbar {
+	clear: both;
+}
+.swtTableLayout .containerNode {
+	padding: 5px;
+	border: 1px solid #d4d4d4;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+/*Layout END*/
+
+/*Contextual Toolbar START*/
+.swtTableContextualToolbar {
+}
+/*Contextual Toolbar END*/
+
+/*Toolbar START*/
+.swtTableToolbar {
+	
+}
+.swtTableToolbarSettingsContent {
+    height: 300px;
+    width: 100px;
+	background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #D4D4D4;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+}
+/*Toolbar END*/
