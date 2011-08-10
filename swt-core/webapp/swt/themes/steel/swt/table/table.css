@@ -1,34 +1,37 @@
-.swtTable {
+.steel .swtTable {
 	
 }
 /*Pagination START*/
-.swtTablePagination > label {
+.steel .swtTablePagination > label {
 	padding: 3px;
 }
-.swtTablePagination .totalCount {
+.steel .swtTablePagination .totalCount {
 	
 }
-.swtTablePagination .dijitTextBox.numberText {
+.steel .swtTablePagination .dijitTextBox.numberText {
 	width: 35px;
 }
 /*Pagination END*/
 
 /*Layout START*/
-.swtTableLayout .titleArea {
+.steel .swtTableLayout .titleArea {
 	height: 26px;
 }
-.swtTableLayout .titleArea .tableTitle {
+.steel .swtTableLayout .titleArea .tableTitle {
 	line-height: 26px;
 	font-weight: bold;
 }
-.swtTableLayout .titleArea .swtTableToolbar {
+.steel .swtTableLayout .titleArea .swtTableToolbar {
 	clear: both;
 	float: right;
 }
-.swtTableLayout .ctxTooolbarArea .swtTableContextualToolbar {
+.steel .swtTableLayout .ctxTooolbarArea, .steel .swtTableLayout .bottom {
+	background: #FAFAFB;
+}
+.steel .swtTableLayout .ctxTooolbarArea .swtTableContextualToolbar {
 	clear: both;
 }
-.swtTableLayout .containerNode {
+.steel .swtTableLayout .containerNode {
 	padding: 5px;
 	border: 1px solid #d4d4d4;
 	border-radius: 3px;
@@ -38,15 +41,15 @@
 /*Layout END*/
 
 /*Contextual Toolbar START*/
-.swtTableContextualToolbar {
+.steel .swtTableContextualToolbar {
 }
 /*Contextual Toolbar END*/
 
 /*Toolbar START*/
-.swtTableToolbar {
+.steel .swtTableToolbar {
 	
 }
-.swtTableToolbarSettingsContent {
+.steel .swtTableToolbarSettingsContent {
     height: 300px;
     width: 100px;
 	background: none repeat scroll 0 0 #FFFFFF;
