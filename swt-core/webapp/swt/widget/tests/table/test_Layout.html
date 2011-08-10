@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>Test Table Layout</title>
+
+	<link rel="stylesheet" href="../../../../../dojo/dojo/resources/dojo.css">
+	<link rel="stylesheet" href="../../../../../dojo/dijit/tests/css/dijitTests.css">
+	<style type="text/css">
+	.widgetContainer {
+		padding-top: 10px;
+		width: 190px;
+	}
+	.widgetContainerH {
+		padding-top: 100px;
+	}
+
+	.testTitle {
+		padding-bottom: 10px;
+	}
+	
+	body {
+		padding-top: 160px;
+	}
+	</style>
+
+	<!-- required: a default dijit theme: -->
+	<link rel="stylesheet" href="../../../themes/steel/SteelBase.css">
+	<link rel="stylesheet" href="../../../themes/steel/swt.css">
+
+	 <script type="text/javascript">
+            djConfig = {
+                isDebug : true,
+                debugAtAllCosts : false,
+                parseOnLoad : true,
+                baseUrl : "../../../../../dojo/dojo/",
+                modulePaths : {
+                	'swt' : '../../swt-core/swt'
+                }
+            };
+    </script>
+	<script type="text/javascript" src="../../../../../dojo/dojo/dojo.js"></script>
+
+	<script language="JavaScript" type="text/javascript">
+		dojo.require("dijit.dijit"); // optimize: load dijit layer
+		dojo.require("swt.widget.table._Layout");
+		dojo.require("dojo.parser");	// scan page for widgets and instantiate them
+
+		function myHandler(args){
+			console.debug("myHandler-->" +args);
+		}
+	</script>
+
+</head>
+<body class="steel">
+<div style="width:600px;">
+<div dojoType="swt.widget.table._Layout">
+	<span>
+	Some content here! No table yet testing layout.Proin at ipsum id metus gravida tempor quis eleifend mi. Phasellus varius pretium leo, eu mollis risus fermentum eget. Aenean non felis ipsum. Nulla venenatis augue porttitor odio sodales sed sodales libero lacinia. Nulla vel massa ante, eu hendrerit purus. Quisque pharetra varius ultricies. Aenean nec lectus eu odio pharetra mattis. Sed ullamcorper arcu quis metus pellentesque vel posuere eros consectetur. Etiam tortor mauris, gravida eget aliquam vel, hendrerit a orci. Aliquam nisl risus, porttitor non semper sit amet, bibendum a velit. Praesent molestie fringilla mi eget pellentesque. Morbi tempor lorem est, eget feugiat ipsum. Curabitur pharetra sapien lorem, ut dapibus dolor. Fusce pretium elementum felis nec sodales. Phasellus convallis euismod tellus a malesuada. Donec sit amet fringilla leo. Maecenas nibh massa, faucibus eget vehicula at, vestibulum in justo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam elit velit, convallis non volutpat eu, cursus eget ipsum. Pellentesque ipsum est, convallis in congue ut, aliquam sit amet tortor.
+	</span>
+</div>
+</div>
+</body>
+</html>
