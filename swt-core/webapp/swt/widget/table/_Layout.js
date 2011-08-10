@@ -30,6 +30,9 @@ dojo.declare('swt.widget.table._Layout', [ dijit._Widget, dijit._Templated, diji
 	}, 
 	
 	startup: function(){
+		if(this._started){
+			return;
+		}
 		this.inherited(arguments);
 		if(this.needPagination){
 			this.setPagination();
