@@ -2,7 +2,7 @@
 <html>
 <head>
 
-	<title>NavigationMenu Test (steel)</title>
+	<title>Table Test (steel)</title>
 
 	<link rel="stylesheet" href="../../../../../dojo/dojo/resources/dojo.css">
 	<link rel="stylesheet" href="../../../../../dojo/dijit/tests/css/dijitTests.css">
@@ -20,7 +20,7 @@
 	}
 	
 	body {
-		padding-top: 60px;
+		padding-top: 160px;
 	}
 	</style>
 
@@ -42,18 +42,31 @@
 	<script type="text/javascript" src="../../../../../dojo/dojo/dojo.js"></script>
 
 	<script language="JavaScript" type="text/javascript">
-		dojo.require("dijit.dijit"); // optimize: load dijit layer
+		//dojo.require("dijit.dijit"); // optimize: load dijit layer
 		dojo.require("swt.widget.table.Table");
 		dojo.require("dojo.parser");	// scan page for widgets and instantiate them
 
 		function myHandler(args){
 			console.debug("myHandler-->" +args);
 		}
+		
+		var data;
+		// get the data
+		dojo.xhrGet({url:"../data/devices.json", sync:true, handleAs:"json"}).addCallback(function(results){
+			data = results;
+		});
+		var structure;
+		//get structure
+		dojo.xhrGet({url:"../data/deviceStructure.json", sync:true, handleAs:"json"}).addCallback(function(results){
+			structure = results;
+		});
+		var xx="";
+		
 	</script>
 
 </head>
 <body class="steel">
-<div dojoType="swt.widget.table.Table">
+<div dojoType="swt.widget.table.Table" style="width:600px;height:400px;" structure="structure">
 </div>
 </body>
 </html>

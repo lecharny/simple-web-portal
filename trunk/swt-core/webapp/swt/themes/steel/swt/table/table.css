@@ -59,3 +59,16 @@
     -webkit-border-radius: 3px;
 }
 /*Toolbar END*/
+
+/*Table START*/
+.steel .swtTable .table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+.steel .swtTable .table .tableHeader {
+	background: #d3d3d3;
+}
+
+.steel .swtTable .table .tableHeader th {
+	padding: 2px;
+}

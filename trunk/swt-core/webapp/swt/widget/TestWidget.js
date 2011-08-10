@@ -24,6 +24,10 @@ dojo.declare("swt.widget.TestWidget",[dijit._Widget, dijit._Templated],{
         console.log("constructor");
     },
 
+    buildRendering: function(){
+		this.inherited(arguments);
+		console.log("buildRendering");
+    },
     postMixInProperties : function() {
         /*
         This method is a stub provided by _Widget and is called 
