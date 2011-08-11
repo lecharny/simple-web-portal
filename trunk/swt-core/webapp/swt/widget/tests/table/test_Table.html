@@ -43,6 +43,7 @@
 
 	<script language="JavaScript" type="text/javascript">
 		//dojo.require("dijit.dijit"); // optimize: load dijit layer
+		dojo.require("dojo.store.Memory");
 		dojo.require("swt.widget.table.Table");
 		dojo.require("dojo.parser");	// scan page for widgets and instantiate them
 
@@ -55,6 +56,7 @@
 		dojo.xhrGet({url:"../data/devices.json", sync:true, handleAs:"json"}).addCallback(function(results){
 			data = results;
 		});
+		var deviceStore =  new dojo.store.Memory({data:data.items, idProperty: data.identifier});
 		var structure;
 		//get structure
 		dojo.xhrGet({url:"../data/deviceStructure.json", sync:true, handleAs:"json"}).addCallback(function(results){
@@ -66,7 +68,7 @@
 
 </head>
 <body class="steel">
-<div dojoType="swt.widget.table.Table" style="width:600px;height:400px;" structure="structure">
+<div dojoType="swt.widget.table.Table" style="width:100%;height:400px;" structure="structure" store="deviceStore" tableTitle="Devices">
 </div>
 </body>
 </html>
