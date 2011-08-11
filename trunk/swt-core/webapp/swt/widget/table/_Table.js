@@ -122,7 +122,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 					var _r = rb.toString();
 					_r = dojo.string.substitute(_r, row);
 					dojo.place(_r, _self.tbody, "last");
-					console.log("Arow::(" + idx + ")::" + _r);
+					//console.log("Arow::(" + idx + ")::" + _r);
 				} catch(error){
 					console.error("Failed adding row ::" + row.InstanceId);
 				}
