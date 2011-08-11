@@ -93,19 +93,43 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	postCreate: function(){
 		this.inherited(arguments);
 		this._createLayout();
-		//this._createTable();
+		this._setStructure(this.structure);
+		this.render();
 	},
 	
 	startup: function(){
 		this.inherited(arguments);
 		//this.layout.startup();
-		this._setStructure(this.structure);
-
 	},
 	
-	_createTable: function(){
+	render: function(){
+		this.tbody = dojo.create("tbody", {"class":"tableBody"});
+		dojo.place(this.tbody, this.tableNode, "last");
+		//var sb = new dojox.string.Builder();
+		//sb.append("<tbody class='tableBody'>");
+		var _self = this;
 		
-		
+		if(this.store && this.store.data){
+			dojo.forEach(this.store.data, function(row, idx, arr){
+				try{
+					var rb = new dojox.string.Builder();
+					rb.append("<tr>");
+					dojo.forEach(structure.columns, function(column, idx, arr){
+						//var _r = "<td>${" + column.attr + "}</td>";
+						rb.append("<td>${" + column.attr + "}</td>");
+					});
+					rb.append("</tr>");
+					var _r = rb.toString();
+					_r = dojo.string.substitute(_r, row);
+					dojo.place(_r, _self.tbody, "last");
+					console.log("Arow::(" + idx + ")::" + _r);
+				} catch(error){
+					console.error("Failed adding row ::" + row.InstanceId);
+				}
+			});
+			
+		}
+		console.log("table rendered");
 	},
 	
 	_setStructure: function(structure){
