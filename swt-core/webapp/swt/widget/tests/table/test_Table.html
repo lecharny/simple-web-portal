@@ -20,7 +20,10 @@
 	}
 	
 	body {
-		padding-top: 160px;
+		padding-top: 100px;
+	}
+	.timing {
+		color: #e5322a;
 	}
 	</style>
 
@@ -68,14 +71,15 @@
 			var elapsed = new Date().getTime() - startTime;
 			var p = document.createElement("p");
 			p.appendChild(document.createTextNode("Widgets loaded in " + elapsed + "ms"));
-			document.body.appendChild(p);
+			dojo.byId("timing").appendChild(p);
 			console.log("Widgets loaded in " + elapsed + "ms");
 		});
 	</script>
 
 </head>
 <body class="steel">
-<div dojoType="swt.widget.table.Table" style="width:100%;height:400px;" structure="structure" store="deviceStore" tableTitle="Devices">
+<div class="timing" id="timing"></div>
+<div dojoType="swt.widget.table.Table" style="width:1000px;height:600px;" structure="structure" store="deviceStore" tableTitle="Devices">
 </div>
 </body>
 </html>

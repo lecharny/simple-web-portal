@@ -62,16 +62,26 @@
 /*Toolbar END*/
 
 /*Table START*/
-.steel .swtTable .table {
+.steel .swtTable .tableNode {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-.steel .swtTable .table .tableHeader {
+.steel .swtTable .tableNode .tableHeader {
 	background: #FAFAFB
 }
 
-.steel .swtTable .table .tableHeader th {
+.steel .swtTable .tableNode .tableHeader th {
 	padding: 2px;
 	border: 1px solid #D4D4D4;
 }
+.steel .swtTable .tableNode .oddRow {
+	background: #f7f3f7;
+}
+.steel .swtTable .tableNode .evenRow{
+	
+}
+.steel .swtTable .tableNode .oddRow:HOVER, .steel .swtTable .tableNode .evenRow:HOVER {
+	background: #eff3ff;	
+}
+
 
