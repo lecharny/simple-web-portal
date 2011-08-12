@@ -19,3 +19,30 @@ columnset: [
             {key:"LAND_AREA", label:"Land Area"},
             {key:"POP_PER_SQ_MILE", label:"Pop/Square Mile"}
         ]
+
+{
+  addFiller:false,
+  convertToPercent:false,
+  headerAlign: "left",
+  pagination:"bottom",
+  columns:[
+    {
+      attr:"DeviceName",
+      label:"Device",
+      width:180,
+      vAlignment:"middle",
+      editable:true,
+      sortable:true,
+      ellipses: true
+    },
+    {
+      attr:"IP",
+      label:"IP Address",
+      width:120,
+      vAlignment:"middle",
+      alignment:"left",
+      editable:true,
+      sortable:true
+    }
+  ]
+}
