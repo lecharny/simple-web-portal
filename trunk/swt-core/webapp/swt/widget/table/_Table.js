@@ -20,62 +20,36 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	baseClass:"swtTable",
 	templateString: dojo.cache("swt", "widget/table/templates/_Table.html"),
 	widgetsInTemplate: true,
-	rowsPerPage: 50,
-	pages: 0,
-	lazyLoad: true,
-	autoWidth: false,
-	height: 400,
-	// column set for the table as specified in JSON.
-	structure: null,
-	// single, multiple.
-	selectionMode: "single",
-	_sizeCache: null,
-
 	// loadingMessage: String
 	//  Message that shows while the grid is loading
 	loadingMessage: "<span class='swtTableLoading'>${loadingState}</span>",
-
 	// errorMessage: String
 	//  Message that shows when the grid encounters an error loading
 	errorMessage: "<span class='swtTableLoading'>${errorState}</span>",
-
-	// noDataMessage: String
-	//  Message that shows if the grid has no data - wrap it in a
-	noDataMessage: "",
-	
-	editable: false,
-	
-	// store for the table, can be a dojo based store or a plain JSON data structure.
-	store: null,
-	
 	// a layout that acts as outer container for the table.
 	//layoutClass: "swt.widget.table._Layout",
-		
 	// pointer to layout widget instance.
 	//layout: null,
-	
-	_paginationTop: null,
-	
-	_paginationBottom: null,
-
-	needPagination: true,
-	// if set to false no toolbar is shown.
-	needToolbar: true,
-	
+	// swt.widget.table.Toolbar
+	// global toolbar for the table.
 	toolbar: null,
-	
-	// if set to false no contextual toolbar is shown.
-	needContextualToolbar: true,
-	
+	// swt.widget.table.ContextualToolbar
+	// contextual toobar.
 	contextualToolbar: null,
-	// table  title.
+
+	//////////////////
+	// PRIVATE START//
+	//////////////////
+	_paginationTop: null,
+	_paginationBottom: null,
+	_sizeCache: null,
 	
-	tableTitle:"Table Title",
-	// iconClass to be shown for the table.
+	// integer 
+	// number of pages (totalCount/rowsPerPage), totalCount comes from data.
+	_pages: 0,
 	
-	iconClass: "",
+	// Object.
 	// holds the css classes used in the table.
-	
 	_css: {
 		"layout":"swtTableLayout",
 		"title": "tableTitle",
@@ -88,6 +62,67 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		"odd":"oddRow",
 		"even":"evenRow"
 	},
+	//////////////////
+	// PRIVATE START//
+	//////////////////
+
+	
+	////////////////////////
+	// user supplied START//
+	////////////////////////
+	// boolean 
+	// for pagination control, if you do not want to show set to false(for smaller dataset).
+	needPagination: true,
+	// integer
+	// pages to cache. Do not set it high if rows per page are large.
+	_pageCacheCount: 3,
+	// boolean 
+	// if set to false no toolbar is shown.
+	needToolbar: true,
+	// boolean
+	// if set to false no contextual toolbar is shown.
+	needContextualToolbar: true,
+	// String 
+	//table  title.
+	tableTitle:"Table Title",
+	// String
+	// iconClass to be shown for the table.
+	iconClass: "",
+	// integer 
+	// rows per page.
+	rowsPerPage: 50,
+	// boolean 
+	// lazy load/render pages.
+	lazyLoad: true,
+	// boolean 
+	// if set to true column width will be computed automatically.
+	autoWidth: false,
+	// integer
+	// height of the table
+	height: 400,
+	// object (check documentation for details)
+	// column set for the table as specified in JSON.
+	structure: null,
+	// String
+	// single or multiple.
+	selectionMode: "single",
+	// String
+	// Message that shows if the grid has no data - wrap it in a
+	noDataMessage: "",
+	// boolean
+	// if set to true the row is editable.
+	editable: false,
+	// Object
+	// store for the table, can be a dojo based store or a plain JSON data structure. Check documentation for details.
+	store: null,
+	// String
+	// renderer type (basic, advanced), basic is fast and advanced is slow.
+	rendererType: "basic",
+	
+	////////////////////////
+	// user supplied END////
+	////////////////////////
+	
 	
 	constructor: function(arguments){
 	},
