@@ -1,4 +1,4 @@
-<div class="${baseClass}">
+<div>
 	<div class="${_css.layout}">
 	<div dojoAttachPoint="titleArea" class="titleArea">
 		<div class="${_css.title} dijitInline ${iconClass}" dojoAttachPoint="tableTitle">${tableTitle}</div>
@@ -6,12 +6,16 @@
 	</div>
 	<div dojoAttachPoint="ctxToolbarArea" class="${_css.ctxtba}">
 		<div dojoAttachPoint="contextualToolbar"></div>
+		<div dojoAttachPoint="paginationTop"></div>
 	</div>
 	<div class="${_css.container}" dojoAttachPoint="containerNode">
 		<table class="${_css.table}" dojoAttachPoint="tableNode">
 			<!-- <thead><tr dojoAttachPoint></tr></thead> -->
 		</table>
 	</div>
-	<div dojoAttachPoint="paginationArea" class="${_css.bottom}"><div dojoAttachPoint="pagination"></div></div>
+	<div dojoAttachPoint="paginationArea" class="${_css.bottom}">
+		<div dojoAttachPoint="paginationBottom"></div>
+		<div class="messageArea" dojoAttachPoint="messageArea">Messages go here!</div>
+	</div>
 	</div>
 </div>
