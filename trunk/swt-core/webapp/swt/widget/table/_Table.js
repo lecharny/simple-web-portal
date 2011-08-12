@@ -54,7 +54,9 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	// pointer to layout widget instance.
 	//layout: null,
 	
-	_paginationWidget: null,
+	_paginationTop: null,
+	
+	_paginationBottom: null,
 
 	needPagination: true,
 	// if set to false no toolbar is shown.
@@ -121,7 +123,8 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	},
 	
 	render: function(){
-		this.tbody = dojo.create("tbody", {"class": this._css.thead});
+		this.setMessage("Rendering table...");
+		this.tbody = dojo.create("tbody", {"class": this._css.tbody});
 		dojo.place(this.tbody, this.tableNode, "last");
 		//var sb = new dojox.string.Builder();
 		//sb.append("<tbody class='tableBody'>");
@@ -149,10 +152,12 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 			
 		}
 		console.log("render(ts)-->"+ (new Date().getTime() - this.startTime));
+		this.setMessage("Rendered table in " + (new Date().getTime() - this.startTime) + "ms", 4000);
 	},
 	
 	_setStructure: function(structure){
 		// summary: create the column set for the table.
+		this.setMessage("Creating structure...");
 		var _self = this;
 		var s = structure;
 		var sb = new dojox.string.Builder();
@@ -181,6 +186,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	},
 	
 	_createLayout: function(){
+		this.setMessage("Creating layout...");
 		if(this.needPagination){
 			this.setPagination();
 		}
@@ -192,12 +198,25 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		}
 		console.log("_createLayout(ts)-->"+ (new Date().getTime() - this.startTime));
 	},
-	setPagination: function(/*widget*/pagination){
+	setPagination: function(/*widget*/pagination, /*String*/location){
 		// summary: adds pagination
 		// pagination: a widget of type swt.widget.table._Pagination
+		// location: String (top, bottom or both)
 		if(!pagination){
-			this._paginationWidget = new swt.widget.table._Pagination({}, this.pagination);
-			this._paginationWidget.startup();
+			if(!this.structure.pagination || this.structure.pagination=="bottom"){
+				this._paginationBottom = new swt.widget.table._Pagination({"class":"paginationBottom dijitInline"}, this.paginationBottom);
+				this._paginationBottom.startup();
+			} 
+			if(this.structure.pagination=="top"){
+				this._paginationTop = new swt.widget.table._Pagination({"class":"paginationTop dijitInline"}, this.paginationTop);
+				this._paginationTop.startup();
+			}
+			if(this.structure.pagination=="both"){
+				this._paginationBottom = new swt.widget.table._Pagination({"class":"paginationBottom dijitInline"}, this.paginationBottom);
+				this._paginationBottom.startup();
+				this._paginationTop = new swt.widget.table._Pagination({"class":"paginationTop dijitInline"}, this.paginationTop);
+				this._paginationTop.startup();
+			}
 		} else {
 			this.pagination.appendChild(pagination.domNode);
 		}
@@ -216,7 +235,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		// summary : adds toolbar.
 		// toolbar : should be an instance of swt.widget.table.Toolbar or dijit.Toolbar.
 		if(!toolbar){
-			this.contextualToolbar = new swt.widget.table.ContextualToolbar({}, this.contextualToolbar);
+			this.contextualToolbar = new swt.widget.table.ContextualToolbar({"class":"dijitInline"}, this.contextualToolbar);
 			this.contextualToolbar.startup();
 		} else {
 			this.contextualToolbar.appendChild(toolbar);
@@ -232,10 +251,29 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		try{
 			correction.h = Math.round(this._sizeCache.titleArea.h + this._sizeCache.ctxToolbarArea.h + this._sizeCache.paginationArea.h);			
 		} catch (e) {
-			correction.h = 26*3;
+			correction.h = 27*3;
 		}
 		this._sizeCache.correction = correction;
 		console.log("_computeSize(ts)-->"+ (new Date().getTime() - this.startTime));
+	},
+	
+	setMessage: function(/*String*/ message, /*int*/cleanAfter){
+		// summary: set a message in the message area.
+		// message: String a message
+		// cleanAfter: int Time in ms after which remove the message.
+		if(dojo.isString(message)){
+			this.messageArea.innerHTML = message;			
+		} else {
+			this.messageArea.innerHTML = message.toString();
+		}
+		if(cleanAfter || !isNaN(cleanAfter)){
+			setTimeout(dojo.hitch(this, "cleanMessage"), cleanAfter);
+		}
+	},
+	
+	cleanMessage: function(/*int*/cleanAfter){
+		// summary: cleans the message.
+		this.messageArea.innerHTML="";
 	},
 	resize: function(changeSize, resultSize){
 		if(resultSize){
@@ -245,8 +283,8 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		var _mb = {};
 		_mb.w = size.w;
 		_mb.h = size.h - this._sizeCache.correction.h;
-		//dojo.marginBox(this.containerNode, _mb);
-		this.containerNode.style.height = _mb.h+"px"; 
+		dojo.marginBox(this.containerNode, _mb);
+		//this.containerNode.style.height = _mb.h+"px"; 
 		console.log("resize(ts)-->"+ (new Date().getTime() - this.startTime));
 	}
 	

@@ -2,7 +2,7 @@
   addFiller:false,
   convertToPercent:false,
   headerAlign: "left",
-  pagination:"bottom",
+  pagination:"both",
   columns:[
     {
       attr:"DeviceName",
@@ -34,13 +34,6 @@
       }
     },
     {
-      attr:"SysDescription",
-      label:"Description",
-      width:200,
-      vAlignment:"middle",
-      editable:true
-    },
-    {
       attr:"Synced",
       label:"Synced?",
       width:60,
@@ -54,14 +47,6 @@
       width:140,
       vAlignment:"middle",
       alignment:"right",
-      hidden:true
-    },
-    {
-      attr:"LogicalRoot",
-      label:"Logical Root",
-      width:140,
-      vAlignment:"middle",
-      editable:true,
       hidden:true
     },
     {

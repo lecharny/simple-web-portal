@@ -1,5 +1,16 @@
 .steel .swtTable {
-	
+	border: 1px solid transparent;	
+}
+.steel .swtTableHover {
+	xxxborder-color: #ED8714;
+}
+
+.steel .swtTable .messageArea {
+	color: #E5322A;
+    line-height: 26px;
+    padding: 0 5px;
+    width: 50%;
+    font-style: italic;
 }
 /*Pagination START*/
 .steel .swtTablePagination > label {
@@ -11,6 +22,15 @@
 .steel .swtTablePagination .dijitTextBox.numberText {
 	width: 35px;
 }
+.steel .swtTablePagination.paginationTop {
+	float: right;
+	clear: both;
+}
+.steel .swtTablePagination.paginationBottom {
+	float: right;
+	clear: both;
+}
+
 /*Pagination END*/
 
 /*Layout START*/
@@ -25,7 +45,7 @@
 	clear: both;
 	float: right;
 }
-.steel .swtTableLayout .ctxTooolbarArea, .steel .swtTableLayout .bottom {
+.steel .swtTableLayout .ctxTooolbarArea, .steel .swtTableLayout .bottomArea {
 	background: #FAFAFB;
 }
 .steel .swtTableLayout .ctxTooolbarArea .swtTableContextualToolbar {
@@ -71,8 +91,12 @@
 }
 
 .steel .swtTable .tableNode .tableHeader th {
-	padding: 2px;
+	padding: 3px 4px;
 	border: 1px solid #D4D4D4;
+}
+.steel .swtTable .tableNode .tableBody td {
+	padding: 3px 4px;
+	border: 1px solid transparent;
 }
 .steel .swtTable .tableNode .oddRow {
 	background: #f7f3f7;
@@ -81,7 +105,10 @@
 	
 }
 .steel .swtTable .tableNode .oddRow:HOVER, .steel .swtTable .tableNode .evenRow:HOVER {
-	background: #eff3ff;	
+	background: #f3d065;/*#eff3ff;*/	
 }
-
+.steel .swtTable .tableNode .oddRow:HOVER td, .steel .swtTable .tableNode .evenRow:HOVER td{
+	xxxborder-top-color: #d4d4d4;
+	xxxborder-bottom-color: #d4d4d4;
+}
 
