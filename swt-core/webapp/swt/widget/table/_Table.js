@@ -62,6 +62,10 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		"odd":"oddRow",
 		"even":"evenRow"
 	},
+	// String
+	// caches the columns widths calculated for future use.
+	_columnWidthCache: null,
+	
 	//////////////////
 	// PRIVATE START//
 	//////////////////
@@ -118,6 +122,12 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	// String
 	// renderer type (basic, advanced), basic is fast and advanced is slow.
 	rendererType: "basic",
+	// String
+	// shows the row numbers if set to true.
+	showRowNumber: true,
+	// int
+	// If column width is not supplied, this is used as default for autoWidth=false.
+	defaultColumnWidth: 100,
 	
 	////////////////////////
 	// user supplied END////
@@ -194,7 +204,6 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		// summary: create the column set for the table.
 		this.setMessage("Creating structure...");
 		var _self = this;
-		var s = structure;
 		var sb = new dojox.string.Builder();
 		var st = "";//"<th>${column.label}</th>";
 		//console.log("strucure::" + dojo.toJson(this.structure)); dojo.string.substitute(this.loadingMessage, messages);
@@ -289,7 +298,22 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 			correction.h = 27*3;
 		}
 		this._sizeCache.correction = correction;
+		
+		// populate the _columnWidthCache now.
+		
+		
 		console.log("_computeSize(ts)-->"+ (new Date().getTime() - this.startTime));
+	},
+	_computeColumnWidths: function(){
+		// summary: computed the column widths from the table structure provided.
+		dojo.forEach(this.structure.columns, function(column, idx, arr){
+			//console.log(column.label);
+			st = "<col width='${width}'></col>";
+			st = dojo.string.substitute(st, column);
+			sb.append(st);
+		});
+		this._columnWidthCache = sb.toString();
+		return this._columnWidthCache;
 	},
 	
 	setMessage: function(/*String*/ message, /*int*/cleanAfter){
