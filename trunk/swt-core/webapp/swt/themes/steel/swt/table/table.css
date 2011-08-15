@@ -1,5 +1,5 @@
 .steel .swtTable {
-	border: 1px solid transparent;	
+	xxxborder: 1px solid transparent;
 }
 .steel .swtTableHover {
 	xxxborder-color: #ED8714;
@@ -25,6 +25,9 @@
 .steel .swtTablePagination.paginationTop {
 	float: right;
 	clear: both;
+}
+.dj_ie .steel .swtTablePagination.paginationTop {
+	clear: none;
 }
 .steel .swtTablePagination.paginationBottom {
 	float: right;
@@ -52,12 +55,20 @@
 	clear: both;
 }
 .steel .swtTableLayout .containerNode {
-	padding: 2px;
+	xxxpadding: 2px;
 	border: 1px solid #d4d4d4;
 	border-radius: 3px;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
-	overflow: auto;
+	overflow-x  : auto;
+	overflow-y  : hidden;
+	border-top-color: transparent;
+}
+.steel .swtTableLayout .headerNode, .steel .swtTableLayout .bodyNode {
+	width: auto;
+}
+.steel .swtTableLayout .bodyNode {
+	overflow-y: auto;
 }
 /*Layout END*/
 
@@ -82,17 +93,21 @@
 /*Toolbar END*/
 
 /*Table START*/
-.steel .swtTable .tableNode {
+.steel .swtTable .tableNode, .steel .swtTable .headerNode table {
 	border-collapse: collapse;
 	border-spacing: 0;
+	table-layout: fixed;
 }
 .steel .swtTable .tableNode .tableHeader {
 	background: #FAFAFB
 }
 
-.steel .swtTable .tableNode .tableHeader th {
-	padding: 3px 4px;
+.steel .swtTable .tableHeader td, .steel .swtTable .tableHeader th {
+	padding: 5px 4px;
 	border: 1px solid #D4D4D4;
+}
+.steel .swtTable .tableHeader td:FIRST-CHILD {
+	border-left-color: transparent;
 }
 .steel .swtTable .tableNode .tableBody td {
 	padding: 3px 4px;

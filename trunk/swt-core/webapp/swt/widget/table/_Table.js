@@ -57,6 +57,8 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		"container": "containerNode",
 		"table": "tableNode",
 		"bottom":"bottomArea",
+		"headerNode":"headerNode",
+		"bodyNode":"bodyNode",
 		"thead":"tableHeader",
 		"tbody":"tableBody",
 		"odd":"oddRow",
@@ -169,6 +171,9 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	
 	render: function(){
 		this.setMessage("Rendering table...");
+		this.bodyNode.style.width = this._sizeCache.tableWidth+"px";
+		dojo.attr(this.tableNode, "width", this._sizeCache.tableWidth);
+		dojo.place(this._columnWidthCache, this.tableNode, "first");
 		this.tbody = dojo.create("tbody", {"class": this._css.tbody});
 		dojo.place(this.tbody, this.tableNode, "last");
 		//var sb = new dojox.string.Builder();
@@ -204,21 +209,31 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		// summary: create the column set for the table.
 		this.setMessage("Creating structure...");
 		var _self = this;
+		this.headerNode.style.width = this._sizeCache.tableWidth+"px";
 		var sb = new dojox.string.Builder();
 		var st = "";//"<th>${column.label}</th>";
 		//console.log("strucure::" + dojo.toJson(this.structure)); dojo.string.substitute(this.loadingMessage, messages);
-		sb.append("<thead class='");sb.append(this._css.thead);sb.append("'><tr>");
+		sb.append("<table");
+		if(this._sizeCache.tableWidth > 0){
+			sb.append(" width='" + this._sizeCache.tableWidth + "'>");
+		}
+		sb.append(this._columnWidthCache);
+		sb.append("<tbody class='");
+		sb.append(this._css.thead);
+		sb.append("'><tr>");
 		//sb.append("<thead class='tableHeader'><tr>");
 		dojo.forEach(structure.columns, function(column, idx, arr){
 			//console.log(column.label);
-			st = "<th>${label}</th>";
+			st = "<td>${label}</td>";
 			st = dojo.string.substitute(st, column);
 			sb.append(st);
 		});
-		sb.append("</thead></tr>");
-		//console.log(sb);
-		dojo.html.set(this.tableNode, sb.toString());
+		sb.append("</tbody></tr></table>");
+		console.log(sb.toString());
+		dojo.html.set(this.headerNode, sb.toString());
 		//dojo.place(sb, this.tableNode, "first")
+		// add the header height to correction.
+		this._sizeCache.heightHeader = dojo.position(this.headerNode).h;
 		
 		this._structureChanged();
 		console.log("_setStructure(ts)-->"+ (new Date().getTime() - this.startTime));
@@ -300,17 +315,21 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		this._sizeCache.correction = correction;
 		
 		// populate the _columnWidthCache now.
-		
-		
+		this._computeColumnWidths();
 		console.log("_computeSize(ts)-->"+ (new Date().getTime() - this.startTime));
 	},
 	_computeColumnWidths: function(){
 		// summary: computed the column widths from the table structure provided.
+		var _self = this;
+		this._sizeCache.tableWidth = 0;
+		var sb = new dojox.string.Builder();
+		var st = "";
 		dojo.forEach(this.structure.columns, function(column, idx, arr){
 			//console.log(column.label);
 			st = "<col width='${width}'></col>";
 			st = dojo.string.substitute(st, column);
 			sb.append(st);
+			_self._sizeCache.tableWidth = _self._sizeCache.tableWidth + column.width;
 		});
 		this._columnWidthCache = sb.toString();
 		return this._columnWidthCache;
@@ -343,6 +362,9 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		_mb.w = size.w;
 		_mb.h = size.h - this._sizeCache.correction.h;
 		dojo.marginBox(this.containerNode, _mb);
+		if(this._sizeCache.heightHeader && this._sizeCache.heightHeader>0){
+			this.bodyNode.style.height = (_mb.h - this._sizeCache.heightHeader)+"px";			
+		}
 		//this.containerNode.style.height = _mb.h+"px"; 
 		console.log("resize(ts)-->"+ (new Date().getTime() - this.startTime));
 	}
