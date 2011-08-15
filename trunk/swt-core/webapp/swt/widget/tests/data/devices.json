@@ -21,7 +21,7 @@
          "LogicalRoot":"com.cisco.nm.cmp.imo.ILogicalRoot\n{[ManagedElement(Key=sjcn-sys6506-91NPE)][LogicalRoot]}\n key=InstanceId, value=40860",
          "InvestigationStateEnum":4,
          "SendingAlarms":true,
-         "ElementType":"CiscoCatalyst6506IOSSwitch",
+         "ElementType":"CiscoCatalyst 6506IOSSwitch",
          "CommunicationStateEnum":3,
          "SysName":"sjcn-sys6506-91",
          "Synced":true

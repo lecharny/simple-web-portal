@@ -64,6 +64,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		"odd":"oddRow",
 		"even":"evenRow"
 	},
+	_selectionMultiple: "<input type='checkbox' value=''/>",
 	// String
 	// caches the columns widths calculated for future use.
 	_columnWidthCache: null,
@@ -110,7 +111,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	// column set for the table as specified in JSON.
 	structure: null,
 	// String
-	// single or multiple.
+	// single, multiple or none.
 	selectionMode: "single",
 	// String
 	// Message that shows if the grid has no data - wrap it in a
@@ -126,7 +127,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	rendererType: "basic",
 	// String
 	// shows the row numbers if set to true.
-	showRowNumber: true,
+	showRowNumbers: true,
 	// int
 	// If column width is not supplied, this is used as default for autoWidth=false.
 	defaultColumnWidth: 100,
@@ -157,6 +158,8 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	
 	postCreate: function(){
 		this.inherited(arguments);
+		// normalize the structure.
+		this._normalizeStructure();
 		this._createLayout();
 		this._computeSize();
 		this._setStructure(this.structure);
@@ -188,7 +191,22 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 					//rb.append("<tr>");
 					dojo.forEach(structure.columns, function(column, idxIn, arr){
 						//var _r = "<td>${" + column.attr + "}</td>";
-						rb.append("<td>${" + column.attr + "}</td>");
+						if(column.isRowCounter) {
+							rb.append("<td>"+(idx+1)+"</td>");
+						} else if(column.isSelector) {
+							rb.append("<td>"+ _self._selectionMultiple + "</td>");
+						} else {
+							if(column.ellipses){
+								if(dojo.isChrome){
+									// chrome has some issues with ellipses and fixed table layout.
+									rb.append("<td><div style='width:"+ (column.width - 10) + "px' class='ellipses' title='${"+column.attr+"}'>${" + column.attr + "}</td>");
+								} else {
+									rb.append("<td><div class='ellipses' title='${"+column.attr+"}'>${" + column.attr + "}</td>");									
+								}
+							} else {
+								rb.append("<td>${" + column.attr + "}</td>");							
+							}
+						}
 					});
 					rb.append("</tr>");
 					var _r = rb.toString();
@@ -207,6 +225,8 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	
 	_setStructure: function(structure){
 		// summary: create the column set for the table.
+		// structure: object see the column/structure definition for the table.
+		
 		this.setMessage("Creating structure...");
 		var _self = this;
 		this.headerNode.style.width = this._sizeCache.tableWidth+"px";
@@ -224,8 +244,12 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		//sb.append("<thead class='tableHeader'><tr>");
 		dojo.forEach(structure.columns, function(column, idx, arr){
 			//console.log(column.label);
-			st = "<td>${label}</td>";
-			st = dojo.string.substitute(st, column);
+			if(column.isSelector && _self.selectionMode=="multiple"){
+				st = "<td title='"+ column.label +"'>"+ _self._selectionMultiple + "</td>";
+			} else {
+				st = "<td>${label}</td>";
+				st = dojo.string.substitute(st, column);
+			}
 			sb.append(st);
 		});
 		sb.append("</tbody></tr></table>");
@@ -238,7 +262,30 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		this._structureChanged();
 		console.log("_setStructure(ts)-->"+ (new Date().getTime() - this.startTime));
 	},
-	
+	_normalizeStructure: function(){
+		// summary:  Any operation like showing row numbers or selection model is fixed in this call.
+		if(this.showRowNumbers){
+			var _rcc = {};
+			_rcc.label = "&nbsp;";
+			_rcc.isRowCounter= true;
+			_rcc.width = 25;
+			this.structure.columns.splice(0, 0, _rcc);
+			//splice(2,0,"Lene");
+		}
+		if(this.selectionMode){
+			var _rss = {};
+			_rss.label = "&nbsp;";
+			//if(this.selectionMode=="single"){
+			//	_rss.label = "Select";
+			//}
+			if(this.selectionMode=="multiple"){
+				_rss.label = "Select All";
+			}
+			_rss.isSelector= true;
+			_rss.width = 25;
+			this.structure.columns.splice(1, 0, _rss);
+		}
+	},
 	_structureChanged: function(){
 		// called when columnset is changed.
 		
@@ -332,6 +379,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 			_self._sizeCache.tableWidth = _self._sizeCache.tableWidth + column.width;
 		});
 		this._columnWidthCache = sb.toString();
+		//console.log("_computeColumnWidths::" + this._columnWidthCache);
 		return this._columnWidthCache;
 	},
 	
