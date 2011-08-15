@@ -126,4 +126,17 @@
 	xxxborder-top-color: #d4d4d4;
 	xxxborder-bottom-color: #d4d4d4;
 }
-
+.steel .swtTable .ellipses {
+	white-space: nowrap;
+	overflow: hidden;
+    text-overflow: ellipsis;  
+    -o-text-overflow: ellipsis;  
+    -ms-text-overflow: ellipsis;
+}
+.dj_chrome .steel .swtTable .ellipses {
+	xxxwhite-space: normal;
+}
+.dj_chrome .steel .swtTable .tableNode .tableBody td div.ellipses {
+	padding: 0;
+	margin: 0;
+}

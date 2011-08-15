@@ -3,6 +3,8 @@
   convertToPercent:false,
   headerAlign: "left",
   pagination:"both",
+  showRowNumbers: true,
+  selectionMode: "multiple",
   columns:[
     {
       attr:"DeviceName",
@@ -28,6 +30,7 @@
       vAlignment:"middle",
       editable:true,
       sortable:true,
+      ellipses: true,
       filterOptions:{
         enableAutoSuggest:true,
         autoSuggestDelay:1000
