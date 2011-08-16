@@ -451,19 +451,44 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		console.log("Clicked on::" + evt);
 		this._processClick(evt);
 	},
+	onClick: function(/*domNode TR*/ row, /*domNode TD*/ col, /*Object*/ item){
+		// summary: Event callbak called when user clicks on a row.
+		// tags: callback
+		// row: domNode representing TR tag.
+		// col: domNode representing TD tag.
+		// item: data item as JSON object from the store.
+		
+	},
 	_processClick: function(evt){
 		// summary: Tries to understand the user click and interpret it accordingly.
 		//	if the user has clicked on a meaningful location set up accordingly.
 		var row;
-		if(evt.target.nodeName.toUpperCase()=="TD"){
-			if(dojo.hasAttr(evt.target.parentNode, this._row_id) || dojo.hasAttr(evt.target.parentNode, this._row_num)){
-				row = evt.target.parentNode;
-				console.log("Row found-->" + dojo.attr(row, this._row_id) + " - " + dojo.attr(row, this._row_num) + " (TR) rowindex is::" + row.rowIndex);
+		var node = evt.target;
+		if(node.nodeName.toUpperCase()=="TD"){
+			// if user clicks on a TD tag, means no formatter or ellipses in use.
+			if(dojo.hasAttr(node.parentNode, this._row_id) || dojo.hasAttr(node.parentNode, this._row_num)){
+				row = node.parentNode;
+				//console.log("Row found-->" + dojo.attr(row, this._row_id) + " - " + dojo.attr(row, this._row_num) + " (TR) rowindex is::" + row.rowIndex + " CellIndex is::" + node.cellIndex);
 			}
 		} else {
-			
+			// if use clicks on some nested dom means formatter or ellipses in use.
+			while(node.parentNode){
+				if(dojo.hasClass(node, this._css.tbody)){
+					break;
+				}
+				if(node.nodeName.toUpperCase()=="TD"){
+					if(dojo.hasAttr(node.parentNode, this._row_id) || dojo.hasAttr(node.parentNode, this._row_num)){
+						row = node.parentNode;
+						//console.log("Row found-->" + dojo.attr(row, this._row_id) + " - " + dojo.attr(row, this._row_num) + " (TR) rowindex is::" + row.rowIndex + " CellIndex is::" + node.cellIndex);
+					}
+					break;
+				}
+				node = node.parentNode;
+			}
 		}
-		
+		if(row){
+			this.onClick(row, node, this.store.data[row.rowIndex]);			
+		}
 	},
 	getRow: function(index){
 		

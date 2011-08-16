@@ -74,13 +74,17 @@
 			p.appendChild(document.createTextNode("Widgets loaded in " + elapsed + "ms"));
 			dojo.byId("timing").appendChild(p);
 			console.log("Widgets loaded in " + elapsed + "ms");
+			dojo.connect(dijit.byId("table1"),"onClick", function(row, col, item){
+				console.log("Row-->" + dojo.attr(row, this._row_id) + " - " + dojo.attr(row, this._row_num) + " (TR) rowindex is::" + row.rowIndex + " CellIndex is::" + col.cellIndex);
+				console.log("Item is-->" + dojo.toJson(item));
+			});
 		});
 	</script>
 
 </head>
 <body class="steel">
 <div class="timing" id="timing"></div>
-<div dojoType="swt.widget.table._Table" style="width:1000px;height:600px;" structure="structure" selectionMode="multiple" store="deviceStore" tableTitle="Devices (Selection)">
+<div id="table1" dojoType="swt.widget.table._Table" style="width:1000px;height:600px;" structure="structure" selectionMode="multiple" store="deviceStore" tableTitle="Devices (Selection)">
 </div>
 </body>
 </html>
