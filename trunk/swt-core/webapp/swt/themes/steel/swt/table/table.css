@@ -67,6 +67,10 @@
 .steel .swtTableLayout .headerNode, .steel .swtTableLayout .bodyNode {
 	width: auto;
 }
+.steel .swtTableLayout .headerNode {
+	background: #FAFAFB;	
+}
+
 .steel .swtTableLayout .bodyNode {
 	overflow-y: auto;
 }
