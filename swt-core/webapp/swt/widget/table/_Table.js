@@ -43,6 +43,9 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	_paginationTop: null,
 	_paginationBottom: null,
 	_sizeCache: null,
+	// boolean
+	// if the store has identifier key, _hasIdentifier is set to true.
+	_hasIdentifier: false,
 	
 	// integer 
 	// number of pages (totalCount/rowsPerPage), totalCount comes from data.
@@ -68,6 +71,10 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	// String
 	// caches the columns widths calculated for future use.
 	_columnWidthCache: null,
+	
+	_row_num: "row-num",
+	
+	_row_id: "row-id",
 	
 	//////////////////
 	// PRIVATE START//
@@ -158,12 +165,19 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	
 	postCreate: function(){
 		this.inherited(arguments);
+		// check if table has identifier key.
+		if(this.store.idProperty){
+			this._hasIdentifier = true;
+		}
+		
 		// normalize the structure.
 		this._normalizeStructure();
 		this._createLayout();
 		this._computeSize();
 		this._setStructure(this.structure);
 		this.render();
+		// add event handlers.
+		this.connect(this.domNode, "onclick", dojo.hitch(this, "_onClick"));
 	},
 	
 	startup: function(){
@@ -187,7 +201,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 				try{
 					var rb = new dojox.string.Builder();
 					var _rcls = (idx%2==0) ? _self._css.even : _self._css.odd; 
-					rb.append("<tr class='"+_rcls +"'>");
+					rb.append("<tr class='"+_rcls +"' " + _self._row_num +"='"+ idx +"'>");
 					//rb.append("<tr>");
 					dojo.forEach(structure.columns, function(column, idxIn, arr){
 						//var _r = "<td>${" + column.attr + "}</td>";
@@ -212,6 +226,10 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 					var _r = rb.toString();
 					_r = dojo.string.substitute(_r, row);
 					dojo.place(_r, _self.tbody, "last");
+					if(_self._hasIdentifier){
+						// IE does not have lastElementChild property.
+						dojo.attr(_self.tbody.lastElementChild || _self.tbody.lastChild, _self._row_id , row[_self.store.idProperty]);
+					}
 					//console.log("Arow::(" + idx + ")::" + _r);
 				} catch(error){
 					console.error("Failed adding row ::" + row.InstanceId);
@@ -341,7 +359,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		// summary : adds toolbar.
 		// toolbar : should be an instance of swt.widget.table.Toolbar or dijit.Toolbar.
 		if(!toolbar){
-			this.contextualToolbar = new swt.widget.table.ContextualToolbar({"class":"dijitInline"}, this.contextualToolbar);
+			this.contextualToolbar = new swt.widget.table.ContextualToolbar({"class":"dijitInline", table:this}, this.contextualToolbar);
 			this.contextualToolbar.startup();
 		} else {
 			this.contextualToolbar.appendChild(toolbar);
@@ -415,6 +433,43 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		}
 		//this.containerNode.style.height = _mb.h+"px"; 
 		console.log("resize(ts)-->"+ (new Date().getTime() - this.startTime));
+	},
+	
+	edit: function(){
+		console.log("Table edit invoked, needs to be implemented!");
+	},
+	deleteRow: function(evt){
+		console.log("Table deleteRow invoked, needs to be implemented!");	
+	},
+	addRow: function(evt){
+		console.log("Table addRow invoked, needs to be implemented!");	
+	},
+	clearSelection: function(evt){
+		console.log("Table clearSelection invoked, needs to be implemented!");
+	},
+	_onClick: function(evt){
+		console.log("Clicked on::" + evt);
+		this._processClick(evt);
+	},
+	_processClick: function(evt){
+		// summary: Tries to understand the user click and interpret it accordingly.
+		//	if the user has clicked on a meaningful location set up accordingly.
+		var row;
+		if(evt.target.nodeName.toUpperCase()=="TD"){
+			if(dojo.hasAttr(evt.target.parentNode, this._row_id) || dojo.hasAttr(evt.target.parentNode, this._row_num)){
+				row = evt.target.parentNode;
+				console.log("Row found-->" + dojo.attr(row, this._row_id) + " - " + dojo.attr(row, this._row_num) + " (TR) rowindex is::" + row.rowIndex);
+			}
+		} else {
+			
+		}
+		
+	},
+	getRow: function(index){
+		
+	},
+	getColumn: function(index){
+		
 	}
 	
 });
