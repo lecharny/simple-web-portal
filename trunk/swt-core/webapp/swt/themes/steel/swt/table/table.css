@@ -123,6 +123,9 @@
 .steel .swtTable .tableNode .evenRow{
 	
 }
+.steel .swtTable .tableNode  .selected {
+	background: #d9e9fd;
+}
 .steel .swtTable .tableNode .oddRow:HOVER, .steel .swtTable .tableNode .evenRow:HOVER {
 	background: #f3d065;/*#eff3ff;*/	
 }

@@ -65,9 +65,18 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		"thead":"tableHeader",
 		"tbody":"tableBody",
 		"odd":"oddRow",
-		"even":"evenRow"
+		"even":"evenRow",
+		"selected":"selected",
+		"selectAll":"selectAll"
 	},
-	_selectionMultiple: "<input type='checkbox' value=''/>",
+	// String
+	// html template for select/multi-select
+	_selectionMultiple: "<input type='checkbox' class='selectAll' value=''/>",
+	// an object/objects depending on single/multiple.  
+	_selection: null,
+	// boolean
+	// pointer used in selectAll and deSelectAll functionality.
+	_selectedAll: false,
 	// String
 	// caches the columns widths calculated for future use.
 	_columnWidthCache: null,
@@ -120,6 +129,10 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	// String
 	// single, multiple or none.
 	selectionMode: "single",
+	_single: "single",
+	_multiple: "multiple",
+	_none: "none",
+	
 	// String
 	// Message that shows if the grid has no data - wrap it in a
 	noDataMessage: "",
@@ -156,6 +169,9 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		// may not need this.
 		if(this.srcNodeRef && this.srcNodeRef.style.height){
 			this.height = this.srcNodeRef.style.height;
+		}
+		if(this.selectionMode===this._multiple){
+			this._selection = {};			
 		}
 	},
 
@@ -276,6 +292,12 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		//dojo.place(sb, this.tableNode, "first")
 		// add the header height to correction.
 		this._sizeCache.heightHeader = dojo.position(this.headerNode).h;
+		
+		// add select all connect.
+		var _sa = dojo.query(this.headerNode, this._css.selectAll)[0];
+		if(_sa){
+			this.connect(_sa, "onclick", dojo.hitch(this,"selectAll"));
+		}
 		
 		this._structureChanged();
 		console.log("_setStructure(ts)-->"+ (new Date().getTime() - this.startTime));
@@ -445,11 +467,63 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		console.log("Table addRow invoked, needs to be implemented!");	
 	},
 	clearSelection: function(evt){
-		console.log("Table clearSelection invoked, needs to be implemented!");
+		// summary: clears all the selection is any.
+//		if(this.selectionMode===this._single){
+//			this._selection = null;
+//		} else {
+//			this._selection = {};
+//		}
+		if(this._selection && dojo.isObject(this._selection)){
+			var _sr;
+			for(var prop in this._selection){
+				_sr = this.tbody.rows[prop];
+				dojo.removeClass(_sr, this._css.selected);
+				_sr.cells[1].firstChild.checked = false;
+			};
+		}
+		
+		//console.log("Table clearSelection invoked, needs to be implemented!");
 	},
 	_onClick: function(evt){
+		// summary: if a user clicks anywhere inside the table, the table tries to understand and act appropriately. Following are
+		// 	handled right now:
+		//  1. invoke the onClick call back so that we know row, col and item for the click.
 		console.log("Clicked on::" + evt);
-		this._processClick(evt);
+		this._handleClick(evt);
+	},
+	onSelect: function(/*Array*/selection, /*store*/ store){
+		// summary: Event callback called when a user selects/deselects a row.
+	},
+	selectAll: function(evt){
+		// summary: selects all the rows in table.
+		if(evt.target.checked){
+			var _self = this;
+			this._selection = {};
+			dojo.forEach(this.tbody.rows, function(row, idx, arr){
+				row.cells[1].firstChild.checked = true;
+				dojo.addClass(row, _self._css.selected);
+				_self._selection[row.rowIndex] = _self.store.data[row.rowIndex];
+			});
+			this.onSelect(this._selection, this.store);
+			this._selectedAll = true;
+		}
+		if(!evt.target.checked && this._selectedAll){
+			this.deSelectAll(evt);
+		}
+	},
+	deSelectAll: function(evt){
+		// summary: selects all the rows in table.
+		if(!evt.target.checked){
+			var _self = this;
+			dojo.forEach(this.tbody.rows, function(row, idx, arr){
+				row.cells[1].firstChild.checked = false;
+				dojo.removeClass(row, _self._css.selected);
+			});
+			this._selection = {};
+			this.onSelect(this._selection, this.store);
+			this._selectedAll = false;
+		}
+
 	},
 	onClick: function(/*domNode TR*/ row, /*domNode TD*/ col, /*Object*/ item){
 		// summary: Event callbak called when user clicks on a row.
@@ -457,13 +531,17 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		// row: domNode representing TR tag.
 		// col: domNode representing TD tag.
 		// item: data item as JSON object from the store.
-		
 	},
-	_processClick: function(evt){
+	_handleClick: function(evt){
 		// summary: Tries to understand the user click and interpret it accordingly.
-		//	if the user has clicked on a meaningful location set up accordingly.
-		var row;
+		//	if the user has clicked on a table cell, locates it and fires onClick callback.
+		// evt: the dom event.
+		var row, item, isSelect, selected;
 		var node = evt.target;
+		if(node.nodeName.toUpperCase()=="INPUT"){
+			isSelect = true;
+			selected = node.checked;
+		}
 		if(node.nodeName.toUpperCase()=="TD"){
 			// if user clicks on a TD tag, means no formatter or ellipses in use.
 			if(dojo.hasAttr(node.parentNode, this._row_id) || dojo.hasAttr(node.parentNode, this._row_num)){
@@ -487,7 +565,41 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 			}
 		}
 		if(row){
-			this.onClick(row, node, this.store.data[row.rowIndex]);			
+			item = this.store.data[row.rowIndex];
+		}
+
+		// here we are assuming that the row counters will be adjusted for pages, if reset at page level this will not work.
+		if(isSelect && row){
+			if(selected){
+				if(this.selectionMode===this._single){
+					// if selection mode is single, _selection points to store item directly.
+					this._selection = {};
+					this._selection[row.rowIndex] = item;
+					//this._selection = item;
+				} else if (this.selectionMode===this._multiple){
+					// if selection mode is multiple, _selection is an object with keys pointing to store items.
+					//this._selection.push(row.rowIndex);
+					this._selection[row.rowIndex] = item;
+				} else {
+					// nothing to do.
+				}
+				dojo.addClass(row, this._css.selected);
+			} else {
+				if(this.selectionMode===this._single){
+					delete this._selection;
+				} else if (this.selectionMode===this._multiple){
+					delete this._selection[row.rowIndex];						
+					//this._selection.splice(row.rowIndex, 1);
+				} else {
+					// nothing to do.
+				}
+				dojo.removeClass(row, this._css.selected);
+			}
+			this.onSelect(this._selection, this.store);
+		} else {
+			if(row){
+				this.onClick(row, node, item);
+			}
 		}
 	},
 	getRow: function(index){
