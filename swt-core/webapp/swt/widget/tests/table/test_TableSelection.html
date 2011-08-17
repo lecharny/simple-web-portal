@@ -20,10 +20,22 @@
 	}
 	
 	body {
-		padding-top: 100px;
+		padding-top: 75px;
 	}
 	.timing {
 		color: #e5322a;
+	}
+	.result {
+		border: 1px solid #ef8710;
+		border-radius: 4px;
+		-moz-border-radius: 4px;
+		-webkit-border-radius: 4px;
+		background: #e8f2fe;
+		width: 1000px;
+		height: 150px;
+		overflow-y: auto;
+		margin: 10px 0px;
+		padding: 5px;
 	}
 	</style>
 
@@ -75,16 +87,46 @@
 			dojo.byId("timing").appendChild(p);
 			console.log("Widgets loaded in " + elapsed + "ms");
 			dojo.connect(dijit.byId("table1"),"onClick", function(row, col, item){
-				console.log("Row-->" + dojo.attr(row, this._row_id) + " - " + dojo.attr(row, this._row_num) + " (TR) rowindex is::" + row.rowIndex + " CellIndex is::" + col.cellIndex);
-				console.log("Item is-->" + dojo.toJson(item));
+				var rc = dojo.byId("resultClick");
+				//console.log("Row-->" + dojo.attr(row, this._row_id) + " - " + dojo.attr(row, this._row_num) + " (TR) rowindex is::" + row.rowIndex + " CellIndex is::" + col.cellIndex);
+				//console.log("Item is-->" + dojo.toJson(item));
+				rc.innerHTML = rc.innerHTML + "<br>"+ "Row-->" + dojo.attr(row, this._row_id) + " - " + dojo.attr(row, this._row_num) + " (TR) rowindex is::" + row.rowIndex + " CellIndex is::" + col.cellIndex;
 			});
+			dojo.connect(dijit.byId("table1"),"onSelect", function(selection, store){
+				//console.log("Selection count is-->" + items.length);
+				var rs = dojo.byId("resultSelect");
+				rs.innerHTML = "";
+				var count=0;
+				if(dojo.isObject(selection)){
+					for(var prop in selection){
+						count++;
+						console.log("Selected row(" + count +")-->" + selection[prop]);
+						rs.innerHTML = rs.innerHTML + "<br><br>" + "Selected row(" + count +")-->" + dojo.toJson(selection[prop]);
+					};
+					console.log("Count::" + count);
+				} else {
+					rs.innerHTML = "None selected!";
+				}
+				//dojo.forEach(items, function(item, idx, arr){
+				//	console.log("Item-->" + idx + " Details-->" + dojo.toJson(store.data[item]));
+				//});
+			});
+			dojo.connect(dijit.byId("table1"),"clearSelection", function(selection, store){
+				//console.log("Selection count is-->" + items.length);
+				var rs = dojo.byId("resultSelect");
+				rs.innerHTML = "Cleared all selections!";
+
+			});
+			//
+
 		});
 	</script>
 
 </head>
 <body class="steel">
 <div class="timing" id="timing"></div>
-<div id="table1" dojoType="swt.widget.table._Table" style="width:1000px;height:600px;" structure="structure" selectionMode="multiple" store="deviceStore" tableTitle="Devices (Selection)">
-</div>
+<div id="table1" dojoType="swt.widget.table._Table" style="width:1000px;height:600px;" structure="structure" selectionMode="multiple" store="deviceStore" tableTitle="Devices (Selection)"></div>
+<div class="result" id="resultSelect"></div>
+<div class="result" id="resultClick"></div>
 </body>
 </html>
