@@ -248,7 +248,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 					}
 					//console.log("Arow::(" + idx + ")::" + _r);
 				} catch(error){
-					console.error("Failed adding row ::" + row.InstanceId);
+					console.error("Failed adding row ::" + row[_self.store.idProperty]);
 				}
 			});
 			
@@ -309,6 +309,9 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 			_rcc.label = "&nbsp;";
 			_rcc.isRowCounter= true;
 			_rcc.width = 25;
+			if(this.rowsPerPage>999){
+				_rcc.width = 35;
+			}
 			this.structure.columns.splice(0, 0, _rcc);
 			//splice(2,0,"Lene");
 		}
