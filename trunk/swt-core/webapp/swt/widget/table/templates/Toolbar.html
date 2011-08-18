@@ -1,6 +1,7 @@
 <div>
-<button dojoAttachPoint="settingsAP" iconClass="swt-icon swt-icon-gear" showLabel="true" dojoType="dijit.form.DropDownButton" showLabel="true" title="Edit" type="button">
-	<span>Settings</span>
+<button dojoType="dijit.form.Button" dojoAttachPoint="refreshAP" dojoAttachEvent="onClick:refreshTable" iconClass="swt-icon swt-icon-refresh" showLabel="false" title="${refresh}" type="button">${refresh}</button>
+<button dojoAttachPoint="settingsAP" iconClass="swt-icon swt-icon-gear" showLabel="true" dojoType="dijit.form.DropDownButton" showLabel="true" title="${settings}" type="button">
+	<span>${settings}</span>
 	<div class="swtTableToolbarSettingsContent" dojoAttachPoint="settingsContentAP" dojoType="dijit.layout.ContentPane" style="display: none;">
 		Table Settings go here.
 	</div>

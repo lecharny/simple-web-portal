@@ -20,6 +20,8 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	baseClass:"swtTable",
 	templateString: dojo.cache("swt", "widget/table/templates/_Table.html"),
 	widgetsInTemplate: true,
+	// pointer to nls messages
+	massages: null,
 	// loadingMessage: String
 	//  Message that shows while the grid is loading
 	loadingMessage: "<span class='swtTableLoading'>${loadingState}</span>",
@@ -86,7 +88,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	_row_id: "row-id",
 	
 	//////////////////
-	// PRIVATE START//
+	// PRIVATE END////
 	//////////////////
 
 	
@@ -163,9 +165,9 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	postMixInProperties: function(){
 		this.startTime = new Date();
 		this.inherited(arguments);
-		var messages = dojo.i18n.getLocalization("swt", "swtnls", this.lang);
-		this.loadingMessage = dojo.string.substitute(this.loadingMessage, messages);
-		this.errorMessage = dojo.string.substitute(this.errorMessage, messages);
+		this.messages = dojo.i18n.getLocalization("swt", "swtnls", this.lang);
+		this.loadingMessage = dojo.string.substitute(this.loadingMessage, this.messages);
+		this.errorMessage = dojo.string.substitute(this.errorMessage, this.messages);
 		// may not need this.
 		if(this.srcNodeRef && this.srcNodeRef.style.height){
 			this.height = this.srcNodeRef.style.height;
@@ -353,17 +355,17 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		// location: String (top, bottom or both)
 		if(!pagination){
 			if(!this.structure.pagination || this.structure.pagination=="bottom"){
-				this._paginationBottom = new swt.widget.table._Pagination({"class":"paginationBottom dijitInline"}, this.paginationBottom);
+				this._paginationBottom = new swt.widget.table._Pagination({"class":"paginationBottom dijitInline", table:this}, this.paginationBottom);
 				this._paginationBottom.startup();
 			} 
 			if(this.structure.pagination=="top"){
-				this._paginationTop = new swt.widget.table._Pagination({"class":"paginationTop dijitInline"}, this.paginationTop);
+				this._paginationTop = new swt.widget.table._Pagination({"class":"paginationTop dijitInline", table:this}, this.paginationTop);
 				this._paginationTop.startup();
 			}
 			if(this.structure.pagination=="both"){
-				this._paginationBottom = new swt.widget.table._Pagination({"class":"paginationBottom dijitInline"}, this.paginationBottom);
+				this._paginationBottom = new swt.widget.table._Pagination({"class":"paginationBottom dijitInline", table:this}, this.paginationBottom);
 				this._paginationBottom.startup();
-				this._paginationTop = new swt.widget.table._Pagination({"class":"paginationTop dijitInline"}, this.paginationTop);
+				this._paginationTop = new swt.widget.table._Pagination({"class":"paginationTop dijitInline", table:this}, this.paginationTop);
 				this._paginationTop.startup();
 			}
 		} else {
@@ -374,7 +376,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		// summary : adds contextual toolbar
 		// toolbar : should be an instance of swt.widget.table.ContextualToolbar or dijit.Toolbar.
 		if(!toolbar){
-			this.toolbar = new swt.widget.table.Toolbar({"class":"dijitInline"}, this.toolbar);
+			this.toolbar = new swt.widget.table.Toolbar({"class":"dijitInline", table:this}, this.toolbar);
 			this.toolbar.startup();
 		} else {
 			this.toolbar.appendChild(toolbar);
@@ -459,7 +461,9 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		//this.containerNode.style.height = _mb.h+"px"; 
 		console.log("resize(ts)-->"+ (new Date().getTime() - this.startTime));
 	},
-	
+	////////////////////////////////////
+	// contextual toobar actions START//
+	////////////////////////////////////
 	edit: function(){
 		console.log("Table edit invoked, needs to be implemented!");
 	},
@@ -488,6 +492,33 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		
 		//console.log("Table clearSelection invoked, needs to be implemented!");
 	},
+	////////////////////////////////////
+	// contextual toobar actions END////
+	////////////////////////////////////
+	
+	/////////////////////////
+	// Toobar actions START//
+	/////////////////////////
+	refresh: function(evt){
+		console.log("Refresh table not done yet!");
+	},
+	/////////////////////////
+	// Toobar actions END////
+	/////////////////////////
+
+	/////////////////////////////
+	// Pagination actions START//
+	/////////////////////////////
+	priviousPage: function(evt){
+		console.log("Pagination(privious) in table not done yet!");
+	},
+	nextPage: function(evt){
+		console.log("Pagination(next) in table not done yet!");
+	},
+	/////////////////////////////
+	// Pagination actions END////
+	/////////////////////////////
+
 	_onClick: function(evt){
 		// summary: if a user clicks anywhere inside the table, the table tries to understand and act appropriately. Following are
 		// 	handled right now:
