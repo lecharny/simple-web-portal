@@ -483,6 +483,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 				dojo.removeClass(_sr, this._css.selected);
 				_sr.cells[1].firstChild.checked = false;
 			};
+			this._selection = {};
 		}
 		
 		//console.log("Table clearSelection invoked, needs to be implemented!");
