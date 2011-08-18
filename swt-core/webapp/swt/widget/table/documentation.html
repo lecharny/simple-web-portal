@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>SWT table documentation</title>
+</head>
+<body>
+
+Stores that can be used with the table.
+<ul>
+<li>XML</li>
+<li>JSON</li>
+<li>CSV</li>
+</ul>
+
+<h3>There are two modes of data transfer from server</h3>
+
+<h5>All at once</h5>
+<p>
+If we do not have a large data set (less then 500 rows), we can push all the data to client and client can
+manage the data locally (sorting, filtering etc). Pagination is optional and can be used for all the data.
+If pagination is used the page requested is rendered from the available data.
+</p>
+<h5>Page by page.</h5>
+<p>
+We can fetch data page page basis. A http request is made for data used on each page. It is assumed that the
+data service will have capability to deliver data in an incremental fashion. Sorting and filtering is for the
+data service to carry out.
+</p>
+
+<h3>Using local browser based databases for enhanced features and performance.</h3> 
+
+
+</body>
+</html>

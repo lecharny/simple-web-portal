@@ -10,10 +10,10 @@ dojo.declare('swt.widget.table.ContextualToolbar', [dijit.Toolbar], {
 	/////////////////////
 	// NLS Labels START//
 	/////////////////////
-	labelEdit: "Edit",
-	labelDelete: "Delete",
-	labelAddRow:"Add Row",
-	labelClearSelection:"Clear Selections",
+	edit: "edit",
+	_delete: "delete",
+	addRow:"addRow",
+	clearSelection:"clearSelection",
 	/////////////////////
 	// NLS Labels END////
 	/////////////////////
@@ -26,22 +26,27 @@ dojo.declare('swt.widget.table.ContextualToolbar', [dijit.Toolbar], {
 	
 	postMixInProperties: function(){
 		this.inherited(arguments);
+		var _m = this.table.messages;
+		this.edit = (_m[this.edit])?_m[this.edit]:"Edit";
+		this._delete = (_m[this._delete])?_m[this._delete]:"Delete";
+		this.addRow = (_m[this.addRow])?_m[this.addRow]:"Add Row";
+		this.clearSelection = (_m[this.clearSelection])?_m[this.clearSelection]:"Clear Selection";
 	},
 	
 	postCreate: function(){
 		this.inherited(arguments);
 	},
 	
-	edit: function(evt){
+	_edit: function(evt){
 		this.table.edit();
 	},
-	deleteRow: function(evt){
+	_deleteRow: function(evt){
 		this.table.deleteRow();
 	},
-	addRow: function(evt){
+	_addRow: function(evt){
 		this.table.addRow();
 	},
-	clearSelection: function(evt){
+	_clearSelection: function(evt){
 		this.table.clearSelection();
 	}
 	

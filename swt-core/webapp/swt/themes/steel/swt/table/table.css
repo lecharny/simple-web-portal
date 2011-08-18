@@ -13,10 +13,15 @@
     font-style: italic;
 }
 /*Pagination START*/
-.steel .swtTablePagination > label {
+.steel .swtTablePagination > label, .steel .swtTablePagination .rowCounts .pgnOf {
 	padding: 3px;
 }
-.steel .swtTablePagination .totalCount {
+.steel .swtTablePagination .rowCounts {
+	xxxfont-style: italic;
+	padding: 3px;
+	font-weight: bold;
+}
+.steel .swtTablePagination .rowCounts .pgnOf {
 	
 }
 .steel .swtTablePagination .dijitTextBox.numberText {
