@@ -86,7 +86,9 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	_row_num: "row-num",
 	
 	_row_id: "row-id",
-	
+	// boolean
+	// used to check if the table body has been created.
+	_tableBodyCreated: false,
 	//////////////////
 	// PRIVATE END////
 	//////////////////
@@ -100,6 +102,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	// accepted values are client, server and none.
 	// client: all the dataset is available and client manages the pagination
 	paginationAt: "none",
+	_paginationAtObject: {"client":"client", "server": "server", "none":"none"},
 	// integer
 	// what page to show when table is rendered. Starts with index 0
 	showPage: 1,
@@ -222,7 +225,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 			if(this.structure.paginationAt){
 				this.paginationAt = this.structure.paginationAt;
 			} else {
-				this.paginationAt = "client";
+				this.paginationAt = this._paginationAtObject.client;
 			}
 		}
 		
@@ -325,52 +328,68 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		console.log("_setStructure(ts)-->"+ (new Date().getTime() - this.startTime));
 	},
 	render: function(){
+		// summary: This method renders the table.
+		
 		this.setMessage("Rendering table...");
-		this.bodyNode.style.width = this._sizeCache.tableWidth+"px";
-		dojo.attr(this.tableNode, "width", this._sizeCache.tableWidth);
-		dojo.place(this._columnWidthCache, this.tableNode, "first");
-		this.tbody = dojo.create("tbody", {"class": this._css.tbody});
-		dojo.place(this.tbody, this.tableNode, "last");
+		if(!this._tableBodyCreated){
+			this.bodyNode.style.width = this._sizeCache.tableWidth+"px";
+			dojo.attr(this.tableNode, "width", this._sizeCache.tableWidth);
+			dojo.place(this._columnWidthCache, this.tableNode, "first");
+			this.tbody = dojo.create("tbody", {"class": this._css.tbody});
+			dojo.place(this.tbody, this.tableNode, "last");
+			this._tableBodyCreated = true;
+		} else {
+			this._cleanTable();
+		}
+		
+		var _startRow = ((this.showPage-1)*this.rowsPerPage)+1;
+		var _endRow = this.showPage*this.rowsPerPage;
+		//TODO harjeest if(this.paginationAt==this._paginationAtObject.client){}
+
 		//var sb = new dojox.string.Builder();
 		//sb.append("<tbody class='tableBody'>");
 		var _self = this;
 		if(this.store && this.store.data){
 			dojo.forEach(this.store.data, function(row, idx, arr){
-				try{
-					var rb = new dojox.string.Builder();
-					var _rcls = (idx%2==0) ? _self._css.even : _self._css.odd; 
-					rb.append("<tr class='"+_rcls +"' " + _self._row_num +"='"+ idx +"'>");
-					//rb.append("<tr>");
-					dojo.forEach(structure.columns, function(column, idxIn, arr){
-						//var _r = "<td>${" + column.attr + "}</td>";
-						if(column.isRowCounter) {
-							rb.append("<td>"+(idx+1)+"</td>");
-						} else if(column.isSelector) {
-							rb.append("<td>"+ _self._selectionMultiple + "</td>");
-						} else {
-							if(column.ellipses){
-								if(dojo.isChrome){
-									// chrome has some issues with ellipses and fixed table layout.
-									rb.append("<td><div style='width:"+ (column.width - 10) + "px' class='ellipses' title='${"+column.attr+"}'>${" + column.attr + "}</td>");
-								} else {
-									rb.append("<td><div class='ellipses' title='${"+column.attr+"}'>${" + column.attr + "}</td>");									
-								}
+				if(((idx+1) < _startRow) || ((idx+1) > _endRow)){
+					// do nothing;
+				} else {
+					try{
+						var rb = new dojox.string.Builder();
+						var _rcls = (idx%2==0) ? _self._css.even : _self._css.odd; 
+						rb.append("<tr class='"+_rcls +"' " + _self._row_num +"='"+ idx +"'>");
+						//rb.append("<tr>");
+						dojo.forEach(structure.columns, function(column, idxIn, arr){
+							//var _r = "<td>${" + column.attr + "}</td>";
+							if(column.isRowCounter) {
+								rb.append("<td>"+(idx+1)+"</td>");
+							} else if(column.isSelector) {
+								rb.append("<td>"+ _self._selectionMultiple + "</td>");
 							} else {
-								rb.append("<td>${" + column.attr + "}</td>");							
+								if(column.ellipses){
+									if(dojo.isChrome){
+										// chrome has some issues with ellipses and fixed table layout.
+										rb.append("<td><div style='width:"+ (column.width - 10) + "px' class='ellipses' title='${"+column.attr+"}'>${" + column.attr + "}</td>");
+									} else {
+										rb.append("<td><div class='ellipses' title='${"+column.attr+"}'>${" + column.attr + "}</td>");									
+									}
+								} else {
+									rb.append("<td>${" + column.attr + "}</td>");							
+								}
 							}
+						});
+						rb.append("</tr>");
+						var _r = rb.toString();
+						_r = dojo.string.substitute(_r, row);
+						dojo.place(_r, _self.tbody, "last");
+						if(_self._hasIdentifier){
+							// IE does not have lastElementChild property.
+							dojo.attr(_self.tbody.lastElementChild || _self.tbody.lastChild, _self._row_id , row[_self.store.idProperty]);
 						}
-					});
-					rb.append("</tr>");
-					var _r = rb.toString();
-					_r = dojo.string.substitute(_r, row);
-					dojo.place(_r, _self.tbody, "last");
-					if(_self._hasIdentifier){
-						// IE does not have lastElementChild property.
-						dojo.attr(_self.tbody.lastElementChild || _self.tbody.lastChild, _self._row_id , row[_self.store.idProperty]);
+						//console.log("Arow::(" + idx + ")::" + _r);
+					} catch(error){
+						console.error("Failed adding row ::" + row[_self.store.idProperty]);
 					}
-					//console.log("Arow::(" + idx + ")::" + _r);
-				} catch(error){
-					console.error("Failed adding row ::" + row[_self.store.idProperty]);
 				}
 			});
 			
@@ -689,6 +708,11 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		if(gotoPage && !isNaN(gotoPage)){
 			this.showPage = gotoPage;
 		}
+		
+		// reset the clock for new page.
+		this.startTime = new Date();
+		this.render();
+		
 		this._logPagingInfo();
 	},
 	
@@ -708,6 +732,15 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		// the small batch of data received can be either paginated or shown all at a time.
 		// TODO harjeet.hans
 
+	},
+	_cleanTable: function(){
+		var _count = 0;
+		dojo.query("tr", this.tbody).forEach(function(node, index, arr){
+			dojo.destroy(node);
+			_count++;
+			//console.log("Desctoyed node::" + index);
+		});
+		console.log("Destroy(count)::" + _count);
 	},
 	_logPagingInfo: function(){
 		console.log("Pagination At::" + this.paginationAt);
