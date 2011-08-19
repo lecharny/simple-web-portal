@@ -97,7 +97,12 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	////////////////////////
 	// boolean 
 	// for pagination control, if you do not want to show set to false(for smaller dataset).
-	needPagination: true,
+	// accepted values are client, server and none.
+	// client: all the dataset is available and client manages the pagination
+	paginationAt: "none",
+	// integer
+	// what page to show when table is rendered. Starts with index 0
+	showPage: 1,
 	// integer
 	// pages to cache. Do not set it high if rows per page are large.
 	_pageCacheCount: 3,
@@ -115,7 +120,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	iconClass: "",
 	// integer 
 	// rows per page.
-	rowsPerPage: 50,
+	rowsPerPage: 0,
 	// boolean 
 	// lazy load/render pages.
 	lazyLoad: true,
@@ -154,6 +159,9 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	// If column width is not supplied, this is used as default for autoWidth=false.
 	defaultColumnWidth: 100,
 	
+	// acceptable values are none, top, bottom, both
+	showPaginationAt: "none",
+	
 	////////////////////////
 	// user supplied END////
 	////////////////////////
@@ -175,6 +183,9 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		if(this.selectionMode===this._multiple){
 			this._selection = {};			
 		}
+		// call initialization();
+		this.initialize();
+		
 	},
 
 	buildRendering: function(){
@@ -203,7 +214,123 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		//this.layout.startup();
 		this.resize();
 	},
+	initialize: function(){
+		// summary: do the initialization.
+		
+		if(this.structure.showPaginationAt){
+			this.showPaginationAt = this.structure.showPaginationAt;
+			if(this.structure.paginationAt){
+				this.paginationAt = this.structure.paginationAt;
+			} else {
+				this.paginationAt = "client";
+			}
+		}
+		
+		// if rowsPerPage are not paases on as constructor parameter check if it is specified in structure.
+		// if supplied in structure and set it appropriately.
+		if(this.rowsPerPage<1 && this.structure.rowsPerPage){
+			this.rowsPerPage = this.structure.rowsPerPage;
+		}
+		// CaseOne all the data is available with the client and user has requested pagination.
+		// if rowsPerPage > 0, figure out how many pages we are going to have from the available data.
+		if(this.rowsPerPage>0){
+			if(this.rowsPerPage < this.store.data.length){
+				this._pages = Math.ceil(this.store.data.length/this.rowsPerPage);	
+			} else {
+				this._pages = 1;
+			}
+		}
+		
+		// log pagin info.
+		this._logPagingInfo();
+	},
+	_normalizeStructure: function(){
+		// summary:  Any operation like showing row numbers or selection model is fixed in this call.
+		if(this.showRowNumbers){
+			var _rcc = {};
+			_rcc.label = "&nbsp;";
+			_rcc.isRowCounter= true;
+			_rcc.width = 25;
+			if(this.rowsPerPage>999){
+				_rcc.width = 35;
+			}
+			this.structure.columns.splice(0, 0, _rcc);
+			//splice(2,0,"Lene");
+		}
+		if(this.selectionMode){
+			var _rss = {};
+			_rss.label = "&nbsp;";
+			//if(this.selectionMode=="single"){
+			//	_rss.label = "Select";
+			//}
+			if(this.selectionMode=="multiple"){
+				_rss.label = "Select All";
+			}
+			_rss.isSelector= true;
+			_rss.width = 25;
+			this.structure.columns.splice(1, 0, _rss);
+		}
+	},
 	
+	_createLayout: function(){
+		this.setMessage("Creating layout...");
+		if(this.showPaginationAt){
+			this.setPagination();
+		}
+		if(this.needToolbar){
+			this.setToolbar();
+		}
+		if(this.needContextualToolbar){
+			this.setContextualToolbar();
+		}
+		console.log("_createLayout(ts)-->"+ (new Date().getTime() - this.startTime));
+	},
+	
+	_setStructure: function(structure){
+		// summary: create the column set for the table.
+		// structure: object see the column/structure definition for the table.
+		
+		this.setMessage("Creating structure...");
+		var _self = this;
+		this.headerNode.style.width = this._sizeCache.tableWidth+"px";
+		var sb = new dojox.string.Builder();
+		var st = "";//"<th>${column.label}</th>";
+		//console.log("strucure::" + dojo.toJson(this.structure)); dojo.string.substitute(this.loadingMessage, messages);
+		sb.append("<table");
+		if(this._sizeCache.tableWidth > 0){
+			sb.append(" width='" + this._sizeCache.tableWidth + "'>");
+		}
+		sb.append(this._columnWidthCache);
+		sb.append("<tbody class='");
+		sb.append(this._css.thead);
+		sb.append("'><tr>");
+		//sb.append("<thead class='tableHeader'><tr>");
+		dojo.forEach(structure.columns, function(column, idx, arr){
+			//console.log(column.label);
+			if(column.isSelector && _self.selectionMode=="multiple"){
+				st = "<td title='"+ column.label +"'>"+ _self._selectionMultiple + "</td>";
+			} else {
+				st = "<td>${label}</td>";
+				st = dojo.string.substitute(st, column);
+			}
+			sb.append(st);
+		});
+		sb.append("</tbody></tr></table>");
+		console.log(sb.toString());
+		dojo.html.set(this.headerNode, sb.toString());
+		//dojo.place(sb, this.tableNode, "first")
+		// add the header height to correction.
+		this._sizeCache.heightHeader = dojo.position(this.headerNode).h;
+		
+		// add select all connect.
+		var _sa = dojo.query(this.headerNode, this._css.selectAll)[0];
+		if(_sa){
+			this.connect(_sa, "onclick", dojo.hitch(this,"selectAll"));
+		}
+		
+		this._structureChanged();
+		console.log("_setStructure(ts)-->"+ (new Date().getTime() - this.startTime));
+	},
 	render: function(){
 		this.setMessage("Rendering table...");
 		this.bodyNode.style.width = this._sizeCache.tableWidth+"px";
@@ -258,118 +385,32 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		console.log("render(ts)-->"+ (new Date().getTime() - this.startTime));
 		this.setMessage("Rendered table in " + (new Date().getTime() - this.startTime) + "ms", 4000);
 	},
-	
-	_setStructure: function(structure){
-		// summary: create the column set for the table.
-		// structure: object see the column/structure definition for the table.
-		
-		this.setMessage("Creating structure...");
-		var _self = this;
-		this.headerNode.style.width = this._sizeCache.tableWidth+"px";
-		var sb = new dojox.string.Builder();
-		var st = "";//"<th>${column.label}</th>";
-		//console.log("strucure::" + dojo.toJson(this.structure)); dojo.string.substitute(this.loadingMessage, messages);
-		sb.append("<table");
-		if(this._sizeCache.tableWidth > 0){
-			sb.append(" width='" + this._sizeCache.tableWidth + "'>");
-		}
-		sb.append(this._columnWidthCache);
-		sb.append("<tbody class='");
-		sb.append(this._css.thead);
-		sb.append("'><tr>");
-		//sb.append("<thead class='tableHeader'><tr>");
-		dojo.forEach(structure.columns, function(column, idx, arr){
-			//console.log(column.label);
-			if(column.isSelector && _self.selectionMode=="multiple"){
-				st = "<td title='"+ column.label +"'>"+ _self._selectionMultiple + "</td>";
-			} else {
-				st = "<td>${label}</td>";
-				st = dojo.string.substitute(st, column);
-			}
-			sb.append(st);
-		});
-		sb.append("</tbody></tr></table>");
-		console.log(sb.toString());
-		dojo.html.set(this.headerNode, sb.toString());
-		//dojo.place(sb, this.tableNode, "first")
-		// add the header height to correction.
-		this._sizeCache.heightHeader = dojo.position(this.headerNode).h;
-		
-		// add select all connect.
-		var _sa = dojo.query(this.headerNode, this._css.selectAll)[0];
-		if(_sa){
-			this.connect(_sa, "onclick", dojo.hitch(this,"selectAll"));
-		}
-		
-		this._structureChanged();
-		console.log("_setStructure(ts)-->"+ (new Date().getTime() - this.startTime));
-	},
-	_normalizeStructure: function(){
-		// summary:  Any operation like showing row numbers or selection model is fixed in this call.
-		if(this.showRowNumbers){
-			var _rcc = {};
-			_rcc.label = "&nbsp;";
-			_rcc.isRowCounter= true;
-			_rcc.width = 25;
-			if(this.rowsPerPage>999){
-				_rcc.width = 35;
-			}
-			this.structure.columns.splice(0, 0, _rcc);
-			//splice(2,0,"Lene");
-		}
-		if(this.selectionMode){
-			var _rss = {};
-			_rss.label = "&nbsp;";
-			//if(this.selectionMode=="single"){
-			//	_rss.label = "Select";
-			//}
-			if(this.selectionMode=="multiple"){
-				_rss.label = "Select All";
-			}
-			_rss.isSelector= true;
-			_rss.width = 25;
-			this.structure.columns.splice(1, 0, _rss);
-		}
-	},
 	_structureChanged: function(){
 		// called when columnset is changed.
 		
-	},
-	
-	_createLayout: function(){
-		this.setMessage("Creating layout...");
-		if(this.needPagination){
-			this.setPagination();
-		}
-		if(this.needToolbar){
-			this.setToolbar();
-		}
-		if(this.needContextualToolbar){
-			this.setContextualToolbar();
-		}
-		console.log("_createLayout(ts)-->"+ (new Date().getTime() - this.startTime));
 	},
 	setPagination: function(/*widget*/pagination, /*String*/location){
 		// summary: adds pagination
 		// pagination: a widget of type swt.widget.table._Pagination
 		// location: String (top, bottom or both)
-		if(!pagination){
-			if(!this.structure.pagination || this.structure.pagination=="bottom"){
+		if(this.showPaginationAt==="none"){
+			// do nothing.
+		} else 
+		{
+			if(this.showPaginationAt=="bottom"){
 				this._paginationBottom = new swt.widget.table._Pagination({"class":"paginationBottom dijitInline", table:this}, this.paginationBottom);
 				this._paginationBottom.startup();
 			} 
-			if(this.structure.pagination=="top"){
+			if(this.showPaginationAt=="top"){
 				this._paginationTop = new swt.widget.table._Pagination({"class":"paginationTop dijitInline", table:this}, this.paginationTop);
 				this._paginationTop.startup();
 			}
-			if(this.structure.pagination=="both"){
+			if(this.showPaginationAt=="both"){
 				this._paginationBottom = new swt.widget.table._Pagination({"class":"paginationBottom dijitInline", table:this}, this.paginationBottom);
 				this._paginationBottom.startup();
 				this._paginationTop = new swt.widget.table._Pagination({"class":"paginationTop dijitInline", table:this}, this.paginationTop);
 				this._paginationTop.startup();
 			}
-		} else {
-			this.pagination.appendChild(pagination.domNode);
 		}
 	},
 	setToolbar: function(/*widget*/toolbar){
@@ -642,6 +683,15 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	},
 	getColumn: function(index){
 		
+	},
+	
+	_logPagingInfo: function(){
+		console.log("Pagination At::" + this.paginationAt);
+		console.log("Show pagination at ::" + this.showPaginationAt);
+		console.log("Total rows::" + this.store.data.length);
+		console.log("Rows/page::" + this.rowsPerPage);
+		console.log("Total pages::" + this._pages);
+		console.log("Show page number::" + this.showPage);
 	}
 	
 });

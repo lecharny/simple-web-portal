@@ -2,8 +2,9 @@
   addFiller:false,
   convertToPercent:false,
   headerAlign: "left",
-  pagination:"both",
-  rowsPerPage: 1000,
+  showPaginationAt:"both",
+  rowsPerPage: 50,
+  paginationAt: "client",
   columns:[
     {
       attr:"id",

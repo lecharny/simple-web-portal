@@ -78,7 +78,7 @@
 		dojo.xhrGet({url:"../data/largeDataset.json", sync:true, handleAs:"json"}).addCallback(function(results){
 			data = results;
 		});
-		var defectStore =  new dojo.store.Memory({data:data.items, idProperty: data.id});
+		var defectStore =  new dojo.store.Memory({data:data.items, idProperty: data.identifier});
 		var xx="";
 		startTime = new Date();
 		dojo.addOnLoad(function(){
@@ -129,7 +129,7 @@
 </head>
 <body class="steel">
 <div class="timing" id="timing"></div>
-<div id="table1" dojoType="swt.widget.table._Table" style="width:900px;height:600px;" rowsPerPage="999" structure="structure" selectionMode="multiple" store="defectStore" tableTitle="Defects (Selection)"></div>
+<div id="table1" dojoType="swt.widget.table._Table" style="width:900px;height:600px;" rowsPerPage="50" structure="structure" selectionMode="multiple" store="defectStore" tableTitle="Defects (Selection)"></div>
 <div class="result" id="resultSelect"></div>
 <div class="result" id="resultClick"></div>
 </body>
