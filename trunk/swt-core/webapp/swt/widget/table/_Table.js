@@ -226,20 +226,13 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 			}
 		}
 		
-		// if rowsPerPage are not paases on as constructor parameter check if it is specified in structure.
+		// if rowsPerPage are not pases on as constructor parameter check if it is specified in structure.
 		// if supplied in structure and set it appropriately.
 		if(this.rowsPerPage<1 && this.structure.rowsPerPage){
 			this.rowsPerPage = this.structure.rowsPerPage;
 		}
-		// CaseOne all the data is available with the client and user has requested pagination.
-		// if rowsPerPage > 0, figure out how many pages we are going to have from the available data.
-		if(this.rowsPerPage>0){
-			if(this.rowsPerPage < this.store.data.length){
-				this._pages = Math.ceil(this.store.data.length/this.rowsPerPage);	
-			} else {
-				this._pages = 1;
-			}
-		}
+		
+		this._calculatePages();
 		
 		// log pagin info.
 		this._logPagingInfo();
@@ -684,7 +677,38 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	getColumn: function(index){
 		
 	},
+
+	resetTableView: function(/*Number*/rowsPerPage, /*Number*/ gotoPage){
+		// summary: resets the table view.
+		// rowsPerPage: Number of rows per page to show.
+		// gotoPage: Goto page number.
+		if(rowsPerPage && !isNaN(rowsPerPage)){
+			this.rowsPerPage = rowsPerPage;
+			this._calculatePages();
+		}
+		if(gotoPage && !isNaN(gotoPage)){
+			this.showPage = gotoPage;
+		}
+		this._logPagingInfo();
+	},
 	
+	_calculatePages: function(){
+		// summary: calculates the number of pages from total and rows per page.
+		// CaseOne all the data is available with the client and user has requested pagination.
+		// if rowsPerPage > 0, figure out how many pages we are going to have from the available data.
+		if(this.rowsPerPage>0){
+			if(this.rowsPerPage < this.store.data.length){
+				this._pages = Math.ceil(this.store.data.length/this.rowsPerPage);	
+			} else {
+				this._pages = 1;
+			}
+		}
+		
+		// CaseTwo data is served from a server on demand. server does provide total records etc.
+		// the small batch of data received can be either paginated or shown all at a time.
+		// TODO harjeet.hans
+
+	},
 	_logPagingInfo: function(){
 		console.log("Pagination At::" + this.paginationAt);
 		console.log("Show pagination at ::" + this.showPaginationAt);
