@@ -1,9 +1,9 @@
 <div>
 <!-- <button dojoType="dijit.form.Button" showLabel="true" title="First" type="button">First</button> -->
 <!-- <button dojoType="dijit.form.Button" showLabel="true" title="Last" type="button">Last</button> -->
-<span class="rowCounts"><span>1</span><span>-</span><span>20</span><span class="pgnOf">${pgnof}</span><span>100</span></span>
-<label for="display">${pgnRowsPerPage}</label><input type="text" dojoAttachPoint="rowsPerPageAP" trim="true" dojoAttachEvent="onKeyUp:_onKeyPressRowsPerPage" class="numberText" title="${pgnHitEnter}" name="display" value="20" dojoType="dijit.form.TextBox" trim="true">
-<label for="display">${pgnGotoPage}</label><input type="text" dojoAttachPoint="gotoPageAP" trim="true" dojoAttachEvent="onKeyUp:_onKeyPressGotoPage" class="numberText" title="${pgnHitEnter}" name="display" value="10" dojoType="dijit.form.TextBox" trim="true">
+<span class="rowCounts" dojoAttachPoint="countsAP"></span>
+<label for="display">${pgnRowsPerPage}</label><input type="text" dojoAttachPoint="rowsPerPageAP" trim="true" dojoAttachEvent="onKeyUp:_onKeyPressRowsPerPage" class="numberText" title="${pgnHitEnter}" name="display" value="0" dojoType="dijit.form.TextBox" trim="true">
+<label for="display">${pgnGotoPage}</label><input type="text" dojoAttachPoint="gotoPageAP" trim="true" dojoAttachEvent="onKeyUp:_onKeyPressGotoPage" class="numberText" title="${pgnHitEnter}" name="display" value="0" dojoType="dijit.form.TextBox" trim="true">
 <button dojoType="dijit.form.Button" dojoAttachPoint="priviousAP" dojoAttachEvent="onClick:priviousPage" iconClass="swt-icon swt-icon-carat-1-w" showLabel="false" title="${pgnPrivious}" type="button">${pgnPrivious}</button>
 <button dojoType="dijit.form.Button" dojoAttachPoint="nextAP" dojoAttachEvent="onClick:nextPage" iconClass="swt-icon swt-icon-carat-1-e" showLabel="false" title="${pgnNext}" type="button">${pgnNext}</button>
 <!-- <button dojoType="dijit.form.Button" iconClass="swt-icon swt-icon-refresh" showLabel="false" title="Refresh" type="button">Refresh</button> -->
