@@ -2,7 +2,9 @@
   addFiller:false,
   convertToPercent:false,
   headerAlign: "left",
-  pagination:"both",
+  showPaginationAt:"both",
+  rowsPerPage: 50,
+  paginationAt: "client",
   columns:[
     {
       attr:"DeviceName",

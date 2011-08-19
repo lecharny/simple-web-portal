@@ -2,8 +2,9 @@
   addFiller:false,
   convertToPercent:false,
   headerAlign: "left",
-  pagination:"both",
-  showRowNumbers: true,
+  showPaginationAt:"bottom",
+  rowsPerPage: 50,
+  paginationAt: "client",
   selectionMode: "multiple",
   columns:[
     {

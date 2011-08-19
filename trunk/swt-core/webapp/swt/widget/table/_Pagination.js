@@ -49,6 +49,21 @@ dojo.declare('swt.widget.table._Pagination', [dijit._Widget, dijit._Templated], 
 	},
 	nextPage: function(evt){
 		this.table.nextPage(evt);
+	},
+	_onKeyPressRowsPerPage: function(evt){
+		if (evt.keyCode == dojo.keys.ENTER) {
+			this.table.rowsPerPage = parseInt(this.rowsPerPageAP.get("value"));
+			//console.log("Fired _onKeyPressRowsPerPage--> Rows per page::" + this.rowsPerPageAP.get("value"));
+			dojo.stopEvent(evt);
+		}
+	},
+	_onKeyPressGotoPage: function(evt){
+		if (evt.keyCode == dojo.keys.ENTER) {
+			this.table.showPage = parseInt(this.gotoPageAP.get("value"));
+			//console.log("Fired _onKeyPressGotoPage--> go to page::" + this.gotoPageAP.get("value"));
+			this.table._xxx();
+			dojo.stopEvent(evt);
+		}
 	}
 	
 });
