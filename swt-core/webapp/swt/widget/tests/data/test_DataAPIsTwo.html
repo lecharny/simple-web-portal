@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+<title>NavigationMenu Test (steel)</title>
+
+<link rel="stylesheet"
+	href="../../../../../dojo/dojo/resources/dojo.css">
+<link rel="stylesheet"
+	href="../../../../../dojo/dijit/tests/css/dijitTests.css">
+<style type="text/css">
+.testTitle {
+	padding-bottom: 10px;
+}
+
+body {
+	padding-top: 60px;
+}
+</style>
+<!-- required: a default dijit theme: -->
+<link rel="stylesheet" href="../../../themes/steel/SteelBase.css">
+<link rel="stylesheet" href="../../../themes/steel/swt.css">
+
+<script type="text/javascript">
+	djConfig = {
+		isDebug : true,
+		debugAtAllCosts : false,
+		parseOnLoad : true,
+		baseUrl : "../../../../../dojo/dojo/",
+		modulePaths : {
+			'swt' : '../../swt-core/swt'
+		}
+	};
+</script>
+<script type="text/javascript" src="../../../../../dojo/dojo/dojo.js"></script>
+
+<script language="JavaScript" type="text/javascript">
+	dojo.require("dojo.store.Memory");
+	dojo.require("dojo.parser"); // scan page for widgets and instantiate them
+	function myHandler(args) {
+		console.debug("myHandler-->" + args);
+	}
+
+	var deviceStore, deviceStoreNoPK;
+
+	dojo.addOnLoad(function(){
+		var data;
+		// get the data
+		dojo.xhrGet({
+	        url: "devices.json",
+	        sync: true,
+	        handleAs: "json",
+	        load: function(responseObject, ioArgs){
+	        	if(responseObject){
+	            	data = responseObject;
+	        	}
+	        	deviceStore = new dojo.store.Memory({data:data.items, idProperty: data.identifier});
+	        	deviceStoreNoPK = new dojo.store.Memory({data:data.items});
+	        },
+	        error: function(responseObject, ioArgs){
+	        		console.log("ERROR:: getting devices.json -->" + responseObject);
+	        }
+	    });
+
+		
+		dojo.connect(dojo.byId("loadData"), "onclick", function(evt){
+			dojo.byId("results").value = dojo.toJson(data, true);
+		});
+
+		var localStore = null;
+		dojo.connect(dojo.byId("loadDataL"), "onclick", function(evt){
+			localStore = new dojo.store.Memory({
+				data: [
+					{id: 1, name: "one", prime: false},
+					{id: 2, name: "two", even: true, prime: true},
+					{id: 3, name: "three", prime: true},
+					{id: 4, name: "four", even: true, prime: false},
+					{id: 5, name: "five", prime: true}
+				]
+			});
+			dojo.byId("results").value = dojo.toJson(localStore, true);
+		});
+
+		dojo.connect(dojo.byId("runQueryL"), "onclick", function(evt){
+			var qs = dojo.byId("query").value;
+			dojo.byId("results").value = "";
+			var rsL = localStore.query({name: /o/});
+			var _r = "";
+			rsL.forEach(function(item){
+				_r = _r + item.name + " " + item.prime + "\n";
+			});
+			dojo.byId("results").value = _r;
+		});
+
+	});
+	
+</script>
+
+</head>
+<body class="steel">
+
+	<button id="loadData">Load Data</button>
+	<input id="query" type="text" name="query" maxlength="50" size="30"></input>
+	<button id="runQuery">Run Query</button>
+	<button id="loadDataL">Load Data Local</button>
+	<button id="runQueryL">Run Query Local</button>
+	<br>
+	<textarea id=results rows="20" cols="100"></textarea>
+	<div id="queryResults"></div>
+</body>
+</html>
