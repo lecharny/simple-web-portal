@@ -69,11 +69,14 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		"odd":"oddRow",
 		"even":"evenRow",
 		"selected":"selected",
-		"selectAll":"selectAll"
+		"selectAll":"selectAll",
+		"selectRow":"selectRow"
 	},
 	// String
 	// html template for select/multi-select
 	_selectionMultiple: "<input type='checkbox' class='selectAll' value=''/>",
+	
+	_selectionRow: "<input type='checkbox' class='selectRow' value=''/>",
 	// an object/objects depending on single/multiple.  
 	_selection: null,
 	// boolean
@@ -105,7 +108,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	_paginationAtObject: {"client":"client", "server": "server", "none":"none"},
 	// integer
 	// what page to show when table is rendered. Starts with index 0
-	showPage: 1,
+	showPage: 0,
 	// integer
 	// pages to cache. Do not set it high if rows per page are large.
 	_pageCacheCount: 3,
@@ -183,9 +186,8 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		if(this.srcNodeRef && this.srcNodeRef.style.height){
 			this.height = this.srcNodeRef.style.height;
 		}
-		if(this.selectionMode===this._multiple){
-			this._selection = {};			
-		}
+		// initialize selection
+		this._selection = [];			
 		// call initialization();
 		this.initialize();
 		
@@ -342,8 +344,8 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 			this._cleanTable();
 		}
 		
-		var _startRow = ((this.showPage-1)*this.rowsPerPage)+1;
-		var _endRow = this.showPage*this.rowsPerPage;
+		var _startRow = ((this.showPage)*this.rowsPerPage)+1;
+		var _endRow = (this.showPage+1)*this.rowsPerPage;
 		//TODO harjeest if(this.paginationAt==this._paginationAtObject.client){}
 
 		//var sb = new dojox.string.Builder();
@@ -364,7 +366,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 							if(column.isRowCounter) {
 								rb.append("<td>"+(idx+1)+"</td>");
 							} else if(column.isSelector) {
-								rb.append("<td>"+ _self._selectionMultiple + "</td>");
+								rb.append("<td>"+ _self._selectionRow + "</td>");
 							} else {
 								if(column.ellipses){
 									if(dojo.isChrome){
@@ -528,12 +530,17 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	},
 	clearSelection: function(evt){
 		// summary: clears all the selection is any.
-//		if(this.selectionMode===this._single){
-//			this._selection = null;
-//		} else {
-//			this._selection = {};
-//		}
-		if(this._selection && dojo.isObject(this._selection)){
+		var _self = this;
+		if(this._selection){
+			var curPage = this._selection[this.showPage];
+			dojo.forEach(curPage, function(item, idx, arr){
+				_sr = _self.tbody.rows[item.rowIndex];
+				if(_sr){
+					dojo.removeClass(_sr, _self._css.selected);
+					_sr.cells[1].firstChild.checked = false;
+				}
+			});
+			/*
 			var _sr;
 			for(var prop in this._selection){
 				_sr = this.tbody.rows[prop];
@@ -541,9 +548,9 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 				_sr.cells[1].firstChild.checked = false;
 			};
 			this._selection = {};
+			*/
 		}
-		
-		//console.log("Table clearSelection invoked, needs to be implemented!");
+		this._createSelectionObject();
 	},
 	////////////////////////////////////
 	// contextual toobar actions END////
@@ -613,20 +620,22 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		}
 
 	},
-	onClick: function(/*domNode TR*/ row, /*domNode TD*/ col, /*Object*/ item){
+	onClick: function(/*domNode TR*/ row, /*domNode TD*/ col, /*Object*/ item, /*pageNumber*/ page){
 		// summary: Event callbak called when user clicks on a row.
 		// tags: callback
 		// row: domNode representing TR tag.
 		// col: domNode representing TD tag.
 		// item: data item as JSON object from the store.
+		// page: page number for the selecttion, if pagination is not used it ia 1 always as single page is assumed.
 	},
 	_handleClick: function(evt){
 		// summary: Tries to understand the user click and interpret it accordingly.
 		//	if the user has clicked on a table cell, locates it and fires onClick callback.
 		// evt: the dom event.
+		var _self = this;
 		var row, item, isSelect, selected;
 		var node = evt.target;
-		if(node.nodeName.toUpperCase()=="INPUT"){
+		if(node.nodeName.toUpperCase()=="INPUT" && dojo.hasClass(node, this._css.selectRow)){
 			isSelect = true;
 			selected = node.checked;
 		}
@@ -653,30 +662,60 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 			}
 		}
 		if(row){
-			item = this.store.data[row.rowIndex];
+			if(this.paginationAt== this._paginationAtObject.none || this.paginationAt== this._paginationAtObject.server){
+				item = this.store.data[row.rowIndex];
+			} else {
+				var _ri = (this.showPage*this.rowsPerPage) + row.rowIndex;
+				item = this.store.data[_ri];
+			}
 		}
-
 		// here we are assuming that the row counters will be adjusted for pages, if reset at page level this will not work.
+		// TODO harjeet for paginated table we need to keep selection for each page alive separately.
 		if(isSelect && row){
 			if(selected){
+				var _sd = {};
+				_sd.page = this.showPage;
+				_sd.rowIndex = row.rowIndex;
+				_sd.item = item;
 				if(this.selectionMode===this._single){
 					// if selection mode is single, _selection points to store item directly.
-					this._selection = {};
-					this._selection[row.rowIndex] = item;
-					//this._selection = item;
+					//this._selection[row.rowIndex] = item; OLD
+					this.clearSelection(null);
+					this._selection[this.showPage] = [_sd];
+					//this._selection[this.showPage] = _sd;
 				} else if (this.selectionMode===this._multiple){
 					// if selection mode is multiple, _selection is an object with keys pointing to store items.
-					//this._selection.push(row.rowIndex);
-					this._selection[row.rowIndex] = item;
+					// if pagination is being used we need to make sure selection is toed to a page.
+					//this._selection[row.rowIndex] = item; OLD
+					if(!dojo.isArray(this._selection[this.showPage])){
+						this._selection[this.showPage] = [];
+					}
+					this._selection[this.showPage].push(_sd);
 				} else {
 					// nothing to do.
 				}
 				dojo.addClass(row, this._css.selected);
 			} else {
 				if(this.selectionMode===this._single){
-					delete this._selection;
+					this.clearSelection(null);
 				} else if (this.selectionMode===this._multiple){
-					delete this._selection[row.rowIndex];						
+					//delete this._selection[row.rowIndex];
+//					var mDel = [];
+//					dojo.forEach(this._selection[this.showPage], function(_item, idx, arr){
+//						if(_item.rowIndex==row.rowIndex){
+//							//delete _self._selection[_self.showPage][idx];
+//							_self._selection[_self.showPage].splice(idx, 1);
+//							//break;
+//						}
+//					});
+					var _item;
+					for(var i=0; i<this._selection[this.showPage].length;i++){
+						_item = this._selection[this.showPage][i];
+						if(_item.rowIndex==row.rowIndex){
+							_self._selection[_self.showPage].splice(i, 1);
+							break;
+						}
+					}
 					//this._selection.splice(row.rowIndex, 1);
 				} else {
 					// nothing to do.
@@ -686,7 +725,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 			this.onSelect(this._selection, this.store);
 		} else {
 			if(row){
-				this.onClick(row, node, item);
+				this.onClick(row, node, item, this.showPage);
 			}
 		}
 	},
@@ -701,13 +740,12 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		// summary: resets the table view.
 		// rowsPerPage: Number of rows per page to show.
 		// gotoPage: Goto page number.
-		if(rowsPerPage && !isNaN(rowsPerPage)){
+		if(rowsPerPage>0){
 			this.rowsPerPage = rowsPerPage;
 			this._calculatePages();
 		}
-		if(gotoPage && !isNaN(gotoPage)){
-			this.showPage = gotoPage;
-		}
+
+		this.showPage = gotoPage;
 		
 		// reset the clock for new page.
 		this.startTime = new Date();
@@ -727,6 +765,9 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 				this._pages = 1;
 			}
 		}
+		this._createSelectionObject();
+		// add logic here to retail old selections before number of pages OR rows per page were changed.
+		// TODO harjeet.hans
 		
 		// CaseTwo data is served from a server on demand. server does provide total records etc.
 		// the small batch of data received can be either paginated or shown all at a time.
@@ -749,6 +790,18 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		console.log("Rows/page::" + this.rowsPerPage);
 		console.log("Total pages::" + this._pages);
 		console.log("Show page number::" + this.showPage);
+	},
+	
+	_selectItem: function(/*Object*/ item, /*boolean*/ selected){
+		// summary: select or deselects a store item depending on boolean passed.
+		// 	sets a key (_selected) for user later.
+		item.__selected = selected;
+	},
+	_createSelectionObject: function(){
+		// create selection bucket.
+		for(var i=0; i< (this._pages); i++){
+			this._selection[i] = [];
+		}
 	}
 	
 });

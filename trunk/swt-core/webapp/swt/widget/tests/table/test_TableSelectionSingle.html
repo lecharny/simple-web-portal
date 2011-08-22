@@ -78,6 +78,7 @@
 		dojo.xhrGet({url:"../data/deviceStructureSelection.json", sync:true, handleAs:"json"}).addCallback(function(results){
 			structure = results;
 		});
+		structure.selectionMode="single";
 		var xx="";
 		startTime = new Date();
 		dojo.addOnLoad(function(){
@@ -127,7 +128,7 @@
 </head>
 <body class="steel">
 <div class="timing" id="timing"></div>
-<div id="table1" dojoType="swt.widget.table._Table" style="width:1000px;height:600px;" structure="structure" selectionMode="multiple" store="deviceStore" tableTitle="Devices (Selection)"></div>
+<div id="table1" dojoType="swt.widget.table._Table" style="width:1000px;height:600px;" structure="structure" selectionMode="single" store="deviceStore" tableTitle="Devices (Selection)"></div>
 <div class="result" id="resultSelect"></div>
 <div class="result" id="resultClick"></div>
 </body>

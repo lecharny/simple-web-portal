@@ -83,13 +83,13 @@ dojo.declare('swt.widget.table._Pagination', [dijit._Widget, dijit._Templated], 
 		// summary: resets the pagination actions.
 		
 		// if showPage==1 disable the privious button.
-		if(this.table.showPage<=1){
+		if(this.table.showPage==0){
 			this.priviousAP.set("disabled", true);
 		} else {
 			this.priviousAP.set("disabled", false);
 		}
 		// if showPage==1 disable the privious button.		
-		if(this.table.showPage==this.table._pages){
+		if(this.table.showPage==(this.table._pages-1)){
 			this.nextAP.set("disabled", true);
 		} else {
 			this.nextAP.set("disabled", false);
@@ -102,8 +102,8 @@ dojo.declare('swt.widget.table._Pagination', [dijit._Widget, dijit._Templated], 
 		var _t = this.table;
 		if(!_c){
 			_c = {};
-			_c.startRow = ((_t.showPage-1)*_t.rowsPerPage)+1;
-			_c.endRow = _t.showPage*_t.rowsPerPage;
+			_c.startRow = ((_t.showPage)*_t.rowsPerPage)+1;
+			_c.endRow = (_t.showPage+1)*_t.rowsPerPage;
 			_c.totalRows = _t.store.data.length;
 			if(_c.endRow > _c.totalRows){
 				_c.endRow = _c.totalRows
