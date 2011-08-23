@@ -21,6 +21,7 @@ dojo.declare('swt.widget.table._Pagination', [dijit._Widget, dijit._Templated], 
 	pgnPrivious :"pgnPrivious",
 	pgnNext : "pgnNext",
 	pgnHitEnter : "pgnHitEnter",
+	pgnRowsPerPageWarn: "pgnRowsPerPageWarn",
 	/////////////////////
 	// NLS Labels END////
 	/////////////////////
@@ -38,7 +39,13 @@ dojo.declare('swt.widget.table._Pagination', [dijit._Widget, dijit._Templated], 
 		this.pgnGotoPage = (_m[this.pgnGotoPage])?_m[this.pgnGotoPage]:"Go to page";
 		this.pgnPrivious = (_m[this.pgnPrivious])?_m[this.pgnPrivious]:"Privious";
 		this.pgnNext = (_m[this.pgnNext])?_m[this.pgnNext]:"Next";
-		this.pgnHitEnter = (_m[this.pgnHitEnter])?_m[this.pgnHitEnter]:"Hit enter to load";
+		this.pgnHitEnter = (_m[this.pgnHitEnter])?_m[this.pgnHitEnter]:"Press enter to continue.";
+		if(this.table.paginationAt == this.table._paginationAtObject.client){
+			this.pgnRowsPerPageWarn = (_m[this.pgnRowsPerPageWarn])?_m[this.pgnRowsPerPageWarn]:"By changing rows per page you will loose selections made earlier on all pages.";			
+		} else {
+			this.pgnRowsPerPageWarn = (_m[this.pgnHitEnter])?_m[this.pgnHitEnter]:"Press enter to continue.";
+		}
+
 	},
 	
 	postCreate: function(){
