@@ -139,6 +139,9 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	// object (check documentation for details)
 	// column set for the table as specified in JSON.
 	structure: null,
+	// column set after normalizing, i.e. adding row counter and selection.
+	_structureClone: null,
+	
 	// String
 	// single, multiple or none.
 	selectionMode: "single",
@@ -174,6 +177,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	
 	
 	constructor: function(arguments){
+		var xx = "";
 	},
 
 	postMixInProperties: function(){
@@ -208,7 +212,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		this._normalizeStructure();
 		this._createLayout();
 		this._computeSize();
-		this._setStructure(this.structure);
+		this._setStructure();
 		this.render();
 		// add event handlers.
 		this.connect(this.domNode, "onclick", dojo.hitch(this, "_onClick"));
@@ -244,6 +248,10 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	},
 	_normalizeStructure: function(){
 		// summary:  Any operation like showing row numbers or selection model is fixed in this call.
+		
+		// clone the structure.
+		this._structureClone = dojo.clone(this.structure);
+
 		if(this.showRowNumbers){
 			var _rcc = {};
 			_rcc.label = "&nbsp;";
@@ -284,10 +292,10 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		console.log("_createLayout(ts)-->"+ (new Date().getTime() - this.startTime));
 	},
 	
-	_setStructure: function(structure){
+	_setStructure: function(){
 		// summary: create the column set for the table.
 		// structure: object see the column/structure definition for the table.
-		
+		var structure = this.structure;
 		this.setMessage("Creating structure...");
 		var _self = this;
 		this.headerNode.style.width = this._sizeCache.tableWidth+"px";
@@ -305,7 +313,10 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		//sb.append("<thead class='tableHeader'><tr>");
 		dojo.forEach(structure.columns, function(column, idx, arr){
 			//console.log(column.label);
-			if(column.isSelector && _self.selectionMode=="multiple"){
+			if(column.hidden){
+				// do nothing.
+				st="";
+			} else if(column.isSelector && _self.selectionMode=="multiple"){
 				st = "<td title='"+ column.label +"'>"+ _self._selectionMultiple + "</td>";
 			} else {
 				st = "<td>${label}</td>";
@@ -333,17 +344,25 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		// summary: This method renders the table.
 		
 		this.setMessage("Rendering table...");
-		if(!this._tableBodyCreated){
-			this.bodyNode.style.width = this._sizeCache.tableWidth+"px";
-			dojo.attr(this.tableNode, "width", this._sizeCache.tableWidth);
-			dojo.place(this._columnWidthCache, this.tableNode, "first");
-			this.tbody = dojo.create("tbody", {"class": this._css.tbody});
-			dojo.place(this.tbody, this.tableNode, "last");
-			this._tableBodyCreated = true;
-		} else {
-			this._cleanTable();
-		}
+//		if(!this._tableBodyCreated){
+//			this.bodyNode.style.width = this._sizeCache.tableWidth+"px";
+//			dojo.attr(this.tableNode, "width", this._sizeCache.tableWidth);
+//			dojo.place(this._columnWidthCache, this.tableNode, "first");
+//			this.tbody = dojo.create("tbody", {"class": this._css.tbody});
+//			dojo.place(this.tbody, this.tableNode, "last");
+//			this._tableBodyCreated = true;
+//		} else {
+//			this._cleanTable();
+//		}
 		
+		this.tableNode.innerHTML="";
+		
+		this.bodyNode.style.width = this._sizeCache.tableWidth+"px";
+		dojo.attr(this.tableNode, "width", this._sizeCache.tableWidth);
+		dojo.place(this._columnWidthCache, this.tableNode, "first");
+		this.tbody = dojo.create("tbody", {"class": this._css.tbody});
+		dojo.place(this.tbody, this.tableNode, "last");
+
 		var _startRow = ((this.showPage)*this.rowsPerPage)+1;
 		var _endRow = (this.showPage+1)*this.rowsPerPage;
 		//TODO harjeest if(this.paginationAt==this._paginationAtObject.client){}
@@ -361,9 +380,11 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 						var _rcls = (idx%2==0) ? _self._css.even : _self._css.odd; 
 						rb.append("<tr class='"+_rcls +"' " + _self._row_num +"='"+ idx +"'>");
 						//rb.append("<tr>");
-						dojo.forEach(structure.columns, function(column, idxIn, arr){
+						dojo.forEach(_self.structure.columns, function(column, idxIn, arr){
 							//var _r = "<td>${" + column.attr + "}</td>";
-							if(column.isRowCounter) {
+							if(column.hidden){
+								// do nothing.
+							} else if(column.isRowCounter) {
 								rb.append("<td>"+(idx+1)+"</td>");
 							} else if(column.isSelector) {
 								rb.append("<td>"+ _self._selectionRow + "</td>");
@@ -477,11 +498,20 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		var st = "";
 		dojo.forEach(this.structure.columns, function(column, idx, arr){
 			//console.log(column.label);
-			st = "<col width='${width}'></col>";
+			if(column.hidden){
+				// do nothing.
+				st="";
+			} else {
+				st = "<col width='${width}'></col>";
+				_self._sizeCache.tableWidth = _self._sizeCache.tableWidth + column.width;
+			}
 			st = dojo.string.substitute(st, column);
 			sb.append(st);
-			_self._sizeCache.tableWidth = _self._sizeCache.tableWidth + column.width;
 		});
+		// if sum of column width is less that available use available.
+		if(this._sizeCache.domNode.w > this._sizeCache.tableWidth){
+			this._sizeCache.tableWidth = this._sizeCache.domNode.w; 
+		}
 		this._columnWidthCache = sb.toString();
 		//console.log("_computeColumnWidths::" + this._columnWidthCache);
 		return this._columnWidthCache;
@@ -839,6 +869,30 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 			var _ri = (this.showPage*this.rowsPerPage) + row.rowIndex;
 			return this.store.data[_ri];
 		}
-	}
+	},
+	hideColumn: function(/*number*/ columnIndex){
+		if(columnIndex>-1 && columnIndex < (this.structure.columns.length)){
+			this.structure = dojo.clone(this._structureClone);
+			this.structure.columns[columnIndex].hidden = true;
+			this._normalizeStructure();
+			this._computeColumnWidths();
+			this._setStructure();
+			this.render();
+		} else {
+			console.warn("Trying to hide a non existant column!");
+		}
+	},
+	showColumn: function(/*number*/ columnIndex){
+		if(columnIndex>-1 && columnIndex < (this.structure.columns.length)){
+			this.structure = dojo.clone(this._structureClone);
+			this.structure.columns[columnIndex].hidden = false;
+			this._normalizeStructure();
+			this._computeColumnWidths();
+			this._setStructure();
+			this.render();
+		} else {
+			console.warn("Trying to show a non existant column!");
+		}
+	}	
 	
 });

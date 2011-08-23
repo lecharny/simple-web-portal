@@ -9,6 +9,7 @@
 	"pgnHitEnter":"Press enter to continue",
 	"refresh":"Refresh",
 	"edit": "Edit",
+	"close":"Close",
 	"_delete": "Delete",
 	"addRow":"Add Row",
 	"clearSelection":"Clear Selection",
