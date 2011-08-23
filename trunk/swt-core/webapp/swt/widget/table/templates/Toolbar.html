@@ -2,8 +2,10 @@
 <button dojoType="dijit.form.Button" dojoAttachPoint="refreshAP" dojoAttachEvent="onClick:refreshTable" iconClass="swt-icon swt-icon-refresh" showLabel="false" title="${refresh}" type="button">${refresh}</button>
 <button dojoAttachPoint="settingsAP" iconClass="swt-icon swt-icon-gear" showLabel="true" dojoType="dijit.form.DropDownButton" showLabel="true" title="${settings}" type="button">
 	<span>${settings}</span>
-	<div class="swtTableToolbarSettingsContent" dojoAttachPoint="settingsContentAP" dojoType="dijit.layout.ContentPane" style="display: none;">
-		<!-- <div class="actions">
+	<div class="swtTableToolbarSettingsContent" dojoType="dijit.layout.ContentPane" dojoAttachPoint="settingsContentAP" style="display: none;">
+		
+		<div class="actions" dojoAttachPoint="actionsAP"></div>
+		<!-- <div class="actions"> 
 			<button dojoType="dijit.form.Button" dojoAttachPoint="okAP" dojoAttachEvent="onClick:_ok" title="Ok" type="button">Ok</button>
 			<button dojoType="dijit.form.Button" dojoAttachPoint="cancelAP" dojoAttachEvent="onClick:_cancel" title="Cancel" type="button">Cancel</button>
 		</div> -->
