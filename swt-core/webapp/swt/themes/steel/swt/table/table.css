@@ -91,13 +91,16 @@
 	
 }
 .steel .swtTableToolbarSettingsContent {
-    height: 300px;
-    width: 100px;
+    xxxheight: 300px;
+    xxxwidth: 100px;
 	background: none repeat scroll 0 0 #FFFFFF;
     border: 1px solid #D4D4D4;
     border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
+}
+.steel .swtTableToolbarSettingsContent .actions {
+	padding-top: 5px;
 }
 /*Toolbar END*/
 
