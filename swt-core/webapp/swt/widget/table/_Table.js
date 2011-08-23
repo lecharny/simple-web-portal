@@ -388,13 +388,17 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 							// IE does not have lastElementChild property.
 							dojo.attr(_self.tbody.lastElementChild || _self.tbody.lastChild, _self._row_id , row[_self.store.idProperty]);
 						}
-						//console.log("Arow::(" + idx + ")::" + _r);
 					} catch(error){
 						console.error("Failed adding row ::" + row[_self.store.idProperty]);
 					}
 				}
 			});
 			
+			// high light the selected rows for this page if any.
+			// applicable only if pagination managed by client.
+			if(this.paginationAt== this._paginationAtObject.client){
+				this._highlightSelection(_self.tbody);						
+			}
 		}
 		console.log("render(ts)-->"+ (new Date().getTime() - this.startTime));
 		this.setMessage("Rendered table in " + (new Date().getTime() - this.startTime) + "ms", 4000);
@@ -591,13 +595,20 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	},
 	selectAll: function(evt){
 		// summary: selects all the rows in table.
+		//	for pagination none and server this is equallent to select all. For pagination on client select all
+		//	select all the rows in a given page.
 		if(evt.target.checked){
 			var _self = this;
-			this._selection = {};
+			var _sd, _ri;
+			this._selection[this.showPage]=[];
 			dojo.forEach(this.tbody.rows, function(row, idx, arr){
+				_sd = {};
+				_sd.page = _self.showPage;
+				_sd.rowIndex = row.rowIndex;
+				_sd.item = _self._getStoreItemForTableRow(row);
+				_self._selection[_self.showPage].push(_sd);
 				row.cells[1].firstChild.checked = true;
 				dojo.addClass(row, _self._css.selected);
-				_self._selection[row.rowIndex] = _self.store.data[row.rowIndex];
 			});
 			this.onSelect(this._selection, this.store);
 			this._selectedAll = true;
@@ -614,7 +625,8 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 				row.cells[1].firstChild.checked = false;
 				dojo.removeClass(row, _self._css.selected);
 			});
-			this._selection = {};
+
+			this._selection[this.showPage]=[];
 			this.onSelect(this._selection, this.store);
 			this._selectedAll = false;
 		}
@@ -662,12 +674,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 			}
 		}
 		if(row){
-			if(this.paginationAt== this._paginationAtObject.none || this.paginationAt== this._paginationAtObject.server){
-				item = this.store.data[row.rowIndex];
-			} else {
-				var _ri = (this.showPage*this.rowsPerPage) + row.rowIndex;
-				item = this.store.data[_ri];
-			}
+			item = this._getStoreItemForTableRow(row);
 		}
 		// here we are assuming that the row counters will be adjusted for pages, if reset at page level this will not work.
 		// TODO harjeet for paginated table we need to keep selection for each page alive separately.
@@ -687,10 +694,13 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 					// if selection mode is multiple, _selection is an object with keys pointing to store items.
 					// if pagination is being used we need to make sure selection is toed to a page.
 					//this._selection[row.rowIndex] = item; OLD
-					if(!dojo.isArray(this._selection[this.showPage])){
-						this._selection[this.showPage] = [];
+					var indexAlreadySelected = this._checkIfAlreadySelected(this._selection[this.showPage], _sd.rowIndex);
+					if(indexAlreadySelected>-1){
+						this._selection[this.showPage][indexAlreadySelected] = _sd;
+					} else {
+						this._selection[this.showPage].push(_sd);
 					}
-					this._selection[this.showPage].push(_sd);
+					
 				} else {
 					// nothing to do.
 				}
@@ -700,14 +710,6 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 					this.clearSelection(null);
 				} else if (this.selectionMode===this._multiple){
 					//delete this._selection[row.rowIndex];
-//					var mDel = [];
-//					dojo.forEach(this._selection[this.showPage], function(_item, idx, arr){
-//						if(_item.rowIndex==row.rowIndex){
-//							//delete _self._selection[_self.showPage][idx];
-//							_self._selection[_self.showPage].splice(idx, 1);
-//							//break;
-//						}
-//					});
 					var _item;
 					for(var i=0; i<this._selection[this.showPage].length;i++){
 						_item = this._selection[this.showPage][i];
@@ -801,6 +803,41 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		// create selection bucket.
 		for(var i=0; i< (this._pages); i++){
 			this._selection[i] = [];
+		}
+	},
+	_checkIfAlreadySelected: function(pageSelection, rowIndex){
+		// summary: checks if a row is already selected for a given page.
+		// pageSelection: an array of selected items for a given page.
+		// rowIndex: rowIndex to be checked if present.
+		// return : index of row if already selected or -1 otherwise.
+		var aRow;
+		var result = -1;
+		for(var i=0; i<pageSelection.length; i++){
+			aRow = pageSelection[i];
+			if(aRow.rowIndex == rowIndex){
+				result = i;
+				break;
+			}
+			return result;
+		}
+	},
+	_highlightSelection: function(/*domNode*/tBody){
+		// summary: hightlights the existing selection for a given page.
+		var _self = this;
+		dojo.forEach(this._selection[this.showPage], function(item, index, arr){
+			if(tBody.rows[item.rowIndex]){
+				tBody.rows[item.rowIndex].cells[1].firstChild.checked = true;
+				dojo.addClass(tBody.rows[item.rowIndex], _self._css.selected);
+			}
+		});
+	},
+	_getStoreItemForTableRow: function(/*domNode*/ row){
+		// summary: gets a pointer to store iten given a table row (tr) node.
+		if(this.paginationAt== this._paginationAtObject.none || this.paginationAt== this._paginationAtObject.server){
+			return this.store.data[row.rowIndex];
+		} else {
+			var _ri = (this.showPage*this.rowsPerPage) + row.rowIndex;
+			return this.store.data[_ri];
 		}
 	}
 	
