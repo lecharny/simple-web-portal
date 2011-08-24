@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>Button Test (steel)</title>
+
+	<link rel="stylesheet" href="../../../../dojo/dojo/resources/dojo.css">
+	<link rel="stylesheet" href="../../../../dojo/dijit/tests/css/dijitTests.css">
+	<style type="text/css">
+			/* group multiple buttons in a row */
+			.box {
+				display: block;
+				text-align: center;
+			}
+			.box .dijit {
+				margin-right: 10px;
+			}
+	</style>
+
+	<!-- required: a default dijit theme: -->
+	<link id="themeStyles" rel="stylesheet" href="../../themes/steel/SteelBase.css">
+
+	<!-- required: dojo.js -->
+	<script type="text/javascript" src="../../../../dojo/dojo/dojo.js"
+		djConfig="parseOnLoad: true, isDebug: true"></script>
+
+	<!-- not needed, for testing alternate themes -->
+	<script type="text/javascript" src="../../../../dojo/dijit/tests/_testCommon.js"></script>
+
+	<script language="JavaScript" type="text/javascript">
+		dojo.require("dijit.dijit"); // optimize: load dijit layer
+		dojo.require("dijit.ColorPalette");
+		dojo.require("dijit.Menu");
+		dojo.require("dijit.Tooltip");
+		dojo.require("dijit.form.Button");
+		dojo.require("dijit.form.Form");
+		dojo.require("dijit.form.TextBox");
+		dojo.require("dijit.CheckedMenuItem");
+		dojo.require("dojo.parser");
+	</script>
+
+</head>
+<body class="steel">
+	<h1 class="testTitle">Dijit Button Test</h1>
+	<h2>Simple, drop down &amp; combo buttons</h2>
+	<p>
+	Buttons can do an action, display a menu, or both:
+	</p>
+	<p class="box">
+		<button dojoType="dijit.form.DropDownButton" id="edit" dropDownPosition="below" iconClass="noteIcon" title="edit title" value="Edit">
+			<span>Edit</span>
+			<div dojoType="dijit.Menu" id="editMenu">
+				<div dojoType="dijit.MenuItem" id="cut" iconClass="dijitEditorIcon dijitEditorIconCut"
+					onClick="console.log('not actually cutting anything, just a test!')">Cut</div>
+				<div dojoType="dijit.MenuItem" id="copy" iconClass="dijitEditorIcon dijitEditorIconCopy"
+					onClick="console.log('not actually copying anything, just a test!')">Copy</div>
+				<div dojoType="dijit.MenuItem" id="paste" iconClass="dijitEditorIcon dijitEditorIconPaste"
+					onClick="console.log('not actually pasting anything, just a test!')">Paste</div>
+				<div dojoType="dijit.MenuSeparator"></div>
+				<div dojoType="dijit.PopupMenuItem">
+					<span>Submenu</span>
+					<div dojoType="dijit.Menu" id="submenu2">
+						<div dojoType="dijit.CheckedMenuItem" onClick="console.log('Submenu 1!')">Submenu Item One</div>
+						<div dojoType="dijit.CheckedMenuItem" onClick="console.log('Submenu 2!')">Submenu Item Two</div>
+						<button dojoType="dijit.form.Button" type="button">Click me too!</button>
+					</div>
+				</div>
+			</div>
+		</button>
+	</p>
+</body>
+</html>

@@ -68,11 +68,8 @@ dojo.declare('swt.widget.table.Toolbar', [dijit.Toolbar], {
 		//_menu.startup();
 		dojo.place(this._menu.domNode, this.settingsContentAP.domNode, "first");
 		//this.connect(this._menu, "onClick", dojo.hitch(this, "_onMenuClick"));
-		
 		var _okButton = new dijit.form.Button({label:this.close, onClick: dojo.hitch(this, "_close")});
 		dojo.place(_okButton.domNode, this.actionsAP, "last");
-		
-		
 	},
 	_onMenuClick: function(evt){
 		var _mi = dijit.byNode(evt.currentTarget);
@@ -82,7 +79,7 @@ dojo.declare('swt.widget.table.Toolbar', [dijit.Toolbar], {
 			} else {
 				this.table.hideColumn(this._menu.getIndexOfChild(_mi));
 			}
-			console.log("Clicked on menu item-->" + this.table.structure.columns[_mi._columnIndex].label + " INDEX " + this._menu.getIndexOfChild(_mi));
+			//console.log("Clicked on menu item-->" + this.table.structure.columns[_mi._columnIndex].label + " INDEX " + this._menu.getIndexOfChild(_mi));
 		}
 	},
 	_ok: function(evt){
@@ -90,8 +87,7 @@ dojo.declare('swt.widget.table.Toolbar', [dijit.Toolbar], {
 		
 	},
 	_close: function(evt){
-		console.log("clicked on close.");
-		
+		this.settingsAP.closeDropDown();
 	}
 	
 });
