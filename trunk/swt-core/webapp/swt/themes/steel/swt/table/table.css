@@ -114,22 +114,18 @@
 .steel .swtTable .headerNode .tableHeader td {
 	cursor: default;
 }
-.steel .swtTable .headerNode .tableHeader .ascending {
-	xxxbackground: #d9e9fd;
-}
-.steel .swtTable .headerNode .tableHeader .descending {
-	xxxbackground: #ffddb4;
-}
 .steel .swtTable .headerNode .tableHeader .sortIcon {
 	margin: 2px;
 	padding:0px 6px;
 }
+/*
 .steel .swtTable .headerNode .tableHeader .ascending .sortIcon{
 	background: #d9e9fd;
 }
 .steel .swtTable .headerNode .tableHeader .descending .sortIcon{
 	background: #ffddb4;
 }
+*/
 
 .steel .swtTable .headerNode .tableHeader .sortable:HOVER {
 	cursor: pointer;
