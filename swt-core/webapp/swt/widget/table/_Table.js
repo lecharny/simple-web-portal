@@ -73,8 +73,8 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		"selectRow":"selectRow",
 		"sortIcon":"sortIcon",
 		"sortable":"sortable",
-		"ascending":"ascending",
-		"descending":"descending"
+		"ascending":"swt-icon swt-icon-triangle-1-n",
+		"descending":"swt-icon swt-icon-triangle-1-s"
 	},
 	// String
 	// html template for select/multi-select
@@ -729,18 +729,18 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 			}
 			var _tr = _td.parentNode;
 			dojo.forEach(_tr.cells, function(td, idx, arr){
-				if(_td.cellIndex==td.cellIndex){
+				if(_td.cellIndex==td.cellIndex || !td.firstElementChild){
 					
 				} else {
-					dojo.removeClass(td, _self._css.ascending+" "+ _self._css.descending);
+					dojo.removeClass(td.firstElementChild, _self._css.ascending+" "+ _self._css.descending);
 				}
 			});
-			if(dojo.hasClass(_td, _self._css.ascending)){
-				dojo.replaceClass(_td, _self._css.descending, _self._css.ascending);
-			} else if(dojo.hasClass(_td, _self._css.descending)){
-				dojo.replaceClass(_td, _self._css.ascending, _self._css.descending);
+			if(dojo.hasClass(_td.firstElementChild, _self._css.ascending)){
+				dojo.replaceClass(_td.firstElementChild, _self._css.descending, _self._css.ascending);
+			} else if(dojo.hasClass(_td.firstElementChild, _self._css.descending)){
+				dojo.replaceClass(_td.firstElementChild, _self._css.ascending, _self._css.descending);
 			} else {
-				dojo.addClass(_td, _self._css.ascending);
+				dojo.addClass(_td.firstElementChild, _self._css.ascending);
 			}
 
 			console.log("sort now by colIndex" + _td.cellIndex || _td.cellIndex);
