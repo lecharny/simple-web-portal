@@ -70,7 +70,11 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		"even":"evenRow",
 		"selected":"selected",
 		"selectAll":"selectAll",
-		"selectRow":"selectRow"
+		"selectRow":"selectRow",
+		"sortIcon":"sortIcon",
+		"sortable":"sortable",
+		"ascending":"ascending",
+		"descending":"descending"
 	},
 	// String
 	// html template for select/multi-select
@@ -175,6 +179,13 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	// user supplied END////
 	////////////////////////
 	
+	/////////////////////
+	// NLS Labels START//
+	/////////////////////
+	sortable : "sortable",
+	/////////////////////
+	// NLS Labels END////
+	/////////////////////
 	
 	constructor: function(arguments){
 		var xx = "";
@@ -186,6 +197,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		this.messages = dojo.i18n.getLocalization("swt", "swtnls", this.lang);
 		this.loadingMessage = dojo.string.substitute(this.loadingMessage, this.messages);
 		this.errorMessage = dojo.string.substitute(this.errorMessage, this.messages);
+		this.sortable = (this.messages[this.sortable])?this.messages[this.sortable]:"Sortable";
 		// may not need this.
 		if(this.srcNodeRef && this.srcNodeRef.style.height){
 			this.height = this.srcNodeRef.style.height;
@@ -320,6 +332,9 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 				st = "<td title='"+ column.label +"'>"+ _self._selectionMultiple + "</td>";
 			} else {
 				st = "<td>${label}</td>";
+				if(column.sortable){
+					st = "<td class='"+ _self._css.sortable + "' title='"+ _self.sortable + "'>${label}<span class='" + _self._css.sortIcon + "'></span></td>";
+				}
 				st = dojo.string.substitute(st, column);
 			}
 			sb.append(st);
@@ -331,7 +346,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		// add the header height to correction.
 		this._sizeCache.heightHeader = dojo.position(this.headerNode).h;
 		
-		// add select all connect.
+		// add select all connect. TODO destroy these connects if grid re-renders.
 		var _sa = dojo.query(this.headerNode, this._css.selectAll)[0];
 		if(_sa){
 			this.connect(_sa, "onclick", dojo.hitch(this,"selectAll"));
@@ -510,7 +525,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		});
 		// if sum of column width is less that available use available.
 		if(this._sizeCache.domNode.w > this._sizeCache.tableWidth){
-			this._sizeCache.tableWidth = this._sizeCache.domNode.w; 
+			this._sizeCache.tableWidth = this._sizeCache.domNode.w;
 		}
 		this._columnWidthCache = sb.toString();
 		//console.log("_computeColumnWidths::" + this._columnWidthCache);
@@ -677,10 +692,13 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		var _self = this;
 		var row, item, isSelect, selected;
 		var node = evt.target;
+		
+		//if user clicks on a checkbox to select a row.
 		if(node.nodeName.toUpperCase()=="INPUT" && dojo.hasClass(node, this._css.selectRow)){
 			isSelect = true;
 			selected = node.checked;
 		}
+		//if user clicks on a table cell, determine the row for the cell.
 		if(node.nodeName.toUpperCase()=="TD"){
 			// if user clicks on a TD tag, means no formatter or ellipses in use.
 			if(dojo.hasAttr(node.parentNode, this._row_id) || dojo.hasAttr(node.parentNode, this._row_num)){
@@ -703,6 +721,33 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 				node = node.parentNode;
 			}
 		}
+		// if user clicks on sortable column icon.
+		if(dojo.hasClass(node, this._css.sortIcon) || dojo.hasClass(node, this._css.sortable)){
+			var _td = node;
+			if(dojo.hasClass(node, this._css.sortIcon)){
+				_td = node.parentNode;
+			}
+			var _tr = _td.parentNode;
+			dojo.forEach(_tr.cells, function(td, idx, arr){
+				if(_td.cellIndex==td.cellIndex){
+					
+				} else {
+					dojo.removeClass(td, _self._css.ascending+" "+ _self._css.descending);
+				}
+			});
+			if(dojo.hasClass(_td, _self._css.ascending)){
+				dojo.replaceClass(_td, _self._css.descending, _self._css.ascending);
+			} else if(dojo.hasClass(_td, _self._css.descending)){
+				dojo.replaceClass(_td, _self._css.ascending, _self._css.descending);
+			} else {
+				dojo.addClass(_td, _self._css.ascending);
+			}
+
+			console.log("sort now by colIndex" + _td.cellIndex || _td.cellIndex);
+		}
+
+		
+		
 		if(row){
 			item = this._getStoreItemForTableRow(row);
 		}
@@ -881,6 +926,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		} else {
 			console.warn("Trying to hide a non existant column!");
 		}
+		this.resize();
 	},
 	showColumn: function(/*number*/ columnIndex){
 		if(columnIndex>-1 && columnIndex < (this.structure.columns.length)){
@@ -894,5 +940,4 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 			console.warn("Trying to show a non existant column!");
 		}
 	}	
-	
 });
