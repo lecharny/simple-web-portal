@@ -375,6 +375,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 //			this._cleanTable();
 //		}
 		
+		// IE8 and IE7 does not like setting innerHTML on a table node.
 		if(dojo.isIE<9){
 			dojo.destroy(this.tableNode);
 			this.tableNode = dojo.create("table", {"class": this._css.table}, this.bodyNode);
