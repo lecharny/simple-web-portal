@@ -364,6 +364,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		// summary: This method renders the table.
 		
 		this.setMessage("Rendering table...");
+		this.startTime = new Date();
 //		if(!this._tableBodyCreated){
 //			this.bodyNode.style.width = this._sizeCache.tableWidth+"px";
 //			dojo.attr(this.tableNode, "width", this._sizeCache.tableWidth);
@@ -750,15 +751,19 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 			});
 			// IE8 and below do not have node.lastElementChild API
 			var _si = _td.firstElementChild || _td.lastChild;
+			var ascending = true;
 			if(dojo.hasClass(_si, _self._css.ascending)){
 				dojo.replaceClass(_si, _self._css.descending, _self._css.ascending);
+				ascending = false;
 			} else if(dojo.hasClass(_si, _self._css.descending)){
 				dojo.replaceClass(_si, _self._css.ascending, _self._css.descending);
+				ascending = true;
 			} else {
 				dojo.addClass(_si, _self._css.ascending);
 			}
 
-			console.log("sort now by colIndex" + _td.cellIndex || _td.cellIndex);
+			this._sortByColumn(_td.cellIndex, ascending);
+			//console.log("sort now by colIndex" + _td.cellIndex + " Column is ::" + dojo.toJson(this.structure.columns[_td.cellIndex]));
 		}
 
 		
@@ -954,5 +959,62 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		} else {
 			console.warn("Trying to show a non existant column!");
 		}
-	}	
+	},
+	_sortByColumn: function(/*number*/columnIndex, /*boolean*/ ascending){
+		// summary: Sorts the table by a given column. The sorting algorithm can be modified by overriding the sorter method.
+		// columnIndex: (number) columnIndex to sort on. This has to be the index in the structure.columns
+		// ascending: (boolean) to sort in ascending or otherwise.
+		// WARNING: Selections if ant are lost on sorting!
+
+		if(this.paginationAt==this._paginationAtObject.server){
+			// if pagination is handled by the server then invoke the callback.
+			this.sortByColumn(this.structure.columns[columnIndex], ascending);
+		} else {
+			// if there is no pagination or is handelled by client do the sorting at the client.
+			this.startTime = new Date();
+			var attr = this.structure.columns[columnIndex].attr;
+			var sorter = this.sorter(attr, ascending);
+			this.store.data.sort(sorter);
+			this.resetTableView(this.rowsPerPage, this.showPage);
+			this.setMessage("Sorting took " + (new Date().getTime() - this.startTime) + "ms", 2000);
+		}
+		
+		console.log("swt.widget.table.showColumn() called with columnIndex::" + columnIndex + " ascending::"+ ascending +" Column is ::" + dojo.toJson(this.structure.columns[columnIndex]));
+
+	},
+	sortByColumn: function(column, ascending){
+		// summary: callback to listen to for server side pagination.
+		// column: object representing the column from table's structure.
+		// ascending: boolean to sort in ascending or otherwise.
+		
+	},
+	sorter: function(attr, ascending){
+		// summary: Function used for basic sorting. This can be overridden for custom sorting.
+		// attr: an object attribute to be used for comparing. This is passed on from user input.
+		// ascending: boolean to sort in ascending or otherwise.
+		if(ascending){
+			return function(a, b){
+				if(a[attr] > b[attr]){
+					return 1;
+				}
+				if(a[attr] < b[attr]){
+					return -1;
+				}
+				
+				return 0;
+			};
+		} else {
+			return function(a, b){
+				if(a[attr] < b[attr]){
+					return 1;
+				}
+				if(a[attr] > b[attr]){
+					return -1;
+				}
+				
+				return 0;
+			};
+		}
+		
+	}
 });
