@@ -215,6 +215,11 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	
 	postCreate: function(){
 		this.inherited(arguments);
+		
+		if(dojo.isIE<8){
+			dojo.addClass(this.tableNode, this._css.table);
+		}
+		
 		// check if table has identifier key.
 		if(this.store.idProperty){
 			this._hasIdentifier = true;
@@ -370,7 +375,14 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 //			this._cleanTable();
 //		}
 		
-		this.tableNode.innerHTML="";
+		if(dojo.isIE<9){
+			dojo.destroy(this.tableNode);
+			this.tableNode = dojo.create("table", {"class": this._css.table}, this.bodyNode);
+			
+		} else {
+			this.tableNode.innerHTML="";			
+		}
+
 		
 		this.bodyNode.style.width = this._sizeCache.tableWidth+"px";
 		dojo.attr(this.tableNode, "width", this._sizeCache.tableWidth);
@@ -735,12 +747,14 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 					dojo.removeClass(td.firstElementChild, _self._css.ascending+" "+ _self._css.descending);
 				}
 			});
-			if(dojo.hasClass(_td.firstElementChild, _self._css.ascending)){
-				dojo.replaceClass(_td.firstElementChild, _self._css.descending, _self._css.ascending);
-			} else if(dojo.hasClass(_td.firstElementChild, _self._css.descending)){
-				dojo.replaceClass(_td.firstElementChild, _self._css.ascending, _self._css.descending);
+			// IE8 and below do not have node.lastElementChild API
+			var _si = _td.firstElementChild || _td.lastChild;
+			if(dojo.hasClass(_si, _self._css.ascending)){
+				dojo.replaceClass(_si, _self._css.descending, _self._css.ascending);
+			} else if(dojo.hasClass(_si, _self._css.descending)){
+				dojo.replaceClass(_si, _self._css.ascending, _self._css.descending);
 			} else {
-				dojo.addClass(_td.firstElementChild, _self._css.ascending);
+				dojo.addClass(_si, _self._css.ascending);
 			}
 
 			console.log("sort now by colIndex" + _td.cellIndex || _td.cellIndex);
