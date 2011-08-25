@@ -67,16 +67,16 @@ dojo.declare('swt.widget.table._Pagination', [dijit._Widget, dijit._Templated], 
 		if (evt.keyCode == dojo.keys.ENTER) {
 			this.table.rowsPerPage = parseInt(this.rowsPerPageAP.get("value"));
 			//console.log("Fired _onKeyPressRowsPerPage--> Rows per page::" + this.rowsPerPageAP.get("value"));
-			this.table.resetTableView(parseInt(this.rowsPerPageAP.get("value")), parseInt(this.gotoPageAP.get("value")));
+			this.table.resetTableView(parseInt(this.rowsPerPageAP.get("value")), (parseInt(this.gotoPageAP.get("value"))-1));
 			this.reset();
 			dojo.stopEvent(evt);
 		}
 	},
 	_onKeyPressGotoPage: function(evt){
 		if (evt.keyCode == dojo.keys.ENTER) {
-			this.table.showPage = parseInt(this.gotoPageAP.get("value"));
+			this.table.showPage = parseInt(this.gotoPageAP.get("value"))-1;
 			//console.log("Fired _onKeyPressGotoPage--> go to page::" + this.gotoPageAP.get("value"));
-			this.table.resetTableView(parseInt(this.rowsPerPageAP.get("value")), parseInt(this.gotoPageAP.get("value")));
+			this.table.resetTableView(parseInt(this.rowsPerPageAP.get("value")), (parseInt(this.gotoPageAP.get("value"))-1));
 			this.reset();
 			dojo.stopEvent(evt);
 		}
@@ -113,7 +113,7 @@ dojo.declare('swt.widget.table._Pagination', [dijit._Widget, dijit._Templated], 
 			_c.endRow = (_t.showPage+1)*_t.rowsPerPage;
 			_c.totalRows = _t.store.data.length;
 			if(_c.endRow > _c.totalRows){
-				_c.endRow = _c.totalRows
+				_c.endRow = _c.totalRows;
 			}
 		}
 		dojo.mixin(_c, {pgnof: this.pgnof});
@@ -122,7 +122,7 @@ dojo.declare('swt.widget.table._Pagination', [dijit._Widget, dijit._Templated], 
 		this.countsAP.innerHTML = _s;
 		
 		this.rowsPerPageAP.set("value", _t.rowsPerPage);
-		this.gotoPageAP.set("value", _t.showPage);
+		this.gotoPageAP.set("value", (_t.showPage+1));
 	}
 	
 });
