@@ -111,10 +111,33 @@
 	border-spacing: 0;
 	table-layout: fixed;
 }
+.steel .swtTable .headerNode .tableHeader td {
+	cursor: default;
+}
+.steel .swtTable .headerNode .tableHeader .ascending {
+	xxxbackground: #d9e9fd;
+}
+.steel .swtTable .headerNode .tableHeader .descending {
+	xxxbackground: #ffddb4;
+}
+.steel .swtTable .headerNode .tableHeader .sortIcon {
+	margin: 2px;
+	padding:0px 6px;
+}
+.steel .swtTable .headerNode .tableHeader .ascending .sortIcon{
+	background: #d9e9fd;
+}
+.steel .swtTable .headerNode .tableHeader .descending .sortIcon{
+	background: #ffddb4;
+}
+
+.steel .swtTable .headerNode .tableHeader .sortable:HOVER {
+	cursor: pointer;
+	xxxtext-decoration: underline;
+}
 .steel .swtTable .tableNode .tableHeader {
 	background: #FAFAFB
 }
-
 .steel .swtTable .tableHeader td, .steel .swtTable .tableHeader th {
 	padding: 5px 4px;
 	border: 1px solid #D4D4D4;

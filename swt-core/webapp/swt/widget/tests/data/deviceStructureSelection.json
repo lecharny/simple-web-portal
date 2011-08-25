@@ -40,7 +40,7 @@
     {
       attr:"Synced",
       label:"Synced?",
-      width:60,
+      width:70,
       vAlignment:"middle",
       alignment:"center",
       sortable:true
@@ -59,8 +59,7 @@
       width:100,
       vAlignment:"middle",
       alignment:"right",
-      editable:true,
-      sortable:true
+      editable:true
     },
     {
       attr:"MemoryUsage",
@@ -68,8 +67,7 @@
       width:100,
       vAlignment:"middle",
       alignment:"right",
-      editable:true,
-      sortable:true
+      editable:true
     },
     {
       attr:"CpuUsage",

@@ -13,5 +13,6 @@
 	"_delete": "Delete",
 	"addRow":"Add Row",
 	"clearSelection":"Clear Selection",
-	"pgnRowsPerPageWarn":"By changing rows per page you will loose selections made earlier on all pages. Press enter to continue."
+	"pgnRowsPerPageWarn":"By changing rows per page you will loose selections made earlier on all pages. Press enter to continue.",
+	"sortable":"Sortable"
 })
