@@ -96,6 +96,8 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	// boolean
 	// used to check if the table body has been created.
 	_tableBodyCreated: false,
+	// a domNode pointing to table that represents the header.
+	_headerTableNode: null,
 	//////////////////
 	// PRIVATE END////
 	//////////////////
@@ -174,6 +176,9 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	
 	// acceptable values are none, top, bottom, both
 	showPaginationAt: "none",
+	
+	// query to be set on the store.
+	query: null,
 	
 	////////////////////////
 	// user supplied END////
@@ -262,6 +267,9 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		
 		// log pagin info.
 		this._logPagingInfo();
+		
+		// setup watchers.
+		this.watch("store", dojo.hitch(this, "setStore"));
 	},
 	_normalizeStructure: function(){
 		// summary:  Any operation like showing row numbers or selection model is fixed in this call.
@@ -350,7 +358,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		//dojo.place(sb, this.tableNode, "first")
 		// add the header height to correction.
 		this._sizeCache.heightHeader = dojo.position(this.headerNode).h;
-		
+		// TODO may not need this._headerTableNode = this.headerNode.firstChild;
 		// add select all connect. TODO destroy these connects if grid re-renders.
 		var _sa = dojo.query(this.headerNode, this._css.selectAll)[0];
 		if(_sa){
@@ -896,6 +904,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	},
 	_createSelectionObject: function(){
 		// create selection bucket.
+		this._selection = [];
 		for(var i=0; i< (this._pages); i++){
 			this._selection[i] = [];
 		}
@@ -925,6 +934,17 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 				dojo.addClass(tBody.rows[item.rowIndex], _self._css.selected);
 			}
 		});
+		// if all the rows in a page are selected mark the select all as checked.
+		if(this.selectionMode==this._multiple){
+			var _saNode = dojo.query(".selectAll",this.headerNode)[0];
+			if(this._selection[this.showPage].length==this.tableNode.rows.length){			
+				//console.log("ALL THE ROWS FOR THIS PAGE ARE SELECTED, MARK SELECT ALL CHECKED!");
+				_saNode.checked = true;	
+			} else {
+				//console.log("ALL THE ROWS FOR THIS PAGE ARE NOT SELECTED, MARK SELECT ALL UN-CHECKED!");
+				_saNode.checked = false;
+			}
+		}
 	},
 	_getStoreItemForTableRow: function(/*domNode*/ row){
 		// summary: gets a pointer to store iten given a table row (tr) node.
@@ -1016,5 +1036,8 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 			};
 		}
 		
+	},
+	setStore: function(){
+		console.log("New store set on the table! Need to implement!");
 	}
 });
