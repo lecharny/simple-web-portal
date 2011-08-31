@@ -5,6 +5,7 @@ dojo.require("dojo.html");
 dojo.require("dijit._Widget");
 dojo.require("dijit._Templated");
 dojo.require("dijit._CssStateMixin");
+dojo.require("dijit.Dialog");
 dojo.require("dojox.string.Builder");
 dojo.require("swt.widget.table._Pagination");
 dojo.require("swt.widget.table.Toolbar");
@@ -96,8 +97,8 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	// boolean
 	// used to check if the table body has been created.
 	_tableBodyCreated: false,
-	// a domNode pointing to table that represents the header.
-	_headerTableNode: null,
+	
+	_filterDialog: null,
 	//////////////////
 	// PRIVATE END////
 	//////////////////
@@ -358,7 +359,6 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		//dojo.place(sb, this.tableNode, "first")
 		// add the header height to correction.
 		this._sizeCache.heightHeader = dojo.position(this.headerNode).h;
-		// TODO may not need this._headerTableNode = this.headerNode.firstChild;
 		// add select all connect. TODO destroy these connects if grid re-renders.
 		var _sa = dojo.query(this.headerNode, this._css.selectAll)[0];
 		if(_sa){
@@ -1039,5 +1039,21 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	},
 	setStore: function(){
 		console.log("New store set on the table! Need to implement!");
+	},
+	showFilter: function(){
+		if(!this._filterDialog){
+			this._filterDialog = new dijit.Dialog({
+	            title: "Programatic Dialog Creation",
+	            style: "width: 500px"
+	        });
+			this._filterDialog.set("content", dojo.toJson(this.structure, true));
+			this._filterDialog.show();
+		} else {
+			this._filterDialog.show();
+		}
+		//dijit._underlay.hide();
+		//console.log("Show filter associated with the table!");
 	}
+
+	
 });

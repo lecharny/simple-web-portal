@@ -7,6 +7,7 @@
 	"pgnPrivious":"Privious",
 	"pgnNext":"Next",
 	"pgnHitEnter":"Press enter to continue",
+	"filter":"Filter",
 	"refresh":"Refresh",
 	"edit": "Edit",
 	"close":"Close",
