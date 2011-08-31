@@ -18,6 +18,7 @@ dojo.declare('swt.widget.table.Toolbar', [dijit.Toolbar], {
 	/////////////////////
 	// NLS Labels START//
 	/////////////////////
+	filter: "filter",
 	refresh : "refresh",
 	settings :"settings",
 	close:"Close",
@@ -34,6 +35,7 @@ dojo.declare('swt.widget.table.Toolbar', [dijit.Toolbar], {
 	postMixInProperties: function(){
 		this.inherited(arguments);
 		var _m = this.table.messages;
+		this.filter = (_m[this.filter])?_m[this.filter]:"Filter";
 		this.refresh = (_m[this.refresh])?_m[this.refresh]:"Refresh";
 		this.settings = (_m[this.settings])?_m[this.settings]:"Settings";
 		this.close = (_m[this.close])?_m[this.close]:"Close";
@@ -88,6 +90,9 @@ dojo.declare('swt.widget.table.Toolbar', [dijit.Toolbar], {
 	},
 	_close: function(evt){
 		this.settingsAP.closeDropDown();
+	},
+	filterTable: function(evt){
+		this.table.showFilter();
 	}
 	
 });
