@@ -10,6 +10,7 @@ dojo.require("dojox.string.Builder");
 dojo.require("swt.widget.table._Pagination");
 dojo.require("swt.widget.table.Toolbar");
 dojo.require("swt.widget.table.ContextualToolbar");
+dojo.require("swt.widget.table.Filter");
 
 //dojo.require("swt.widget.table._Layout");
 //dojo.requireLocalization("dijit", "loading");
@@ -1042,17 +1043,17 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	},
 	showFilter: function(){
 		if(!this._filterDialog){
+			var _fw = new swt.widget.table.Filter({table: this});
 			this._filterDialog = new dijit.Dialog({
-	            title: "Programatic Dialog Creation",
+	            title: "Filter "+this.tableTitle,
 	            style: "width: 500px"
 	        });
-			this._filterDialog.set("content", dojo.toJson(this.structure, true));
+			//this._filterDialog.set("content", dojo.toJson(this.structure, true));
+			this._filterDialog.set("content", _fw);
 			this._filterDialog.show();
 		} else {
 			this._filterDialog.show();
 		}
-		//dijit._underlay.hide();
-		//console.log("Show filter associated with the table!");
 	}
 
 	

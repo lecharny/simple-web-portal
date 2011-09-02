@@ -134,7 +134,7 @@
 .steel .swtTable .tableNode .tableHeader {
 	background: #FAFAFB
 }
-.steel .swtTable .tableHeader td, .steel .swtTable .tableHeader th {
+.steel .swtTable .tableHeader td, .steel .swtTable .tableHeader th, .swtTableFilter .filterTable thead td, .steel .swtTableFilter .swtTableFilterItem td {
 	padding: 5px 4px;
 	border: 1px solid #D4D4D4;
 }
@@ -175,3 +175,25 @@
 	padding: 0;
 	margin: 0;
 }
+/*Table Filter START*/
+
+.steel .swtTableFilter .filterTable {
+	border-collapse: collapse;
+	border-spacing: 0;
+	table-layout: fixed;
+	width: 100%;
+}
+.steel .swtTableFilter label {
+	padding: 5px;
+}
+.steel .swtTableFilter .filterTable thead tr {
+	background: #FAFAFB;
+}
+.steel .swtTableFilter .swtTableFilterItem td {
+	padding: 1px 4px;
+}
+.steel .swtTableFilter .customCondition {
+	margin: 10px 0px;
+}
+
+/*Table Filter END*/

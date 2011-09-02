@@ -1,0 +1,17 @@
+<div>
+<label>Match</label>
+<input type="radio" name="match" id="${id}_all" value="all"/><label for="${id}_all">All</label>
+<input type="radio" name="match" id="${id}_any" value="any"/><label for="${id}_any">Any</label>
+<input type="radio" name="match" id="${id}_custom" value="custom"/><label for="${id}_custom">Custom</label>
+<label>(of the conditions)</label>
+<div class="customCondition" dojoAttachPoint="customTextBoxAP">
+	<label for="${id}_customTB">Custom Condition</label>
+	<input type="text" name="customTB" value="" dojoType="dijit.form.TextBox" trim="true" id="${id}_customTB">
+</div>
+<table class="filterTable">
+	<thead>
+		<tr><td>Condition</td><td>Column</td><td>Operator</td><td>Value</td><td>Remove</td></tr>
+	</thead>
+	<tbody class="filterTableBody" dojoAttachPoint="filterTableBodyAP"></tbody>
+</table>
+</div>
