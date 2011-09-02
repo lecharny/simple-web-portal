@@ -13,7 +13,8 @@
       width:180,
       vAlignment:"middle",
       editable:true,
-      sortable:true
+      sortable:true,
+      filterType:"string"
     },
     {
       attr:"IP",
@@ -43,7 +44,8 @@
       width:70,
       vAlignment:"middle",
       alignment:"center",
-      sortable:true
+      sortable:true,
+      filterType:"boolean"
     },
     {
       attr:"SoftwareVersion",
@@ -59,7 +61,8 @@
       width:100,
       vAlignment:"middle",
       alignment:"right",
-      editable:true
+      editable:true,
+      filterType:"number"
     },
     {
       attr:"MemoryUsage",

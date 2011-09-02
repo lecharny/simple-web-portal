@@ -1046,7 +1046,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 			var _fw = new swt.widget.table.Filter({table: this});
 			this._filterDialog = new dijit.Dialog({
 	            title: "Filter "+this.tableTitle,
-	            style: "width: 500px"
+	            style: "width: 600px"
 	        });
 			//this._filterDialog.set("content", dojo.toJson(this.structure, true));
 			this._filterDialog.set("content", _fw);

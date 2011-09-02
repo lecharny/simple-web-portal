@@ -138,6 +138,7 @@
 	padding: 5px 4px;
 	border: 1px solid #D4D4D4;
 }
+
 .steel .swtTable .tableHeader td:FIRST-CHILD {
 	border-left-color: transparent;
 }
@@ -188,12 +189,22 @@
 }
 .steel .swtTableFilter .filterTable thead tr {
 	background: #FAFAFB;
+	font-weight: bold;
 }
 .steel .swtTableFilter .swtTableFilterItem td {
 	padding: 1px 4px;
 }
 .steel .swtTableFilter .customCondition {
 	margin: 10px 0px;
+}
+.steel .swtTableFilter .bottomButtons {
+	margin-top: 5px;
+}
+.steel .swtTableFilter .columnSelect, .steel .swtTableFilter .operationSelect {
+	width: 100px;
+}
+.steel .swtTableFilterItem .filterItemValue {
+	width: 19em;
 }
 
 /*Table Filter END*/
