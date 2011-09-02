@@ -1,8 +1,9 @@
 <tr>
-	<td dojoAttachPoint="conditionAP">1</td>
+	<td dojoAttachPoint="conditionAP">${counter}</td>
 	<td dojoAttachPoint="columnAP"></td>
 	<td dojoAttachPoint="operatorAP">3</td>
-	<td dojoAttachPoint="valueAP">4</td>
+	<td><input class="filterItemValue" type="text" value="" dojoAttachPoint="valueAP" dojoType="dijit.form.TextBox" trim="true">
+	</td>
 	<td dojoAttachPoint="removeAP">
 		<button dojoType="dijit.form.Button" dojoAttachPoint="removeAP" dojoAttachEvent="onClick:removeCondition" iconClass="swt-icon swt-icon-close" showLabel="false" title="Remove" type="button">Remove</button>
 	</td>

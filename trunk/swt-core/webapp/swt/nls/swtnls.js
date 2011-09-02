@@ -15,5 +15,19 @@
 	"addRow":"Add Row",
 	"clearSelection":"Clear Selection",
 	"pgnRowsPerPageWarn":"By changing rows per page you will loose selections made earlier on all pages. Press enter to continue.",
-	"sortable":"Sortable"
+	"sortable":"Sortable",
+	"contains" : "Contains",
+	"does-not-contain" : "Does not contain",
+	"starts-with" : "Starts with",
+	"ends-with" : "Ends with",
+	"empty" : "Empty",
+	"not-empty" : "Not empty",
+	"equal" : "==",
+	"not-equal" : "!=",
+	"greater-then" : ">",
+	"greater-then-euqal-to" : ">=",
+	"less-then" : "<",
+	"less-then-equal-to" : "<=",
+	"true":"Is equal to",
+	"false":"Is not equal to"
 })
