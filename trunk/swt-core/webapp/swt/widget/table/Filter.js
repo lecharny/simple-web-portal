@@ -120,8 +120,6 @@ dojo.declare('swt.widget.table.Filter', [dijit._Widget, dijit._Templated], {
 //		this.filterTableBodyAP.appendChild(_fi.domNode);
 	},
 	addCondition: function(evt){
-		var opr = {};
-		opr.boolean = this._ddBoolean;
 		var _fi = new swt.widget.table.FilterItem({columnStore: this._csJson, "_filter" : this, "counter": this._conditionCounter++});
 		this.filterTableBodyAP.appendChild(_fi.domNode);
 		this.connect(_fi,"destroy", dojo.hitch(this, "_resetConditionIndexes"));
@@ -181,8 +179,37 @@ dojo.declare('swt.widget.table.Filter', [dijit._Widget, dijit._Templated], {
 		console.log("RESET CONDITION INDEXES");
 	},
 	cancel: function(evt){
+		// summary: cancels the filer.
+		console.log("Cancel Filter!");
+	},
+	_onFilter: function(evt){
 		console.log("Invoke Filter!");
+		var _r = {};
+		_r.conjunction = "";
+		var _fi, _expObj;
+		var _exp = [];
+		dojo.forEach(this.filterTableBodyAP.rows, function(row, idx, arr){
+			_expObj = {};
+			_fi = dijit.byNode(row);
+			if(_fi){
+				var si = parseInt(dojo.attr(_fi._columnDropdown.item || _fi._columnDropdown.store.fetchSelectedItem(), "select-index"));
+				var  _c = _fi.columnStore.items[si];
+				_expObj.op = _fi._operationDropdown.value;
+				_expObj.attr = _c.attr;
+				_expObj.filterType = _c.filterType || "strings";
+				_expObj.value = _fi.valueAP.value;
+				_exp.push(_expObj);
+				//console.log("onFilter::" + dojo.toJson(_c));
+			}
+		});
+		_r.expressions = _exp;
+		this.onFilter(_r);
+		
+	},
+	onFilter: function(/*Object*/ filter){
+		// summary: callback for getting filter details.
 	}
+	
 	
 });
 
@@ -210,6 +237,8 @@ dojo.declare('swt.widget.table.FilterItem', [dijit._Widget, dijit._Templated], {
 	_filter: null,
 	
 	_columnDropdown:"",
+	
+	_operationDropdown:null,
 	
 	counter: 1,
 	
@@ -279,17 +308,13 @@ dojo.declare('swt.widget.table.FilterItem', [dijit._Widget, dijit._Templated], {
 		var  _c = this.columnStore.items[si];
 		dojo.html.set(this.operatorAP, this._filter.getOperations(_c.filterType));
 		dojo.parser.parse(this.operatorAP);
+		this._operationDropdown = dijit.findWidgets(this.operatorAP)[0];
 		console.log("onChangeColumn::" + this._filter.getOperations(_c.filterType));
 	},
 	destroyOperations: function(){
 		var _w = dijit.findWidgets(this.operatorAP)[0];
-		if(_w && _w.destroy){
-			_w.destroy();
+		if(this._operationDropdown && this._operationDropdown.destroy){
+			this._operationDropdown.destroy();
 		}
-	},
-	
-	filter: function(evt){
-		console.log("Invoke Filter!");
 	}
-	
 });
