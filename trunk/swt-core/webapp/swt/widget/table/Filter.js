@@ -281,17 +281,12 @@ dojo.declare('swt.widget.table.FilterItem', [dijit._Widget, dijit._Templated], {
 			sb.append(st);
 		}
 		sb.append("</select>");
-		//console.log(sb.toString());
 		dojo.html.set(this.columnAP, sb.toString());
 		dojo.parser.parse(this.columnAP);
 
 		this._columnDropdown = dijit.findWidgets(this.columnAP)[0];
 		this.connect(this._columnDropdown,"onChange", dojo.hitch(this, "onChangeColumn"));
 		this.onChangeColumn();
-		//var xx = _w.get("value");
-		//var xxx = _w.store.fetchSelectedItem();
-		//var zz = "";
-		//dojo.html.set(this.operatorAP, this._filter.getOperations(item.filterType));
 		
 	},
 	removeCondition: function(evt){
@@ -309,10 +304,9 @@ dojo.declare('swt.widget.table.FilterItem', [dijit._Widget, dijit._Templated], {
 		dojo.html.set(this.operatorAP, this._filter.getOperations(_c.filterType));
 		dojo.parser.parse(this.operatorAP);
 		this._operationDropdown = dijit.findWidgets(this.operatorAP)[0];
-		console.log("onChangeColumn::" + this._filter.getOperations(_c.filterType));
+		//console.log("onChangeColumn::" + this._filter.getOperations(_c.filterType));
 	},
 	destroyOperations: function(){
-		var _w = dijit.findWidgets(this.operatorAP)[0];
 		if(this._operationDropdown && this._operationDropdown.destroy){
 			this._operationDropdown.destroy();
 		}
