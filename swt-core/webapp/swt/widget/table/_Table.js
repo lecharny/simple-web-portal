@@ -1051,6 +1051,15 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 			//this._filterDialog.set("content", dojo.toJson(this.structure, true));
 			this._filterDialog.set("content", _fw);
 			this._filterDialog.show();
+			var _self = this;
+			this.connect(_fw, "cancel", function(evt){
+				this._filterDialog.hide();
+			});
+			this.connect(_fw, "onFilter", function(filter){
+				if(filter){
+					console.log("Filter::" + dojo.toJson(filter));
+				}
+			});
 		} else {
 			this._filterDialog.show();
 		}
