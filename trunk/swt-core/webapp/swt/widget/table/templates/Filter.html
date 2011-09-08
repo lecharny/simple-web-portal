@@ -1,13 +1,13 @@
 <div>
 <label>Match</label>
-<input type="radio" name="match" id="${id}_all" value="all"/><label for="${id}_all">All</label>
-<input type="radio" name="match" id="${id}_any" value="any"/><label for="${id}_any">Any</label>
-<input type="radio" name="match" id="${id}_custom" value="custom"/><label for="${id}_custom">Custom</label>
-<label>(of the conditions)</label>
-<input type="checkbox" dojoAttachPoint="liveFilterAP" value="livefilter"><label for="mycheck">Live Filter</label>
+<input type="radio" dojoAttachPoint="matchAllAP" name="match" id="${id}_all" value="all"/><label for="${id}_all">All</label>
+<input type="radio" dojoAttachPoint="matchAnyAP" name="match" id="${id}_any" value="any" checked="checked"/><label for="${id}_any">Any</label>
+<input type="radio" dojoAttachPoint="matchCustomAP" name="match" id="${id}_custom" value="custom"/><label for="${id}_custom">Custom</label>
+<input type="checkbox" dojoAttachPoint="ignoreCaseAP" name="ignoreCase" value="ignoreCase" checked="checked"><label for="ignoreCase">Ignore Case</label>
+<input type="checkbox" dojoAttachPoint="liveFilterAP" name="liveFilter" value="liveFilter"><label for="liveFilter">Live Filter</label>
 <div class="customCondition" dojoAttachPoint="customTextBoxAP">
 	<label for="${id}_customTB">Custom Condition</label>
-	<input type="text" name="customTB" value="" dojoType="dijit.form.TextBox" trim="true" id="${id}_customTB">
+	<input type="text" dojoAttachPoint="customTextBoxAP" name="customTB" value="" dojoType="dijit.form.TextBox" trim="true" id="${id}_customTB">
 	<label>(ex. 1 AND 2 OR 3)</label>
 </div>
 <table class="filterTable">

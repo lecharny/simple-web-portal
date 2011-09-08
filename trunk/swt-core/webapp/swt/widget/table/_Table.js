@@ -1060,6 +1060,16 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 					console.log("Filter::" + dojo.toJson(filter));
 				}
 			});
+			this.connect(_fw, "onFilter1", function(){
+				if(_self.store.filterCriteria){
+					var _r = _self.store.query("filterCriteria");
+					if(_r){
+						_r.forEach(function(_i){console.log("FilterResults::" + dojo.toJson(_i));});	
+					} else {
+						console.log("FilterResults:: None found!");
+					}
+				}
+			});
 		} else {
 			this._filterDialog.show();
 		}
