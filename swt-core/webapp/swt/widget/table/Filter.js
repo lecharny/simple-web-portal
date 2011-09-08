@@ -152,6 +152,8 @@ dojo.declare('swt.widget.table.Filter', [dijit._Widget, dijit._Templated], {
 		var _fi = new swt.widget.table.FilterItem({columnStore: this._csJson, "_filter" : this, "counter": this._conditionCounter++});
 		this.filterTableBodyAP.appendChild(_fi.domNode);
 		this.connect(_fi,"destroy", dojo.hitch(this, "_resetConditionIndexes"));
+		this.okAP.set("disabled", false);
+		this.clearFilterAP.set("disabled", false);
 	},
 	filterTable: function(evt){
 		this.table.showFilter();
@@ -205,14 +207,24 @@ dojo.declare('swt.widget.table.Filter', [dijit._Widget, dijit._Templated], {
 			row.cells[0].innerHTML=(idx+1);
 		});
 		this._conditionCounter = this.filterTableBodyAP.rows.length+1;
+		if(this.filterTableBodyAP.rows.length==0){
+			this.okAP.set("disabled", true);
+			this.clearFilterAP.set("disabled", true);
+		}
 		console.log("RESET CONDITION INDEXES");
 	},
-	cancel: function(evt){
+	_close: function(evt){
 		// summary: cancels the filer.
-		console.log("Cancel Filter!");
+		console.log("Close Filter!");
+	},
+	_clearFilter: function(evt){
+		this.table.clearFilter(evt);
 	},
 	_onFilter: function(evt){
 		console.log("Invoke Filter!");
+		if(this.filterTableBodyAP.rows.length==0){
+			return;
+		}
 		var _self = this;
 		var _conj = "";
 		if(this.matchAllAP.checked){
@@ -245,14 +257,13 @@ dojo.declare('swt.widget.table.Filter', [dijit._Widget, dijit._Templated], {
 				_expObj.filterType = _c.filterType || _self._filterTypes.string;
 				_expObj.value = _fi.valueAP.value;
 				_exp.push(_expObj);
-				//console.log("onFilter::" + dojo.toJson(_c));
 			}
 		});
 		_r.expressions = _exp;
 		
 		this.filterToQuery(_r);
 		
-		this.onFilter(_r);
+		//this.onFilter(_r);
 		
 	},
 	onFilter: function(/*Object*/ filter){
@@ -287,11 +298,15 @@ dojo.declare('swt.widget.table.Filter', [dijit._Widget, dijit._Templated], {
 		
 		this.table.store.filterCriteria = filterCriteria;
 		
-		this.onFilter1();
+		// call render on table after query is set showing rows starting from row 0
+		// first rest the table view so that pagination/selection etc are reset.
+		this.table.resetTableView(this.table.rowsPerPage, 0);
+		// render the table.
+		this.table.render(true);
 		
+		// invoke the callback for other others to act if needed.
+		this.onFilter(filter);
 		
-	},
-	onFilter1: function(){
 		
 	},
 	_createFunction: function(/*object*/exp, /*boolean*/ignoreCase){
@@ -320,13 +335,13 @@ dojo.declare('swt.widget.table.Filter', [dijit._Widget, dijit._Templated], {
 			var _b = this.stringToBoolean(exp.value);
 			if(_b){
 				return function(item){
-					console.log("Boolean filter" + (item[exp.attr]==true));
-					return (item.value==true);
+					//console.log("Boolean filter::" + (item[exp.attr]==true));
+					return (item[exp.attr]==true);
 				};
 			} else {
 				return function(item){
-					console.log("Boolean filter" + (item[exp.attr]==true));
-					return (item.value==false);
+					//console.log("Boolean filter::" + (item[exp.attr]==false));
+					return (item[exp.attr]==false);
 				};
 			}
 		}

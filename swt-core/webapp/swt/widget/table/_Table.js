@@ -259,7 +259,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 			}
 		}
 		
-		// if rowsPerPage are not pases on as constructor parameter check if it is specified in structure.
+		// if rowsPerPage are not pased on as constructor parameter check if it is specified in structure.
 		// if supplied in structure and set it appropriately.
 		if(this.rowsPerPage<1 && this.structure.rowsPerPage){
 			this.rowsPerPage = this.structure.rowsPerPage;
@@ -369,8 +369,23 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		this._structureChanged();
 		console.log("_setStructure(ts)-->"+ (new Date().getTime() - this.startTime));
 	},
-	render: function(){
+	render: function(/*boolean*/ resetPagination){
 		// summary: This method renders the table.
+		var data;
+		if(this.store.filterCriteria){
+			data = this.store.query("filterCriteria");
+		} else {
+			data = this.store.data;
+		}
+		
+		if(resetPagination){
+			if(this._paginationTop){
+				this._paginationTop.reset(data.length);
+			}
+			if(this._paginationBottom){
+				this._paginationBottom.reset(data.length);
+			}
+		}
 		
 		this.setMessage("Rendering table...");
 		this.startTime = new Date();
@@ -408,8 +423,8 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		//var sb = new dojox.string.Builder();
 		//sb.append("<tbody class='tableBody'>");
 		var _self = this;
-		if(this.store && this.store.data){
-			dojo.forEach(this.store.data, function(row, idx, arr){
+		if(data){
+			dojo.forEach(data, function(row, idx, arr){
 				if(((idx+1) < _startRow) || ((idx+1) > _endRow)){
 					// do nothing;
 				} else {
@@ -860,13 +875,17 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		this._logPagingInfo();
 	},
 	
-	_calculatePages: function(){
+	_calculatePages: function(/*number*/ rows){
 		// summary: calculates the number of pages from total and rows per page.
 		// CaseOne all the data is available with the client and user has requested pagination.
 		// if rowsPerPage > 0, figure out how many pages we are going to have from the available data.
+		var _rows = rows;
+		if(!_rows){
+			_rows = this.store.data.length;
+		}
 		if(this.rowsPerPage>0){
 			if(this.rowsPerPage < this.store.data.length){
-				this._pages = Math.ceil(this.store.data.length/this.rowsPerPage);	
+				this._pages = Math.ceil(_rows/this.rowsPerPage);	
 			} else {
 				this._pages = 1;
 			}
@@ -1052,28 +1071,45 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 			this._filterDialog.set("content", _fw);
 			this._filterDialog.show();
 			var _self = this;
-			this.connect(_fw, "cancel", function(evt){
+			this.connect(_fw, "_close", function(evt){
 				this._filterDialog.hide();
 			});
 			this.connect(_fw, "onFilter", function(filter){
 				if(filter){
-					console.log("Filter::" + dojo.toJson(filter));
+					_self.onFilter(filter);
 				}
 			});
-			this.connect(_fw, "onFilter1", function(){
-				if(_self.store.filterCriteria){
-					var _r = _self.store.query("filterCriteria");
-					if(_r){
-						_r.forEach(function(_i){console.log("FilterResults::" + dojo.toJson(_i));});	
-					} else {
-						console.log("FilterResults:: None found!");
-					}
-				}
-			});
+//			this.connect(_fw, "onFilter1", function(){
+//				if(_self.store.filterCriteria){
+//					var _r = _self.store.query("filterCriteria");
+//					if(_r){
+//						_self.resetTableView(_self.rowsPerPage, 0);
+//						_self.render(true);
+//						_r.forEach(function(_i){console.log("FilterResults::" + dojo.toJson(_i));});
+//					} else {
+//						console.log("FilterResults:: None found!");
+//					}
+//				} else {
+//					_self.clearFilter();
+//				}
+//			});
 		} else {
 			this._filterDialog.show();
 		}
-	}
+	},
+	clearFilter: function(evt){
+		if(this.store.filterCriteria){
+			delete this.store.filterCriteria;
+			this.render(true);
+			console.log("Clear and re-render the table");
+		} else {
+			console.log("No filters set.");
+		}
 
+	},
+	onFilter: function(/*object*/ filter){
+		// summary: callback to connect to for server side filtering.
+		console.log("Filter::" + dojo.toJson(filter));
+	}
 	
 });

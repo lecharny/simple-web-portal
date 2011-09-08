@@ -24,7 +24,7 @@
          "ElementType":"CiscoCatalyst 6506IOSSwitch",
          "CommunicationStateEnum":3,
          "SysName":"sjcn-sys6506-91",
-         "Synced":true
+         "Synced":false
       },
       {
          "SysDescription":"Cisco IOS Software, s72033_rp Software (s72033_rp-ADVIPSERVICESK9-M), Experimental Version 12.2(20080605:055316) [vdhaka-srb3gdbv4 168]\nThis software is supported for a limited time under special agreement with Cisco Systems, Inc. Reference case 60835744",
@@ -74,7 +74,7 @@
          "ElementType":"Cisco Catalyst 3550 48 Switch",
          "CommunicationStateEnum":3,
          "SysName":"sjcn-sys3550-134",
-         "Synced":true
+         "Synced":false
       },
       {
          "SysDescription":"Cisco IOS XR Software (Cisco 12416\/PRP), Version 3.5.0[00]\nCopyright (c) 2007 by Cisco Systems, Inc.",
@@ -113,7 +113,7 @@
          "FreeMemory":0,
          "SendingAlarms":false,
          "ElementType":"Cisco 12010 Router",
-         "Synced":true,
+         "Synced":false,
          "SysLocation":"SystemTestNetwork",
          "LogicalEntriesNumber":-2147483648,
          "IsSendingAlarms":false,
@@ -139,7 +139,7 @@
          "FreeMemory":0,
          "SendingAlarms":false,
          "ElementType":"Cisco CRS1-16",
-         "Synced":true,
+         "Synced":false,
          "SysLocation":"SJCN-1-Lab",
          "LogicalEntriesNumber":-2147483648,
          "IsSendingAlarms":false,
