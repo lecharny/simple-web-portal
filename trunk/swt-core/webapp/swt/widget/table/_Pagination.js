@@ -82,11 +82,13 @@ dojo.declare('swt.widget.table._Pagination', [dijit._Widget, dijit._Templated], 
 		}
 	},
 	
-	reset: function(){
-		this.resetActions();
-		this.updatesCounts();
+	reset: function(/*Object*/ rowCount){
+		// summary: resets the counts etc.
+		// counts : optional (if provided the counts object is used otherwise it is calculated.
+		this.resetActions(rowCount);
+		this.updatesCounts(rowCount);
 	},
-	resetActions: function(){
+	resetActions: function(rowCount){
 		// summary: resets the pagination actions.
 		
 		// if showPage==1 disable the privious button.
@@ -101,20 +103,22 @@ dojo.declare('swt.widget.table._Pagination', [dijit._Widget, dijit._Templated], 
 		} else {
 			this.nextAP.set("disabled", false);
 		}
+		if(rowCount < this.table.rowsPerPage){
+			this.priviousAP.set("disabled", true);
+			this.nextAP.set("disabled", true);
+		}
 	},
-	updatesCounts: function(/*Object*/ counts){
+	updatesCounts: function(/*Object*/ rowCount){
 		// summary: updates the counts.
 		// counts: an Object {startRow: 1, endRow:20,totalRows: 200}
-		var _c = counts;
+		var _c = {};
 		var _t = this.table;
-		if(!_c){
-			_c = {};
-			_c.startRow = ((_t.showPage)*_t.rowsPerPage)+1;
-			_c.endRow = (_t.showPage+1)*_t.rowsPerPage;
-			_c.totalRows = _t.store.data.length;
-			if(_c.endRow > _c.totalRows){
-				_c.endRow = _c.totalRows;
-			}
+		var tr;
+		_c.startRow = ((_t.showPage)*_t.rowsPerPage)+1;
+		_c.endRow = (_t.showPage+1)*_t.rowsPerPage;
+		_c.totalRows = rowCount || _t.store.data.length;
+		if(_c.endRow > _c.totalRows){
+			_c.endRow = _c.totalRows;
 		}
 		dojo.mixin(_c, {pgnof: this.pgnof});
 		var _s = this._countsTemplate;

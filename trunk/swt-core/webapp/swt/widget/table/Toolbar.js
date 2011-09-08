@@ -92,7 +92,10 @@ dojo.declare('swt.widget.table.Toolbar', [dijit.Toolbar], {
 		this.settingsAP.closeDropDown();
 	},
 	filterTable: function(evt){
-		this.table.showFilter();
+		this.table.showFilter(evt);
+	},
+	clearFilter: function(evt){
+		this.table.clearFilter(evt);
 	}
 	
 });
