@@ -1105,10 +1105,19 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		} else {
 			console.log("No filters set.");
 		}
+		// disable the clear filter as we do not have one set.
+		if(this.toolbar){
+			this.toolbar.clearfilterAP.set("disabled", true);			
+		}
 
 	},
 	onFilter: function(/*object*/ filter){
 		// summary: callback to connect to for server side filtering.
+		
+		// enable the clear filter as we have one set.
+		if(this.toolbar){
+			this.toolbar.clearfilterAP.set("disabled", false);			
+		}
 		console.log("Filter::" + dojo.toJson(filter));
 	}
 	
