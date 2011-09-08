@@ -11,6 +11,35 @@ dojo.require("dijit.Menu");
 dojo.require("dijit.form.TextBox");
 dojo.require("dojo.data.ItemFileReadStore");
 
+/*
+ * 
+ * {
+   "conjunction":"CUSTOM",
+   "customConjunction":"1 AND 2 OR 3",
+   "ignoreCase":true,
+   "expressions":[
+      {
+         "op":"Contains",
+         "attr":"DeviceName",
+         "filterType":"string",
+         "value":"abc"
+      },
+      {
+         "op":"Contains",
+         "attr":"IP",
+         "filterType":"string",
+         "value":"123"
+      },
+      {
+         "op":"Is equal to",
+         "attr":"Synced",
+         "filterType":"boolean",
+         "value":"true"
+      }
+   ]
+}
+ * 
+ */
 dojo.declare('swt.widget.table.Filter', [dijit._Widget, dijit._Templated], {
 	baseClass:"swtTableFilter",
 	templateString: dojo.cache("swt", "widget/table/templates/Filter.html"),
@@ -54,7 +83,7 @@ dojo.declare('swt.widget.table.Filter', [dijit._Widget, dijit._Templated], {
 			"greater-then" : "greater-then",
 			"greater-then-euqal-to" : "greater-then-euqal-to",
 			"less-then" : "less-then",
-			"less-then-equal-to" : "greater-then"
+			"less-then-equal-to" : "less-then-equal-to"
 		},
 		"string" : {
 			"contains" : "contains",
@@ -68,7 +97,7 @@ dojo.declare('swt.widget.table.Filter', [dijit._Widget, dijit._Templated], {
 			"greater-then" : "greater-then",
 			"greater-then-euqal-to" : "greater-then-euqal-to",
 			"less-then" : "less-then",
-			"less-then-equal-to" : "greater-then"
+			"less-then-equal-to" : "less-then-equal-to"
 		}
 	},
 	
@@ -184,8 +213,25 @@ dojo.declare('swt.widget.table.Filter', [dijit._Widget, dijit._Templated], {
 	},
 	_onFilter: function(evt){
 		console.log("Invoke Filter!");
+		var _self = this;
+		var _conj = "";
+		if(this.matchAllAP.checked){
+			_conj = "ALL";
+		} else if(this.matchAnyAP.checked){
+			_conj = "ANY";
+		} else if(this.matchCustomAP.checked){
+			_conj = "CUSTOM";
+		}
 		var _r = {};
-		_r.conjunction = "";
+		_r.conjunction = _conj;
+		if(_conj == "CUSTOM"){
+			_r.customConjunction = this.customTextBoxAP.value;
+		}
+		// check if ignoreCase is required.
+		if(this.ignoreCaseAP.checked){
+			_r.ignoreCase = true;
+		}
+		
 		var _fi, _expObj;
 		var _exp = [];
 		dojo.forEach(this.filterTableBodyAP.rows, function(row, idx, arr){
@@ -196,18 +242,210 @@ dojo.declare('swt.widget.table.Filter', [dijit._Widget, dijit._Templated], {
 				var  _c = _fi.columnStore.items[si];
 				_expObj.op = _fi._operationDropdown.value;
 				_expObj.attr = _c.attr;
-				_expObj.filterType = _c.filterType || "strings";
+				_expObj.filterType = _c.filterType || _self._filterTypes.string;
 				_expObj.value = _fi.valueAP.value;
 				_exp.push(_expObj);
 				//console.log("onFilter::" + dojo.toJson(_c));
 			}
 		});
 		_r.expressions = _exp;
+		
+		this.filterToQuery(_r);
+		
 		this.onFilter(_r);
 		
 	},
 	onFilter: function(/*Object*/ filter){
 		// summary: callback for getting filter details.
+	},
+	filterToQuery: function(/*Object*/ filter){
+		// summary:
+		//		Converts a filter object to a query object that a store can act on.
+		var _self = this;
+		var _o = this._operations.string;
+		var _s = this.table.store;
+		var _fns = [];
+		var exp;
+		for(var i=0;i<filter.expressions.length; i++){
+			exp = filter.expressions[i];
+			if(exp.filterType==this._filterTypes.string){
+				exp.value = this._operatorToQueryPattern(exp.filterType, exp.op, exp.value);
+				
+			}
+			_fns.push(this._createFunction(exp, filter.ignoreCase));
+		}
+		var result = false;
+		var filterCriteria = function(item){
+			for(var i=0;i<_fns.length; i++){
+				var _fn = _fns[i];
+				result = _fn.apply(item, arguments);
+				if(result){
+					return result;
+				}
+			}
+		};
+		
+		this.table.store.filterCriteria = filterCriteria;
+		
+		this.onFilter1();
+		
+		
+	},
+	onFilter1: function(){
+		
+	},
+	_createFunction: function(/*object*/exp, /*boolean*/ignoreCase){
+		var _o = this._operations.string;
+		if(exp.filterType==this._filterTypes.string){
+			var _regExp = this._patternToRegExp(exp.value, ignoreCase);
+			if(_regExp){
+				return function(item){if(item[exp.attr]){return _regExp.test(item[exp.attr]);}};
+			} else {
+				switch (exp.op.toLowerCase()) {
+				case _o.contains:
+					return function(item){if(item[exp.attr]){return ""+item[exp.attr].indexOf(exp.value) > -1;}};
+				case _o.does-not-contain:
+					return function(item){if(item[exp.attr]){return ""+item[exp.attr].indexOf(exp.value) == -1;}};
+				case _o["starts-with"] :
+					return function(item){if(item[exp.attr]){return ""+item[exp.attr].indexOf(exp.value) == 0;}};
+				case _o["ends-with"] :
+					return function(item){if(item[exp.attr]){return ((""+item[exp.attr].lastIndexOf(exp.value)) == (item[exp.attr].length - exp.value.length));}};
+				default:
+					return function(item){if(item[exp.attr]){return ""+item[exp.attr].indexOf(exp.value) > -1;}};
+				}
+			}
+			
+		}
+		if(exp.filterType==this._filterTypes.boolean){
+			var _b = this.stringToBoolean(exp.value);
+			if(_b){
+				return function(item){
+					console.log("Boolean filter" + (item[exp.attr]==true));
+					return (item.value==true);
+				};
+			} else {
+				return function(item){
+					console.log("Boolean filter" + (item[exp.attr]==true));
+					return (item.value==false);
+				};
+			}
+		}
+		_o = this._operations.number;
+		if(exp.filterType==this._filterTypes.number){
+			switch (operator.toLowerCase()) {
+			case _o.equal:
+				return function(item){return (item[exp.attr]==exp.value);};
+			case _o.not-equal:
+				return function(item){return (item[exp.attr]!=exp.value);};
+			case _o.greater-then :
+				return function(item){return (item[exp.attr]>exp.value);};
+			case _o.greater-then-euqal-to :
+				return function(item){return (item[exp.attr]>=exp.value);};
+			case _o.less-then :
+				return function(item){return (item[exp.attr]<exp.value);};
+			case _o.less-then-equal-to :
+				return value + function(item){return (item[exp.attr]<=exp.value);};
+			default:
+				return function(item){return (item[exp.attr]==exp.value);};
+			}
+
+		}
+		
+	},
+	_operatorToQueryPattern: function(/*String*/filterType, /*String*/ operator, /*anything*/ value){
+		// summary:
+		//		converts a value to format required by _patternToRegExp function.
+		//		human readable to what we need for RegExp buildup.
+		var _o = this._operations.string;
+		if(filterType == this._filterTypes.string){
+			switch (operator.toLowerCase()) {
+				case _o["contains"]:
+					return "*" + value + "*";
+				case _o["does-not-contain"]:
+					return "*" + value + "*";
+				case _o["starts-with"] :
+					return value + "*";
+				case _o["ends-with"] :
+					return "*" + value;
+				default:
+					return value;
+			}
+		}
+	},
+	_patternToRegExp: function(/*String*/pattern, /*boolean?*/ ignoreCase){
+		//	summary:
+		//		Helper function to convert a simple pattern to a regular expression for matching.
+		//	description:
+		//		Returns a regular expression object that conforms to the defined conversion rules.
+		//		For example:
+		//			ca*   -> /^ca.*$/
+		//			*ca*  -> /^.*ca.*$/
+		//			*c\*a*  -> /^.*c\*a.*$/
+		//			*c\*a?*  -> /^.*c\*a..*$/
+		//			and so on.
+		//
+		//	pattern: string
+		//		A simple matching pattern to convert that follows basic rules:
+		//			* Means match anything, so ca* means match anything starting with ca
+		//			? Means match single character.  So, b?b will match to bob and bab, and so on.
+		//      	\ is an escape character.  So for example, \* means do not treat * as a match, but literal character *.
+		//				To use a \ as a character in the string, it must be escaped.  So in the pattern it should be
+		//				represented by \\ to be treated as an ordinary \ character instead of an escape.
+		//
+		//	ignoreCase:
+		//		An optional flag to indicate if the pattern matching should be treated as case-sensitive or not when comparing
+		//		By default, it is assumed case sensitive.
+		//	TODO remove this after dojo.store.* classes/APIs are finalized. As of dojo 1.6.1 these are being worked on.
+
+		var rxp = "^";
+		var c = null;
+		for(var i = 0; i < pattern.length; i++){
+			c = pattern.charAt(i);
+			switch(c){
+				case '\\':
+					rxp += c;
+					i++;
+					rxp += pattern.charAt(i);
+					break;
+				case '*':
+					rxp += ".*"; break;
+				case '?':
+					rxp += "."; break;
+				case '$':
+				case '^':
+				case '/':
+				case '+':
+				case '.':
+				case '|':
+				case '(':
+				case ')':
+				case '{':
+				case '}':
+				case '[':
+				case ']':
+					rxp += "\\"; //fallthrough
+				default:
+					rxp += c;
+			}
+		}
+		rxp += "$";
+		if(ignoreCase){
+			return new RegExp(rxp,"mi"); //RegExp
+		}else{
+			return new RegExp(rxp,"m"); //RegExp
+		}
+		
+	},
+	
+	stringToBoolean: function(string){
+        switch(string.toLowerCase()){
+        	case "true": case "yes": case "1": 
+        		return true;
+        	case "false": case "no": case "0": case null: 
+        		return false;
+            default: 
+            	return Boolean(string);
+        }
 	}
 	
 	
@@ -311,4 +549,5 @@ dojo.declare('swt.widget.table.FilterItem', [dijit._Widget, dijit._Templated], {
 			this._operationDropdown.destroy();
 		}
 	}
+	
 });
