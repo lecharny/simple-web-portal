@@ -100,6 +100,9 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	_tableBodyCreated: false,
 	
 	_filterDialog: null,
+	
+	//an array that points to current page data set will include query results if applicable.
+	_data: null,
 	//////////////////
 	// PRIVATE END////
 	//////////////////
@@ -371,19 +374,18 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	},
 	render: function(/*boolean*/ resetPagination){
 		// summary: This method renders the table.
-		var data;
 		if(this.store.filterCriteria){
-			data = this.store.query("filterCriteria");
+			this._data = this.store.query("filterCriteria");
 		} else {
-			data = this.store.data;
+			this._data = this.store.data;
 		}
 		
 		if(resetPagination){
 			if(this._paginationTop){
-				this._paginationTop.reset(data.length);
+				this._paginationTop.reset(this._data.length);
 			}
 			if(this._paginationBottom){
-				this._paginationBottom.reset(data.length);
+				this._paginationBottom.reset(this._data.length);
 			}
 		}
 		
@@ -423,8 +425,8 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		//var sb = new dojox.string.Builder();
 		//sb.append("<tbody class='tableBody'>");
 		var _self = this;
-		if(data){
-			dojo.forEach(data, function(row, idx, arr){
+		if(this._data){
+			dojo.forEach(this._data, function(row, idx, arr){
 				if(((idx+1) < _startRow) || ((idx+1) > _endRow)){
 					// do nothing;
 				} else {
@@ -460,7 +462,12 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 						dojo.place(_r, _self.tbody, "last");
 						if(_self._hasIdentifier){
 							// IE does not have lastElementChild property.
-							dojo.attr(_self.tbody.lastElementChild || _self.tbody.lastChild, _self._row_id , row[_self.store.idProperty]);
+							var _tr = _self.tbody.lastElementChild || _self.tbody.lastChild;
+							dojo.attr(_tr, _self._row_id , row[_self.store.idProperty]);
+							if(_self._selection && _self._selection[row[_self.store.idProperty]]){
+								dojo.addClass(_tr, _self._css.selected);
+								_tr.cells[1].firstChild.checked = true;
+							}
 						}
 					} catch(error){
 						console.error("Failed adding row ::" + row[_self.store.idProperty]);
@@ -471,11 +478,13 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 			// high light the selected rows for this page if any.
 			// applicable only if pagination managed by client.
 			if(this.paginationAt== this._paginationAtObject.client){
-				this._highlightSelection(_self.tbody);						
+				//TODO this._highlightSelection(_self.tbody);
 			}
+			console.log("render(ts)-->"+ (new Date().getTime() - this.startTime));
+			this.setMessage("Rendered table in " + (new Date().getTime() - this.startTime) + "ms", 4000);
+		} else {
+			console.error("swt.widget.table._Table.render():: No data found.");
 		}
-		console.log("render(ts)-->"+ (new Date().getTime() - this.startTime));
-		this.setMessage("Rendered table in " + (new Date().getTime() - this.startTime) + "ms", 4000);
 	},
 	_structureChanged: function(){
 		// called when columnset is changed.
@@ -619,23 +628,10 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		// summary: clears all the selection is any.
 		var _self = this;
 		if(this._selection){
-			var curPage = this._selection[this.showPage];
-			dojo.forEach(curPage, function(item, idx, arr){
-				_sr = _self.tbody.rows[item.rowIndex];
-				if(_sr){
-					dojo.removeClass(_sr, _self._css.selected);
-					_sr.cells[1].firstChild.checked = false;
-				}
+			dojo.forEach(this.tbody.rows, function(row, idx, arr){
+				dojo.removeClass(row, _self._css.selected);
+				row.cells[1].firstChild.checked = false;
 			});
-			/*
-			var _sr;
-			for(var prop in this._selection){
-				_sr = this.tbody.rows[prop];
-				dojo.removeClass(_sr, this._css.selected);
-				_sr.cells[1].firstChild.checked = false;
-			};
-			this._selection = {};
-			*/
 		}
 		this._createSelectionObject();
 	},
@@ -682,14 +678,14 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		//	select all the rows in a given page.
 		if(evt.target.checked){
 			var _self = this;
-			var _sd, _ri;
-			this._selection[this.showPage]=[];
+			var _rid, _rn;
 			dojo.forEach(this.tbody.rows, function(row, idx, arr){
-				_sd = {};
-				_sd.page = _self.showPage;
-				_sd.rowIndex = row.rowIndex;
-				_sd.item = _self._getStoreItemForTableRow(row);
-				_self._selection[_self.showPage].push(_sd);
+				_rid = dojo.attr(row, _self._row_id);
+				_rn = dojo.attr(row, _self._row_num);
+				if(_rid && _rn){
+					_self._selection[_rid] = _self._data[_rn];
+					_self._selection[_rid][_rn] = _rn;
+				}
 				row.cells[1].firstChild.checked = true;
 				dojo.addClass(row, _self._css.selected);
 			});
@@ -708,12 +704,10 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 				row.cells[1].firstChild.checked = false;
 				dojo.removeClass(row, _self._css.selected);
 			});
-
-			this._selection[this.showPage]=[];
+			this._createSelectionObject();
 			this.onSelect(this._selection, this.store);
 			this._selectedAll = false;
 		}
-
 	},
 	onClick: function(/*domNode TR*/ row, /*domNode TD*/ col, /*Object*/ item, /*pageNumber*/ page){
 		// summary: Event callbak called when user clicks on a row.
@@ -798,52 +792,48 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		// here we are assuming that the row counters will be adjusted for pages, if reset at page level this will not work.
 		// TODO harjeet for paginated table we need to keep selection for each page alive separately.
 		if(isSelect && row){
+			var _rid = dojo.attr(row, _self._row_id);
+			var _rn = dojo.attr(row, _self._row_num);
 			if(selected){
-				var _sd = {};
-				_sd.page = this.showPage;
-				_sd.rowIndex = row.rowIndex;
-				_sd.item = item;
 				if(this.selectionMode===this._single){
 					// if selection mode is single, _selection points to store item directly.
-					//this._selection[row.rowIndex] = item; OLD
-					this.clearSelection(null);
-					this._selection[this.showPage] = [_sd];
-					//this._selection[this.showPage] = _sd;
+					for(var prop in this._selection){
+						_sr = this.tbody.rows[_self._selection[prop][_rn]];
+						if(_sr){
+							dojo.removeClass(_sr, this._css.selected);
+							_sr.cells[1].firstChild.checked = false;
+						}
+					};
+					this._createSelectionObject();
+					if(_rid && _rn){
+						this._selection[_rid] = this._data[_rn];
+						this._selection[_rid][_rn] = _rn;
+					}
 				} else if (this.selectionMode===this._multiple){
 					// if selection mode is multiple, _selection is an object with keys pointing to store items.
 					// if pagination is being used we need to make sure selection is toed to a page.
-					//this._selection[row.rowIndex] = item; OLD
-					var indexAlreadySelected = this._checkIfAlreadySelected(this._selection[this.showPage], _sd.rowIndex);
-					if(indexAlreadySelected>-1){
-						this._selection[this.showPage][indexAlreadySelected] = _sd;
-					} else {
-						this._selection[this.showPage].push(_sd);
-					}
 					
+					if(_rid && _rn){
+						this._selection[_rid] = this._data[_rn];
+						this._selection[_rid][_rn] = _rn;
+					}
 				} else {
 					// nothing to do.
 				}
 				dojo.addClass(row, this._css.selected);
+				
 			} else {
 				if(this.selectionMode===this._single){
-					this.clearSelection(null);
+					this._createSelectionObject();
 				} else if (this.selectionMode===this._multiple){
-					//delete this._selection[row.rowIndex];
-					var _item;
-					for(var i=0; i<this._selection[this.showPage].length;i++){
-						_item = this._selection[this.showPage][i];
-						if(_item.rowIndex==row.rowIndex){
-							_self._selection[_self.showPage].splice(i, 1);
-							break;
-						}
-					}
-					//this._selection.splice(row.rowIndex, 1);
+					delete this._selection[_rid];
 				} else {
 					// nothing to do.
 				}
 				dojo.removeClass(row, this._css.selected);
 			}
-			this.onSelect(this._selection, this.store);
+			this.onSelect(this._selection, this._data);
+			
 		} else {
 			if(row){
 				this.onClick(row, node, item, this.showPage);
@@ -870,7 +860,13 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		
 		// reset the clock for new page.
 		this.startTime = new Date();
-		this.render();
+		
+		if(this.store.filterCriteria){
+			this.render(true);
+			
+		} else {
+			this.render();
+		}
 		
 		this._logPagingInfo();
 	},
@@ -924,10 +920,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 	},
 	_createSelectionObject: function(){
 		// create selection bucket.
-		this._selection = [];
-		for(var i=0; i< (this._pages); i++){
-			this._selection[i] = [];
-		}
+		this._selection = {};
 	},
 	_checkIfAlreadySelected: function(pageSelection, rowIndex){
 		// summary: checks if a row is already selected for a given page.
@@ -945,8 +938,11 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 			return result;
 		}
 	},
+	
+	
 	_highlightSelection: function(/*domNode*/tBody){
 		// summary: hightlights the existing selection for a given page.
+		//TODO NO LONGER REQUIRED!
 		var _self = this;
 		dojo.forEach(this._selection[this.showPage], function(item, index, arr){
 			if(tBody.rows[item.rowIndex]){
@@ -966,6 +962,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 			}
 		}
 	},
+	
 	_getStoreItemForTableRow: function(/*domNode*/ row){
 		// summary: gets a pointer to store iten given a table row (tr) node.
 		if(this.paginationAt== this._paginationAtObject.none || this.paginationAt== this._paginationAtObject.server){
@@ -1079,20 +1076,6 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 					_self.onFilter(filter);
 				}
 			});
-//			this.connect(_fw, "onFilter1", function(){
-//				if(_self.store.filterCriteria){
-//					var _r = _self.store.query("filterCriteria");
-//					if(_r){
-//						_self.resetTableView(_self.rowsPerPage, 0);
-//						_self.render(true);
-//						_r.forEach(function(_i){console.log("FilterResults::" + dojo.toJson(_i));});
-//					} else {
-//						console.log("FilterResults:: None found!");
-//					}
-//				} else {
-//					_self.clearFilter();
-//				}
-//			});
 		} else {
 			this._filterDialog.show();
 		}

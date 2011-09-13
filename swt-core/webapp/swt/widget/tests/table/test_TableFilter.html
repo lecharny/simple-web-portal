@@ -97,21 +97,15 @@
 				var rs = dojo.byId("resultSelect");
 				rs.innerHTML = "";
 				var count=0;
-				dojo.forEach(selection, function(page, idxOuter, arr){
-					count=0;
-					if(page.length>0){
-						rs.innerHTML = rs.innerHTML + "<br><br>Page --> " + idxOuter + "  Count selected-->" + page.length;
-						console.log("Page --> " + idxOuter + "  Count selected-->" + page.length);
-						dojo.forEach(page, function(item, idxInner, arr){
-							rs.innerHTML = rs.innerHTML + "<br>" + "Selected row(" + count +")-->" + dojo.toJson(item);
-							console.log("Selected row(" + count +")-->" + dojo.toJson(item));
-							count++;
-						});
-					} else {
-						rs.innerHTML = rs.innerHTML + "<br><br>" + "Page --> " + idxOuter + "  Count selected-->" + page.length;
-						console.log("Page --> " + idxOuter + "  Count selected-->" + page.length);
-					}
-				});
+				var item;
+				if(selection){
+					for(var prop in selection){
+						item = selection[prop];
+						console.log("Selected row(" + count +")-->" + dojo.toJson(item));
+						rs.innerHTML = rs.innerHTML + "<br>" + "Selected row(" + count +")-->" + dojo.toJson(item);
+						count++
+					};
+				}
 			});
 			dojo.connect(dijit.byId("table1"),"clearSelection", function(selection, store){
 				//console.log("Selection count is-->" + items.length);
