@@ -86,7 +86,7 @@ dojo.declare('swt.widget.table._Pagination', [dijit._Widget, dijit._Templated], 
 		// summary: resets the counts etc.
 		// counts : optional (if provided the counts object is used otherwise it is calculated.
 		this.resetActions(rowCount);
-		this.updatesCounts(rowCount);
+		this.updateCounts(rowCount);
 	},
 	resetActions: function(rowCount){
 		// summary: resets the pagination actions.
@@ -108,7 +108,7 @@ dojo.declare('swt.widget.table._Pagination', [dijit._Widget, dijit._Templated], 
 			this.nextAP.set("disabled", true);
 		}
 	},
-	updatesCounts: function(/*Object*/ rowCount){
+	updateCounts: function(/*Object*/ rowCount){
 		// summary: updates the counts.
 		// counts: an Object {startRow: 1, endRow:20,totalRows: 200}
 		var _c = {};

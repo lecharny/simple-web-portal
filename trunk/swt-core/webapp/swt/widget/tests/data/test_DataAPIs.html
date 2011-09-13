@@ -106,6 +106,20 @@ body {
 			dojo.byId("results").value = _r;
 		});
 
+		var localStoreNI = null;
+		dojo.connect(dojo.byId("loadDataNoIndex"), "onclick", function(evt){
+			localStoreNI = new dojo.store.Memory({
+				data: [
+					{name: "one", prime: false},
+					{name: "two", even: true, prime: true},
+					{name: "three", prime: true},
+					{name: "four", even: true, prime: false},
+					{name: "five", prime: true}
+				]
+			});
+			dojo.byId("results").value = dojo.toJson(localStoreNI, true);
+		});
+
 	});
 	
 </script>
@@ -117,6 +131,7 @@ body {
 	<input id="query" type="text" name="query" maxlength="50" size="30"></input>
 	<button id="runQuery">Run Query</button>
 	<button id="loadDataL">Load Data Local</button>
+	<button id="loadDataNoIndex">Load Data (no index)</button>
 	<button id="runQueryL">Run Query Local</button>
 	<br>
 	<textarea id=results rows="20" cols="100"></textarea>
