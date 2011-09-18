@@ -1,0 +1,210 @@
+.twilight .swtTable {
+	xxxborder: 1px solid transparent;
+}
+.twilight .swtTableHover {
+	xxxborder-color: #ED8714;
+}
+
+.twilight .swtTable .messageArea {
+	color: #E5322A;
+    line-height: 26px;
+    padding: 0 5px;
+    width: 50%;
+    font-style: italic;
+}
+/*Pagination START*/
+.twilight .swtTablePagination > label, .twilight .swtTablePagination .rowCounts .pgnOf {
+	padding: 3px;
+}
+.twilight .swtTablePagination .rowCounts {
+	xxxfont-style: italic;
+	padding: 3px;
+	xxxfont-weight: bold;
+}
+.twilight .swtTablePagination .rowCounts .pgnOf {
+	
+}
+.twilight .swtTablePagination .dijitTextBox.numberText {
+	width: 25px;
+}
+.twilight .swtTablePagination.paginationTop {
+	float: right;
+	clear: both;
+}
+.dj_ie .twilight .swtTablePagination.paginationTop {
+	clear: none;
+}
+.twilight .swtTablePagination.paginationBottom {
+	float: right;
+	clear: both;
+}
+
+/*Pagination END*/
+
+/*Layout START*/
+.twilight .swtTableLayout .titleArea {
+	height: 26px;
+}
+.twilight .swtTableLayout .titleArea .tableTitle {
+	line-height: 26px;
+	font-weight: bold;
+}
+.twilight .swtTableLayout .titleArea .swtTableToolbar {
+	clear: both;
+	float: right;
+}
+.twilight .swtTableLayout .ctxTooolbarArea, .twilight .swtTableLayout .bottomArea {
+	background: #FAFAFB;
+}
+.twilight .swtTableLayout .ctxTooolbarArea .swtTableContextualToolbar {
+	clear: both;
+}
+.twilight .swtTableLayout .containerNode {
+	xxxpadding: 2px;
+	border: 1px solid #d4d4d4;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	overflow-x  : auto;
+	overflow-y  : hidden;
+	border-top-color: transparent;
+}
+.twilight .swtTableLayout .headerNode, .twilight .swtTableLayout .bodyNode {
+	width: auto;
+}
+.twilight .swtTableLayout .headerNode {
+	background: #FAFAFB;	
+}
+
+.twilight .swtTableLayout .bodyNode {
+	overflow-y: auto;
+}
+/*Layout END*/
+
+/*Contextual Toolbar START*/
+.twilight .swtTableContextualToolbar {
+}
+/*Contextual Toolbar END*/
+
+/*Toolbar START*/
+.twilight .swtTableToolbar {
+	
+}
+.twilight .swtTableToolbarSettingsContent {
+    xxxheight: 300px;
+    xxxwidth: 100px;
+	background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #D4D4D4;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    padding: 4px;
+}
+.twilight .swtTableToolbarSettingsContent .actions {
+	padding-top: 5px;
+}
+/*Toolbar END*/
+
+/*Table START*/
+.twilight .swtTable .tableNode, .twilight .swtTable .headerNode table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	table-layout: fixed;
+}
+.twilight .swtTable .headerNode .tableHeader td {
+	cursor: default;
+}
+.twilight .swtTable .headerNode .tableHeader .sortIcon {
+	margin: 2px;
+	padding:0px 6px;
+}
+/*
+.twilight .swtTable .headerNode .tableHeader .ascending .sortIcon{
+	background: #d9e9fd;
+}
+.twilight .swtTable .headerNode .tableHeader .descending .sortIcon{
+	background: #ffddb4;
+}
+*/
+
+.twilight .swtTable .headerNode .tableHeader .sortable:HOVER {
+	cursor: pointer;
+	xxxtext-decoration: underline;
+}
+.twilight .swtTable .tableNode .tableHeader {
+	background: #FAFAFB
+}
+.twilight .swtTable .tableHeader td, .twilight .swtTable .tableHeader th, .swtTableFilter .filterTable thead td, .twilight .swtTableFilter .swtTableFilterItem td {
+	padding: 5px 4px;
+	border: 1px solid #D4D4D4;
+}
+
+.twilight .swtTable .tableHeader td:FIRST-CHILD {
+	border-left-color: transparent;
+}
+.twilight .swtTable .tableNode .tableBody td {
+	padding: 3px 4px;
+	border: 1px solid transparent;
+}
+.twilight .swtTable .tableNode .oddRow {
+	background: #f7f3f7;
+}
+.twilight .swtTable .tableNode .evenRow{
+	
+}
+.twilight .swtTable .tableNode  .selected {
+	background: #d9e9fd;
+}
+.twilight .swtTable .tableNode .oddRow:HOVER, .twilight .swtTable .tableNode .evenRow:HOVER {
+	background: #f3d065;/*#eff3ff;*/	
+}
+.twilight .swtTable .tableNode .oddRow:HOVER td, .twilight .swtTable .tableNode .evenRow:HOVER td{
+	xxxborder-top-color: #d4d4d4;
+	xxxborder-bottom-color: #d4d4d4;
+}
+.twilight .swtTable .ellipses {
+	white-space: nowrap;
+	overflow: hidden;
+    text-overflow: ellipsis;  
+    -o-text-overflow: ellipsis;  
+    -ms-text-overflow: ellipsis;
+}
+.dj_chrome .twilight .swtTable .ellipses {
+	xxxwhite-space: normal;
+}
+.dj_chrome .twilight .swtTable .tableNode .tableBody td div.ellipses {
+	padding: 0;
+	margin: 0;
+}
+/*Table Filter START*/
+
+.twilight .swtTableFilter .filterTable {
+	border-collapse: collapse;
+	border-spacing: 0;
+	table-layout: fixed;
+	width: 100%;
+}
+.twilight .swtTableFilter label {
+	padding: 5px;
+}
+.twilight .swtTableFilter .filterTable thead tr {
+	background: #FAFAFB;
+	xxxfont-weight: bold;
+}
+.twilight .swtTableFilter .swtTableFilterItem td {
+	padding: 1px 4px;
+}
+.twilight .swtTableFilter .customCondition {
+	margin: 10px 0px;
+}
+.twilight .swtTableFilter .bottomButtons {
+	margin-top: 5px;
+}
+.twilight .swtTableFilter .columnSelect, .twilight .swtTableFilter .operationSelect {
+	width: 100px;
+}
+.twilight .swtTableFilterItem .filterItemValue {
+	width: 19em;
+}
+
+/*Table Filter END*/

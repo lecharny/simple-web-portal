@@ -1,0 +1,141 @@
+/* NumberSpinner - namespace "dijitSpinner"
+ * 
+ * Styling NumberSpinner mainly includes:
+ * 
+ * 1. Arrows
+ * 		Outer containers: .dijitSpinnerButtonContainer|.dijitSpinnerButtonInner  - for border, padding and position
+ * 		Arrows: .dijitArrowButton|.dijitUpArrowButton.|dijitDownArrowButton
+ * 		Inner container: .dijitArrowButtonInner - for border, padding, width|height and background image
+ * 
+ * 2. Hover state
+ * 		.dijitUpArrowButtonHover|.dijitDownArrowButtonHover .*  - for background color|image
+ * 
+ * 3. Active state
+ * 		.dijitUpArrowButtonActive|.dijitDownArrowButtonActive .*  - for border, padding, margin and background color|image
+ * 
+ * 4. Focused state
+ * 		.dijitSpinnerFocused .* - for background color|image
+ * 
+ * 5. Disabled state
+ * 		.dijitSpinnerDisabled .* - for background color|image
+ */
+
+.twilight .dijitSpinnerButtonContainer {
+	overflow: hidden;
+	position: relative;
+	width: auto;
+	padding: 0 2px;
+}
+.twilight .dijitSpinnerButtonContainer .dijitSpinnerButtonInner {
+	border-width: 1px 0; /* reserve space to match the twilight combobox button border with border and not padding to make IE happier */
+	border-style: solid none;
+}
+
+/* button */
+.twilight .dijitSpinner .dijitArrowButton {
+	width:auto;
+	background-color: #ebeef4;
+	background-image: url("images/formHighlight.png");
+	background-position:0px 0px;
+	background-repeat:repeat-x;
+	overflow: hidden;
+}
+.dj_iequirks .twilight .dijitSpinner .dijitArrowButton {
+	overflow: visible; /* 0 height w/o this */
+}
+
+.twilight .dijitSpinner .dijitSpinnerButtonInner {
+	width: 15px;
+}
+/* harjeet up & down button icons */
+.twilight .dijitSpinner .dijitArrowButtonInner {
+	xxxborder:solid 1px #fff;
+	border:solid 1px transparent;
+	border-bottom-width: 0; /* 2 top borders = 1 top+bottom border in ComboBox */
+	background-image: url("images/commonFormArrows.png");
+	background-repeat: no-repeat;
+	height: 100%;
+	width:15px;
+	padding-left: 1px;
+	padding-right: 1px;
+	/* for up arrow */
+	background-position:-139px center;
+	/* override button.css (TODO: move to Common.css since ComboBox needs this too) */
+	display: block;
+	margin: -1px 0px -1px 0px;	/* compensate for inner border */
+}
+.dj_iequirks .twilight .dijitSpinner .dijitArrowButtonInner {
+	width: 19px;
+}
+.twilight .dijitSpinner .dijitDownArrowButton .dijitArrowButtonInner {
+	background-position:-34px;
+}
+.twilight .dijitSpinner .dijitArrowButtonInner .dijitInputField {
+	padding: 0;
+}
+
+/** hover & focused status **/
+
+.twilight .dijitUpArrowButtonActive,
+.twilight .dijitDownArrowButtonActive {
+	background-color:#abd6ff;
+}
+
+.twilight .dijitSpinner .dijitUpArrowButtonHover,
+.twilight .dijitSpinner .dijitDownArrowButtonHover,
+.twilight .dijitSpinnerFocused .dijitArrowButton {
+	background-color: #a0d1ff;
+}
+
+.twilight .dijitSpinner .dijitUpArrowButtonHover .dijitArrowButtonInner {
+	background-position:-174px;
+}
+.twilight .dijitSpinner .dijitDownArrowButtonHover .dijitArrowButtonInner {
+	background-position:-69px;
+}
+
+.twilight .dijitSpinnerFocused {
+	background-color: #fff;
+	background-image: none;
+}
+
+/* mouse down status */
+.twilight .dijitSpinner .dijitDownArrowButtonActive,
+.twilight .dijitSpinner .dijitUpArrowButtonActive {
+	background-color: #3299f9;
+	background-position:0px -177px;
+}
+.twilight .dijitSpinner .dijitUpArrowButtonActive .dijitArrowButtonInner,
+.twilight .dijitSpinner .dijitDownArrowButtonActive .dijitArrowButtonInner {
+	/* hide inner border while button is depressed */
+	border: 0px;
+	padding: 1px;
+	margin-right:2px;
+	margin-bottom:1px;
+}
+.twilight .dijitSpinner .dijitUpArrowButtonActive .dijitArrowButtonInner {
+	background-position:-173px;
+}
+.twilight .dijitSpinner .dijitDownArrowButtonActive .dijitArrowButtonInner {
+	background-position:-68px;
+}
+
+/* disabled */
+
+.twilight .dijitSpinnerDisabled .dijitArrowButtonInner {
+	background-color: #f1f1f1;
+}
+.twilight .dijitSpinnerDisabled .dijitUpArrowButton .dijitArrowButtonInner {
+	background-position:-104px;
+}
+.twilight .dijitSpinnerDisabled .dijitDownArrowButton .dijitArrowButtonInner {
+	background-position:1px;
+}
+
+/** hacks for browsers **/
+
+/* for IE 7, when div is enlarged, 
+ * should be no empty space between dijitInputLayoutContainer and dijitSpinner*/
+.dj_ie7 .twilight .dijitSpinner {
+	overflow:visible;
+} 

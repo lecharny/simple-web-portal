@@ -1,0 +1,54 @@
+.ui-state-default
+	{
+	border: 1px solid #dddddd;
+	background: #f6f6f6 url(images/ui-bg_highlight-soft_100_f6f6f6_1x100.png) 50% 50% repeat-x;
+	font-weight: bold;
+	color: #0073ea;
+}
+
+.ui-state-default a,.ui-state-default a:link,.ui-state-default a:visited
+	{
+	color: #0073ea;
+	text-decoration: none;
+}
+
+.ui-state-hover
+	{
+	border: 1px solid #0073ea;
+	background: #539fee url(images/ui-bg_highlight-soft_25_539fee_1x100.png) 50% 50% repeat-x;
+	font-weight: bold;
+	color: #ffffff;
+}
+
+.ui-state-hover a,.ui-state-hover a:hover {
+	color: #ffffff;
+	text-decoration: none;
+}
+
+.ui-state-active
+	{
+	border: 1px solid #dddddd;
+	background: #ffffff url(images/ui-bg_glass_65_ffffff_1x400.png) 50% 50% repeat-x;
+	font-weight: bold;
+	color: #e43c11;
+}
+
+.ui-state-active a,.ui-state-active a:link,.ui-state-active a:visited {
+	color: #e43c11;
+	text-decoration: none;
+}
+
+.twilight .dijitButton .dijitButtonNode,
+.twilight .dijitDropDownButton .dijitButtonNode,
+.twilight .dijitComboButton .dijitButtonNode,
+.twilight .dijitToggleButton .dijitButtonNode {
+	/* rules for the dijit.form.*Button widgets (see also ComboButton section below) */
+	padding:2px 4px 4px 4px;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border: 1px solid #dddddd;
+	background: #f6f6f6 url(images/ui-bg_highlight-soft_100_f6f6f6_1x100.png) 50% 50% repeat-x;
+	font-weight: bold;
+	color: #0073ea;
+}
