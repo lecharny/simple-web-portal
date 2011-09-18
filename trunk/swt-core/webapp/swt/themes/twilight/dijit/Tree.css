@@ -1,0 +1,141 @@
+/* Tree 
+ * 
+ * Styling Tree mostly means styling the TreeRow (dijitTreeRow)
+ * There are 4 basic states to style:
+ * 
+ * Tree Row:
+ * 1. tree row (default styling): 
+ * 		.dijitTreeRow - styles for each row of the tree
+ *
+ * 2. hovered tree row (mouse hover on a tree row)
+ * 		.dijitTreeRowHover - styles when mouse over on one row
+ * 
+ * 3. active tree row (mouse down on a tree row)
+ * 		.dijitTreeRowActive - styles when mouse down on one row
+ * 
+ * 4. selected tree row
+ * 		dijitTreeRowSelected - style when the row has been selected
+ * 
+ * Tree Expando:
+ * 	    dijitTreeExpando - the expando at the left of the text of each tree row
+ * 
+ * Drag and Drop on TreeNodes: (insert line on dijitTreeContent node so it'll aligned w/ target element)
+ * 		.dijitTreeNode .dojoDndItemBefore/.dojoDndItemAfter - use border style simulate a separate line
+ */
+
+.twilight .dijitTreeNode {
+    zoom: 1;	/* force layout on IE (TODO: may not be needed anymore) */
+}
+.twilight .dijitTreeIsRoot {
+    background-image: none;
+}
+/*harjeet*/
+.twilight .dijitTreeRow {
+	/* so insert line shows up on IE when dropping after a target element */
+	padding: 4px 1px 2px 0px;
+	margin-left: 1px;
+	xxxbackground-image: url("images/commonHighlight.png");
+	background-position:0px 0px;
+	background-repeat:repeat-x;
+	border-color: rgba(118,157,192,0);
+	background-color: rgba(171,214,255,0);
+	-webkit-transition-property:background-color, border-color;
+	-webkit-transition-duration:.25s ;
+	-webkit-transition-timing-function: ease-out;
+}
+.dj_ie6 .twilight .dijitTreeRow {
+	background-image: none;
+}
+/*harjeet*/
+.twilight .dijitTreeRowSelected {
+	xxxbackground-repeat:repeat-x;
+	xxxbackground-color:#d8edff;
+    background-color: #F6F6F6;
+ 	padding: 3px 0px 1px;
+	margin-left: 0px;
+	xxxborder:solid 1px #c3e2fd;
+	border: 1px solid #D3D3D3;
+ 	color:#000;
+}
+/*harjeet*/
+.twilight .dijitTreeRowHover {
+	xxxbackground-color:#abd6ff;
+	padding: 3px 0px 1px;
+	margin-left: 0px;
+	border:solid 1px transparent;
+	color:#000;
+	-webkit-transition-duration:.25s ; 
+}
+/*harjeet*/
+.twilight .dijitTreeRowHover.dijitTreeRowSelected {
+	border-color:#d3d3d3;
+}
+.twilight .dijitTreeRowHover .dijitTreeLabel{
+	xxxcolor:#ED8714;
+	text-decoration: underline;	
+}
+/*harjeet*/
+.twilight .dijitTreeRowActive {
+	xxxbackground-color:#7dbefa;
+	background-color:#d3d3d3;
+	background-position:0px -177px;
+	padding: 3px 0px 1px;
+	margin-left: 0px;
+	xxxborder:solid 1px #769dc0;
+	border:solid 1px #ED8714;
+	color:#000;
+}
+.dj_ie6 .twilight .dijitTreeRowActive {
+	background-image: none;
+}
+.twilight .dijitTreeRowFocused {
+	background-repeat: repeat;
+}
+
+/* expando (open/closed) icon */
+
+.twilight .dijitTreeExpando {
+	background-image: url('images/treeExpandImages.png');
+    width: 16px;
+    height: 16px;
+	background-position: -35px 0px		/* for dijitTreeExpandoOpened */
+}
+.dj_ie6 .twilight .dijitTreeExpando {
+	background-image: url('images/treeExpandImages8bit.png');
+}
+.twilight .dijitTreeRowHover .dijitTreeExpandoOpened {
+	background-position: -53px 0px;
+}
+.twilight .dijitTreeExpandoClosed {
+	background-position: 1px 0px;
+}
+.twilight .dijitTreeRowHover .dijitTreeExpandoClosed {
+	background-position: -17px 0px;
+}
+.twilight .dijitTreeExpandoLeaf{
+	background-image:none;
+}
+.twilight .dijitTreeExpandoLoading {
+	background-image: url('images/loadingAnimation.gif');
+}
+
+/* Drag and Drop on TreeNodes
+ * Put insert line on dijitTreeContent node so it's aligned w/
+ * (ie, indented equally with) target element, even
+ * though dijitTreeRowNode is the actual "drag object"
+ */
+.twilight .dijitTreeNode .dojoDndItemBefore,
+.twilight .dijitTreeNode .dojoDndItemAfter {
+	border-bottom: none;
+	border-top: none;
+}
+.twilight .dijitTreeNode .dojoDndItemBefore .dijitTreeContent {
+	border-top: 2px solid #369;
+}
+.twilight .dijitTreeNode .dojoDndItemAfter .dijitTreeContent {
+	border-bottom: 2px solid #369;
+}
+/*harjeet*/
+.twilight .dijitTreeRow .dijitFolderOpened, .twilight .dijitTreeRow .dijitFolderClosed, .twilight .dijitTreeRow .dijitTreeExpando.dijitTreeExpandoLeaf {
+	display: none;
+}

@@ -1,0 +1,9 @@
+.twilight .dojoxEditorStatusBar {
+	background-color: #F1F1F1;
+}
+
+.twilight .dojoxEditorStatusBar .dojoxEditorStatusBarText {
+	border-style: solid;
+	border-width: 1px;
+	border-color: #B5BCC7;
+}

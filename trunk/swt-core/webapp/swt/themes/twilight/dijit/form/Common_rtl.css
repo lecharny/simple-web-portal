@@ -1,0 +1,10 @@
+/* twilight/form/Common_rtl.css */
+/*twilight should not have the icon on the container
+.twilight .dijitTextBoxRtlError .dijitValidationIcon {
+	border-left-width: 0px;
+	border-right-width: 1px;
+}*/
+.twilight .dijitTextBoxRtlError .dijitValidationContainer {
+	border-left-width: 0px;
+	border-right-width: 1px;
+}

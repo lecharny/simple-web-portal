@@ -1,0 +1,10 @@
+/* TimePicker */
+
+.dj_ie .twilight .dijitTimePickerRtl .dijitTimePickerTickHover,
+.dj_ie .twilight .dijitTimePickerRtl .dijitTimePickerMarkerHover,
+.dj_ie .twilight .dijitTimePickerRtl .dijitTimePickerMarkerSelected,
+.dj_ie .twilight .dijitTimePickerRtl .dijitTimePickerTickSelected {
+	margin-left:-6px;
+	margin-right:-8px;
+	width: 114%;	
+}

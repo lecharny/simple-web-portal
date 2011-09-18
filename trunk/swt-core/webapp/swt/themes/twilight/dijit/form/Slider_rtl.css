@@ -1,0 +1,31 @@
+.twilight .dijitSliderRtl .dijitSliderProgressBarH,
+.twilight .dijitSliderRtl .dijitSliderRemainingBarH,
+.twilight .dijitSliderRtl .dijitSliderLeftBumper,
+.twilight .dijitSliderRtl .dijitSliderRightBumper,
+.twilight .dijitSliderRtl .dijitSliderTopBumper {
+	background-position: top right;
+}
+
+.twilight .dijitSliderRtl .dijitSliderProgressBarV,
+.twilight .dijitSliderRtl .dijitSliderRemainingBarV,
+.twilight .dijitSliderRtl .dijitSliderBottomBumper {
+	background-position: bottom right;
+}
+
+.twilight .dijitSliderRtl .dijitSliderLeftBumper {
+	border-left-width: 0px;
+	border-right-width: 1px;
+}
+
+.twilight .dijitSliderRtl .dijitSliderRightBumper {
+	border-left-width: 1px;
+	border-right-width: 0px;
+}
+
+.twilight .dijitSliderRtl .dijitSliderIncrementIconH {
+	background-position:-357px 50%;
+}
+
+.twilight .dijitSliderRtl .dijitSliderDecrementIconH {
+	background-position:-251px 50%;
+}

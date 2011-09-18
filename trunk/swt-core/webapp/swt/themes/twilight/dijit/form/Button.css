@@ -1,0 +1,194 @@
+/* Button | DropDownButton | ComboButton | ToggleButton
+ * 
+ * Styling Buttons mainly includes:
+ * 
+ * 1. Containers
+ * 		.dijitButton
+ * 		.dijitDropDownButton
+ * 		.dijitComboButton
+ * 		.dijitButtonNode - common button/arrow wrapper shared across all three button types 
+ *
+ * 2. Button text
+ * 		.dijitButtonText
+ * 
+ * 3. Arrows - only for DropDownButton and ComboButton
+ * 	     There are total four diredtions arrows - down, left, right, up:
+ * 		.dijitArrowButtonInner - down arrow by default
+ *      .dijitLeftArrowButton .dijitArrowButtonInner - left arrow
+ *      .dijitRightArrowButton .dijitArrowButtonInner - right arrow
+ *      .dijitUpArrowButton .dijitArrowButtonInner - up arrow
+ * 
+ * 4. States - Hover, Active, Disabled, e.g.
+ * 		.dijitButtonHover .dijitButtonNode
+ * 		.dijitButtonActive .dijitButtonNode
+ * 		.dijitButtonDisabled .dijitButtonNode
+ *      
+ *      .dijitDisabled .dijitArrowButtonInner  - disabled arrow states 
+ */
+
+.twilight .dijitButtonNode {
+	/* rules for dijit.form.*Button widgets and arrow nodes on ComboBox, Spinner etc. */
+	-webkit-transition-property:background-color;
+ 	-webkit-transition-duration:.3s;
+}
+
+/*harjeet*/
+.twilight .dijitButton .dijitButtonNode,
+.twilight .dijitDropDownButton .dijitButtonNode,
+.twilight .dijitComboButton .dijitButtonNode,
+.twilight .dijitToggleButton .dijitButtonNode {
+	/* rules for the dijit.form.*Button widgets (see also ComboButton section below) */
+	xxxpadding:0 4px;
+	padding:1px 4px;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border: 1px solid #d3d3d3;
+	xxxbackground: #f6f6f6 url(../../images/ui-bg_highlight-soft_100_f6f6f6_1x100.png) 50% 50% repeat-x;
+	background: #e6e6e6 url(../../images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
+	xxxfont-weight: bold;
+	xxxcolor: #2E679B;
+}
+
+/*arrow styles for down/up/left/right directions*/
+.twilight .dijitArrowButtonInner {
+	width: 15px;
+	height: 15px;
+	margin: 1px auto 0;
+	background-image:url("images/buttonArrows.png");
+	background-repeat:no-repeat;
+	background-position:-51px 53%;
+}
+.twilight .dijitLeftArrowButton .dijitArrowButtonInner {
+	background-position: -77px 53%;
+}
+.twilight .dijitRightArrowButton .dijitArrowButtonInner {
+	background-position: -26px 53%;
+}
+.twilight .dijitUpArrowButton .dijitArrowButtonInner {
+	background-position: 0px 53%;
+}
+.twilight .dijitDisabled .dijitArrowButtonInner {
+	background-position: -151px 53%;
+}
+.twilight .dijitDisabled .dijitLeftArrowButton .dijitArrowButtonInner {
+	background-position: -177px 53%;
+}
+.twilight .dijitDisabled .dijitRightArrowButton .dijitArrowButtonInner {
+	background-position: -126px 53%;
+}
+.twilight .dijitDisabled .dijitUpArrowButton .dijitArrowButtonInner {
+	background-position: -100px 53%;
+}
+
+.twilight .dijitButtonText {
+	padding: 0 0.3em 0.1em;
+	text-align: center;
+}
+/*harjeet*/
+.twilight .dijitDisabled .dijitButtonText {
+	color: #7F7F7F;
+	text-decoration: line-through;
+}
+
+/* harjeet hover status */
+.twilight .dijitButtonHover .dijitButtonNode,
+.twilight .dijitDropDownButtonHover .dijitButtonNode,
+.twilight .dijitComboButton .dijitButtonNodeHover, 
+.twilight .dijitComboButton .dijitDownArrowButtonHover,
+.twilight .dijitToggleButtonHover .dijitButtonNode {
+ 	xxxborder: 1px solid #0073ea;
+	border: 1px solid #ED8714;
+ 	background-color: #F4F3F5;
+	background-image: none;
+	xxxfont-weight: bold;
+	text-decoration: none;
+	-webkit-transition-duration:.2s;
+}
+
+.twilight .dijitComboButton .dijitArrowButton {
+	border-left-width: 1px;
+	padding: 1px 2px 1px 1px;
+	border-left-color: transparent;
+}
+.twilight .dijitComboButton .dijitArrowButton:HOVER {
+	border-left-color: #ED8714;
+}
+
+
+/* checked status */
+.twilight .dijitButtonActive .dijitButtonNode, 
+.twilight .dijitDropDownButtonActive .dijitButtonNode,
+.twilight .dijitComboButtonActive .dijitButtonNode,
+.twilight .dijitToggleButtonActive .dijitButtonNode {
+	xxxbackground-color: #99cfff;
+	background-image: none;
+	background-color: #FFD740;
+	box-shadow:0px 0px 0px rgba(0,0,0,0);
+	-webkit-box-shadow:0px 0px 0px rgba(0,0,0,0);
+	-moz-box-shadow: 0px 0px 0px rgba(0,0,0,0);
+ 	-webkit-transition-duration:.1s;
+}
+
+/* disabled status */
+.twilight .dijitButtonDisabled,
+.twilight .dijitDropDownButtonDisabled,
+.twilight .dijitComboButtonDisabled,
+.twilight .dijitToggleButtonDisabled {
+	background-image: none;
+	outline: none;
+}
+
+.twilight .dijitButtonDisabled .dijitButtonNode,
+.twilight .dijitDropDownButtonDisabled .dijitButtonNode,
+.twilight .dijitComboButtonDisabled .dijitButtonNode,
+.twilight .dijitToggleButtonDisabled .dijitButtonNode { 
+	background-position:0px -149px;
+	background-color: #e3e3e3;
+	border: solid 1px #c9c9c9;
+	color: #696969;
+	box-shadow:0px 0px 0px rgba(0,0,0,0);
+	-webkit-box-shadow:0px 0px 0px rgba(0,0,0,0);
+	-moz-box-shadow: 0px 0px 0px rgba(0,0,0,0);
+}
+.twilight .dijitComboButtonDisabled .dijitArrowButton{ 
+	border-left-width: 0px;
+}
+/* for ComboButton */
+.twilight table.dijitComboButton {
+	border-collapse: separate;	/* override dijit.css so that ComboBox rounded corners work */
+}
+
+.dj_ie6 .twilight .dijitButtonNode {
+	background-image: none;
+}
+
+/*harjeet*/
+.twilight .dijitComboButton .dijitStretch {
+	-moz-border-radius: 2px 0px 0px 2px;
+	-webkit-border-top-left-radius: 2px;
+	-webkit-border-top-right-radius: 0px;
+	-webkit-border-bottom-right-radius: 0px;
+	-webkit-border-bottom-left-radius: 2px;
+}
+/*harjeet*/
+.twilight .dijitComboButton .dijitArrowButton {
+	-moz-border-radius: 0px 2px 2px 0px;
+	-webkit-border-top-left-radius: 0px;
+	-webkit-border-top-right-radius: 2px;
+	-webkit-border-bottom-right-radius: 2px;
+	-webkit-border-bottom-left-radius: 0px;
+}
+/*harjeet*/
+.twilight .dijitToggleButton .dijitRadio,
+.twilight .dijitButton .dijitRadioIcon,
+.twilight .dijitDropDownButton .dijitCheckBox,
+.twilight .dijitComboButton .dijitCheckBoxIcon {
+    height: 18px !important;
+}
+.twilight .dijitToggleButton .dijitIcon,
+.twilight .dijitButton .dijitIcon,
+.twilight .dijitDropDownButton .dijitIcon,
+.twilight .dijitComboButton .dijitIcon {
+    height: 18px !important;
+}
