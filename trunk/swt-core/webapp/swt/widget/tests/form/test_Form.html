@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>Form Test (steel)</title>
+
+	<link rel="stylesheet" href="../../../../../dojo/dojo/resources/dojo.css">
+	
+	<link rel="stylesheet/less" type="text/css" href="../../../themes/steel/icons.css">
+	<link rel="stylesheet/less" type="text/css" href="../../../themes/steel/swt/form/form.less">
+	<style type="text/css">
+	 body {
+	 	padding:50px;
+	 }
+	</style>
+	<script type="text/javascript" src="../../../tp/less-1.1.4.js"></script>
+	<script type="text/javascript" charset="utf-8">
+    	less.env = "development";
+    	less.watch();
+	</script>
+	 <script type="text/javascript">
+            djConfig = {
+                isDebug : true,
+                debugAtAllCosts : false,
+                parseOnLoad : true,
+                baseUrl : "../../../../../dojo/dojo/",
+                modulePaths : {
+                	'swt' : '../../swt-core/swt'
+                }
+            };
+    </script>
+
+	<!-- required: dojo.js -->
+	<script type="text/javascript" src="../../../../../dojo/dojo/dojo.js"></script>
+
+	<script language="JavaScript" type="text/javascript">
+		dojo.require("dijit.dijit"); // optimize: load dijit layer
+		dojo.require("swt.widget.form.Button");
+		dojo.require("swt.widget.form.DropDownButton");
+		dojo.require("dojo.parser");
+	</script>
+
+</head>
+<body class="steel">
+	<div dojoType="swt.widget.form.Button" onClick='console.log("clicked simple");' label="Create"></div>
+	<div dojoType="swt.widget.form.Button" onClick='console.log("clicked simple");' class="primary" label="Primary"></div>
+	<div dojoType="swt.widget.form.Button" onClick='console.log("clicked simple");' class="primaryBlue" label="Primary(Blue)"></div>
+	<div dojoType="swt.widget.form.Button" onClick='console.log("clicked simple");' class="disabled" label="Disabled"></div>
+	<div dojoType="swt.widget.form.Button" onClick='console.log("clicked simple");' class="large" label="Large"></div>
+	<div dojoType="swt.widget.form.Button" onClick='console.log("clicked simple");' class="small" label="Small"></div>
+	<div dojoType="swt.widget.form.Button" onClick='console.log("clicked simple");' iconClass="swt-icon swt-icon-refresh" label="Refresh(with icon)"></div>
+	<br>
+	<br>
+	<br>
+	<div dojoType="swt.widget.form.DropDownButton" onClick='console.log("clicked simple");' label="DDBtn Longer"></div>
+</body>
+</html>
