@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>Table Selection (steel)</title>
+
+	<link rel="stylesheet" href="../../../../../dojo/dojo/resources/dojo.css">
+	<link rel="stylesheet" href="../../../../../dojo/dijit/tests/css/dijitTests.css">
+	<style type="text/css">
+	.widgetContainer {
+		padding-top: 10px;
+		width: 190px;
+	}
+	.widgetContainerH {
+		padding-top: 100px;
+	}
+
+	.testTitle {
+		padding-bottom: 10px;
+	}
+	
+	body {
+		padding-top: 75px;
+	}
+	.timing {
+		color: #e5322a;
+	}
+	.result {
+		border: 1px solid #ef8710;
+		border-radius: 4px;
+		-moz-border-radius: 4px;
+		-webkit-border-radius: 4px;
+		background: #e8f2fe;
+		width: 90%;
+		height: 150px;
+		overflow-y: auto;
+		margin: 10px 0px;
+		padding: 5px;
+	}
+	</style>
+
+	<!-- required: a default dijit theme: -->
+	<link rel="stylesheet" href="../../../themes/steel/SteelBase.css">
+	<link rel="stylesheet" href="../../../themes/steel/swt.css">
+
+	 <script type="text/javascript">
+            djConfig = {
+                isDebug : true,
+                debugAtAllCosts : false,
+                parseOnLoad : true,
+                baseUrl : "../../../../../dojo/dojo/",
+                modulePaths : {
+                	'swt' : '../../swt-core/swt'
+                }
+            };
+    </script>
+	<script type="text/javascript" src="../../../../../dojo/dojo/dojo.js"></script>
+	<script type="text/javascript" src="../../../../../swt-core/swt/widget/table/_Table.js"></script>
+	<script type="text/javascript" src="../../../../../swt-core/swt/widget/table/Table.js"></script>
+	<script language="JavaScript" type="text/javascript">
+		//dojo.require("dijit.dijit"); // optimize: load dijit layer
+		dojo.require("dojo.store.Memory");
+		//dojo.require("swt.widget.table.Table");
+		dojo.require("dojo.parser");	// scan page for widgets and instantiate them
+
+		function myHandler(args){
+			console.debug("myHandler-->" +args);
+		}
+		
+		var structure;
+		//get structure
+		dojo.xhrGet({url:"../data/largeDatasetStructure.json", sync:true, handleAs:"json"}).addCallback(function(results){
+			structure = results;
+		});
+
+		var data;
+		// get the data
+		dojo.xhrGet({url:"../data/largeDataset.json", sync:true, handleAs:"json"}).addCallback(function(results){
+			data = results;
+		});
+		var defectStore =  new dojo.store.Memory({data:data.items, idProperty: data.identifier});
+		var xx="";
+		startTime = new Date();
+		dojo.addOnLoad(function(){
+			var elapsed = new Date().getTime() - startTime;
+			var p = document.createElement("p");
+			p.appendChild(document.createTextNode("Widgets loaded in " + elapsed + "ms"));
+			dojo.byId("timing").appendChild(p);
+			console.log("Widgets loaded in " + elapsed + "ms");
+			dojo.connect(dijit.byId("table1"),"onClick", function(row, col, item){
+				var rc = dojo.byId("resultClick");
+				//console.log("Row-->" + dojo.attr(row, this._row_id) + " - " + dojo.attr(row, this._row_num) + " (TR) rowindex is::" + row.rowIndex + " CellIndex is::" + col.cellIndex);
+				//console.log("Item is-->" + dojo.toJson(item));
+				rc.innerHTML = rc.innerHTML + "<br>"+ "Row-->" + dojo.attr(row, this._row_id) + " - " + dojo.attr(row, this._row_num) + " (TR) rowindex is::" + row.rowIndex + " CellIndex is::" + col.cellIndex;
+			});
+			dojo.connect(dijit.byId("table1"),"onSelect", function(selection, store){
+				//console.log("Selection count is-->" + items.length);
+				var rs = dojo.byId("resultSelect");
+				rs.innerHTML = "";
+				var count=0;
+				var count=0;
+				var item;
+				if(selection){
+					for(var prop in selection){
+						item = selection[prop];
+						console.log("Selected row(" + count +")-->" + dojo.toJson(item));
+						rs.innerHTML = rs.innerHTML + "<br>" + "Selected row(" + count +")-->" + dojo.toJson(item);
+						count++
+					};
+				}
+
+			});
+			dojo.connect(dijit.byId("table1"),"clearSelection", function(selection, store){
+				//console.log("Selection count is-->" + items.length);
+				var rs = dojo.byId("resultSelect");
+				rs.innerHTML = "Cleared all selections!";
+
+			});
+			//
+
+		});
+	</script>
+
+</head>
+<body class="steel">
+<div class="timing" id="timing"></div>
+<div id="table1" dojoType="swt.widget.table._Table" style="width:900px;height:600px;" rowsPerPage="50" structure="structure" selectionMode="multiple" store="defectStore" tableTitle="Defects (Selection)"></div>
+<div class="result" id="resultSelect"></div>
+<div class="result" id="resultClick"></div>
+</body>
+</html>

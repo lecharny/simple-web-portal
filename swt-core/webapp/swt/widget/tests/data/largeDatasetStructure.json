@@ -2,7 +2,7 @@
   addFiller:false,
   convertToPercent:false,
   headerAlign: "left",
-  showPaginationAt:"both",
+  showPaginationAt:"bottom",
   rowsPerPage: 50,
   paginationAt: "client",
   columns:[
