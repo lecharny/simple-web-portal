@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<p>
+This page show cases the research and development work done so far. The new widgets/components show cased here use following techniques.
+</p>
+<ul>
+<li>Only core dojo is used for most of the widgets. Dijit is used sparsely for widget life cycle.</li>
+<li>Templates are extensively used to speed up the dom generation. </li>
+<li>less css framework is used to externalize the style declarations.</li>
+<li>No images will used for anything after everything is migrated to lesscss.</li>
+</ul>
+<table border="1">
+  <tr>
+    <th>Widget</th>
+    <th>Link</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>Button</td>
+    <td><a href="form/test_Form.html">Buttons</a></td>
+    <td>Very basic button that does not use any complex dom, should look like our new theme.</td>
+  </tr>
+  <tr>
+    <td>Main Navigation</td>
+    <td><a href="navigation/test_NavigationMenuOpenOnClick.html">Main Navigation</a></td>
+    <td>New navigation scheme.</td>
+  </tr>
+  <tr>
+    <td>Table</td>
+    <td><a href="table/test_TableFilter.html">Table</a></td>
+    <td>Show cases a custom table with features like:
+    	<ul>
+    		<li>Global toolbar.</li>
+    		<li>Contextual toolbar</li>
+    		<li>Selection</li>
+    		<li>Sorting</li>
+    		<li>Filters (not all work yet)</li>
+    		<li>Cloumn show/hide</li>
+    		<li>Pagination</li>
+    		<li>Ellipses if natively supported by browser. (FF5 will have it)</li>
+    	</ul>
+    </td>
+  </tr>
+  <tr>
+    <td>Table(performance)</td>
+    <td><a href="table/test_TablePerformance.html">Table(performance)</a></td>
+    <td>Try navigating the pages and change rows per page to see how much time it take to render. Also check how sorting and filter performs. (everything is done on client)</td>
+  </tr>
+</table>   
+
+</body>
+</html>
