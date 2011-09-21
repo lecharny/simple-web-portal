@@ -5,7 +5,21 @@
 	<title>NavigationMenu Test (steel)</title>
 
 	<link rel="stylesheet" href="../../../../../dojo/dojo/resources/dojo.css">
-	<link rel="stylesheet" href="../../../../../dojo/dijit/tests/css/dijitTests.css">
+	<link rel="stylesheet" href="../../../themes/steel/SteelBase.css">
+	
+	<link rel="stylesheet/less" type="text/css" href="../../../themes/steel/icons.css">
+	<link rel="stylesheet/less" type="text/css" href="../../../themes/steel/swt/navigation/NavigationMenu.less">
+	<style type="text/css">
+	 body {
+	 	padding:50px;
+	 }
+	</style>
+	<script type="text/javascript" src="../../../tp/less-1.1.4.js"></script>
+	<script type="text/javascript" charset="utf-8">
+    	less.env = "development";
+    	less.watch();
+	</script>
+
 	<style type="text/css">
 	.widgetContainer {
 		padding-top: 10px;
@@ -22,13 +36,12 @@
 	body {
 		padding-top: 60px;
 	}
+	.header {
+		height: 48px;
+		width: 1280px;
+	}
 	</style>
-
-	<!-- required: a default dijit theme: -->
-	<link rel="stylesheet" href="../../../themes/steel/SteelBase.css">
-	<link rel="stylesheet" href="../../../themes/steel/swt.css">
-
-	 <script type="text/javascript">
+	<script type="text/javascript">
             djConfig = {
                 isDebug : true,
                 debugAtAllCosts : false,
@@ -47,38 +60,33 @@
 		dojo.require("swt.widget.navigation.NavigationMenuItem");
 		dojo.require("dojo.parser");	// scan page for widgets and instantiate them
 
-		function myHandler(args){
-			console.debug("myHandler-->" + args);
+		function myHandler(anItem){
+			console.debug("myHandler-->" + anItem.label);
 		}
+		
+		dojo.addOnLoad(function(){
+			dojo.connect(dijit.byId("m1"), "onClick", function(item, evt){
+				console.log("m1->" + item.label);
+			});
+			dojo.connect(dijit.byId("m2"), "onClick", function(item, evt){
+				console.log("m2->" + item.label);
+			});
+
+		});
+		
 	</script>
 
 </head>
 <body class="steel">
-<div class="widgetContainer">
-<div>Group One</div>
-<ul dojoType="swt.widget.navigation.NavigationMenu">
-	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Item One" iconClass="someClass" href="http://www.google.com"></li>
-	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Item Two" iconClass="dijitEditorIconPaste dijitEditorIcon" href="http://www.google.com" target="target1"></li>
-	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Item Three Item Three Item Three Item Three" iconClass="someClass" handler="myHandler"></li>
-	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Item Four" iconClass="dijitEditorIconCut dijitEditorIcon" href="#">
-		<ul dojoType="swt.widget.navigation.NavigationMenu">
-			<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Inner Item One" iconClass="someClass" href="http://www.google.com"></li>
-			<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Inner Item Two" iconClass="dijitEditorIconPaste dijitEditorIcon" href="http://www.google.com" target="target1"></li>
-			<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Inner Item Three Inner Item Three Inner Item Three Inner Item Three" iconClass="someClass" handler="myHandler"></li>
-		</ul>
-	</li>
-	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Item Five" iconClass="someClass" handler="myHandler"></li>
-</ul>
-</div>
-
 <div class="widgetContainerH">
 <p>Horizontal Menu can be used from dijit, will fix if have time later.</p>
-<ul dojoType="swt.widget.navigation.NavigationMenu" alignment="horizontal">
-	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Item One" iconClass="someClass" href="http://www.google.com"></li>
-	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Item Two" iconClass="dijitEditorIconPaste dijitEditorIcon" href="http://www.google.com" target="target1"></li>
-	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Item Three Item Three Item Three Item Three" iconClass="someClass" handler=myHandler></li>
-	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Item Four" iconClass="someClass" openInnerMenuOn="click" >
-		<ul dojoType="swt.widget.navigation.NavigationMenu">
+<div class="header">
+<ul dojoType="swt.widget.navigation.NavigationMenu" id="m1" alignment="horizontal">
+	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="My View" iconClass="someClass" href="http://www.google.com"></li>
+	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="My Library" href="http://www.google.com" target="target1"></li>
+	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="People" iconClass="someClass" handler=myHandler></li>
+	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Communities" iconClass="someClass" openInnerMenuOn="click" >
+		<ul dojoType="swt.widget.navigation.NavigationMenu" id="m2">
 			<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Inner Item One" iconClass="someClass" href="http://www.google.com"></li>
 			<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Inner Item Two" iconClass="someClass" href="http://www.google.com" target="target1"></li>
 			<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Inner Item Three" iconClass="someClass" handler="myHandler"></li>
@@ -86,6 +94,7 @@
 	</li>
 	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Item Five" iconClass="someClass" handler=myHandler></li>
 </ul>
+</div>
 </div>
 
 </body>
