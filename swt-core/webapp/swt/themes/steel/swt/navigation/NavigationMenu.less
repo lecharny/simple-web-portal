@@ -1,0 +1,132 @@
+/*
+* Copyright (c) 2011 Harjeet Singh
+* All rights reserved. 
+* @author harjeet
+* All the CSS elements for navigation menu go here.
+*/
+
+@import "../form/variables.less";
+@import "../styles.less";
+
+.steel .navigationMenu, .steel .navigationMenu li ul {
+	float: left;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	border: 1px solid transparent;
+	border-radius: 3px;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+.steel .navigationMenu li ul:HOVER {
+	border-color: #ed8714;
+}
+.steel .navigationMenu.horizontal li ul:HOVER {
+	border-color: transparent;
+}
+.steel .navigationMenu li {
+	line-height: 40px;
+	position: relative;
+	border: 1px solid transparent;
+	text-align: left;
+}
+.steel .navigationMenu.horizontal li.navigationMenuItemHover {
+	background-color: #f4f5f3;/*#d3d3d3;*/
+}
+.steel .navigationMenu.horizontal li.navigationMenuItemSelected {
+	border-color: #ffd740; 
+}
+.steel .navigationMenu.horizontal li {
+	float: left;
+	display: block;
+	xxxborder-color: transparent #D3D3D3 transparent transparent;
+}
+.steel .navigationMenu.horizontal li ul li {
+	float: none;
+}
+.steel .navigationMenu li a {
+	color: #000000;
+	display: block;
+	width: auto;
+	padding: 2px 18px;
+	text-decoration: none;
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	-ms-text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+/*sub menu style*/
+.steel .navigationMenu li ul {
+	position: absolute;
+	left: 0;
+	top: 0;
+	visibility: hidden;
+	z-index: 500;
+	border: 1px solid #d3d3d3;
+	@shadow: -3px 3px 4px rgba(57, 57, 57, 0.28), 4px 3px 5px rgba(57, 57, 57, 0.28);
+    .box-shadow(@shadow);
+}
+.steel .navigationMenu.horizontal li ul {
+	border-color: transparent;
+}
+
+.steel .navigationMenu.horizontal a.hasInnerMenu {
+	white-space: normal;
+}
+
+.steel .navigationMenu.horizontal a.hasInnerMenu:after {
+	.arrow(18px, 4px);
+	.arrow-down(4px, #FFFFFF);
+}
+
+.steel .navigationMenu.horizontal a {
+	padding: 2px 18px;
+}
+.steel .navigationMenu li a:visited, .steel .navigationMenu li a:active {
+}
+/*.steel .navigationMenu .navigationMenuItemHover, .steel .navigationMenuItem.innerMenuOpen */
+.steel .navigationMenu .navigationMenuItemHover a:HOVER{
+	xxxtext-decoration: underline;
+}
+/*This is for menu name or group*/
+.steel .navigationMenuGroup {
+	float: left;
+}
+.steel .navigationMenuGroup span:hover {
+	background-color: red;
+}
+
+.steel .navigationMenu .navigationItemIcon {
+	position: absolute;
+	left: 2px;
+}
+
+.header {
+    color: @white;
+    .gradientBar(@button-primary-blue, @button-primary-blueDark);
+    text-shadow: none;
+}
+.steel .header .navigationMenu li a {
+	color: #FFFFFF;
+	font-size: 12px;
+}
+.steel .header .navigationMenu li ul li a {
+	color: #494949;
+	font-size: 12px;
+}
+.steel .header .navigationMenu.horizontal li.navigationMenuItemHover {
+	.gradientBar(#3fccfe, #2093f5);
+	text-shadow: none;
+}
+.steel .header .navigationMenu.horizontal li ul li.navigationMenuItemHover {
+	background-color: #f4f5f3;
+	background-image: none;
+}
+.steel .navigationMenu.horizontal li.navigationMenuItemSelected {
+	border-color: transparent;
+	.gradientBar(#004884, #006fcf);
+	text-shadow: none;
+}
+

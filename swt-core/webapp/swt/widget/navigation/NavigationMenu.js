@@ -57,12 +57,14 @@ dojo.declare("swt.widget.navigation.NavigationMenu",[dijit._Widget, dijit._Templ
     	if(item.handler){
     		if(dojo.isFunction(item.handler)){
     			item.handler(item);
-    		} else {
     		}
     	}
+    	this.onClick(item, evt);
     	//console.log("SelectedIndex is for "+ this.id +" :: " + this.selectedIndex);
     },
-    
+    onClick: function(item, evt){
+    	
+    },
     _onItemOver: function(item, evt){
     },
     _onItemOut: function(item, evt){

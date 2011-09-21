@@ -20,7 +20,7 @@ dojo.declare("swt.widget.navigation.NavigationMenuItem",[dijit._Widget, dijit._T
     
     handler:null,
     
-    href:"javascript: void;",
+    href:"#",
     
     target: "_self",
     
@@ -33,6 +33,9 @@ dojo.declare("swt.widget.navigation.NavigationMenuItem",[dijit._Widget, dijit._T
     innerMenuIndicator: null,
     
     innerMenuOffset: -2,
+    
+    // hover or click
+    openInnerMenuOn: "hover",
     
     constructor : function() {
 		this.inherited(arguments);
@@ -84,14 +87,14 @@ dojo.declare("swt.widget.navigation.NavigationMenuItem",[dijit._Widget, dijit._T
     _onClick: function(evt){
     	//console.log("_onClick called!");
     	this.getParent()._onItemClick(this, evt);
-	    this.onClick(this, evt);
+	    //this.onClick(this, evt);
 	    //dojo.stopEvent(evt);
     },
     
-    onClick: function(evt){
+    //onClick: function(item, evt){
     	// summary:
     	//		Call-back to connect to on click.
-    },
+    //},
     onMouseOver: function(evt){
     	// summary:
     	//		Call-back to connect to on mouse over.
@@ -105,28 +108,40 @@ dojo.declare("swt.widget.navigation.NavigationMenuItem",[dijit._Widget, dijit._T
     },
 
     connectInnerMenu: function(){
-    	// no support for inner manu if using as horizontal.
+    	// no support for inner menu if using as horizontal.
     	// comment it out if want to support horizontal.
-    	if(this.getParent().getAlignment()=="horizontal"){
-    		return;
-    	}
-    	this.innerMenuIndicator = dojo.create("span", {'class':'subMenuIndicator dijitArrowButtonInner', innerHTML:''}, this.labelNode, "last");
+    	//if(this.getParent().getAlignment()=="horizontal"){
+    	//	return;
+    	//}
+    	//this.innerMenuIndicator = dojo.create("span", {'class':'subMenuIndicator dijitArrowButtonInner', innerHTML:''}, this.labelNode, "last");
     	dojo.addClass(this.labelNode, "hasInnerMenu");
     	//dojo.style(this.subMenuIndicator, 'visibility','visible');
     	if(this.getParent().getAlignment()=="horizontal"){
-    		var _w = (this.domNode.offsetWidth*this.innerMenuReference.getChildren().length) + 30;
-    		dojo.marginBox(this.innerMenuReference.domNode, {w: _w});
+    		//var _w = (this.domNode.offsetWidth*this.innerMenuReference.getChildren().length) + 30;
+    		//dojo.marginBox(this.innerMenuReference.domNode, {w: _w});
     	} else {
         	dojo.marginBox(this.innerMenuReference.domNode, {w: this.domNode.offsetWidth});
         	//add cosmetic effects if any.
         	dojo.addClass(this.innerMenuReference.domNode, "dijitPopup");
     	}
 
-    	this.connect(this, "onMouseOver", dojo.hitch(this, "_showInnerMenu"));
-    	this.connect(this, "onMouseOut", dojo.hitch(this, "_hideInnerMenu"));
+    	if(this.openInnerMenuOn=="hover"){
+        	this.connect(this, "onMouseOver", dojo.hitch(this, "_showInnerMenu"));
+        	this.connect(this, "onMouseOut", dojo.hitch(this, "_hideInnerMenu"));
+    	} else {
+        	this.connect(this, "onClick", dojo.hitch(this, "toggle"));
+    	}
     	
     },
     
+    toggle: function(evt){
+    	if(this.innerMenuReference.isOpen){
+    		this._hideInnerMenu(evt);
+    	} else {
+    		this._showInnerMenu(evt);
+    	}
+    	
+    },
     _showInnerMenu: function(evt){
     	var _l="", _t="";
     	if(this.getParent().getAlignment()=="horizontal"){
@@ -141,10 +156,13 @@ dojo.declare("swt.widget.navigation.NavigationMenuItem",[dijit._Widget, dijit._T
     		dojo.style(this.innerMenuReference.domNode, {'visibility':'visible','left': _l});
     	}
     	dojo.addClass(this.domNode,"innerMenuOpen");
+    	
+    	this.innerMenuReference.isOpen = true;
     },
     _hideInnerMenu: function(evt){
     	dojo.style(this.innerMenuReference.domNode, {'visibility':'hidden'});
     	dojo.removeClass(this.domNode,"innerMenuOpen");
+    	this.innerMenuReference.isOpen = false;
     },
     _setSelected: function(/*boolean*/selected){
         // summary:
