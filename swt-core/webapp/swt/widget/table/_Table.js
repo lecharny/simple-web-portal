@@ -230,10 +230,7 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 			dojo.addClass(this.tableNode, this._css.table);
 		}
 		
-		// check if table has identifier key.
-		if(this.store.idProperty){
-			this._hasIdentifier = true;
-		}
+		this._indexStore();
 		
 		// normalize the structure.
 		this._normalizeStructure();
@@ -1054,7 +1051,11 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 		}
 		
 	},
-	setStore: function(){
+	setStore: function(store){
+		if(store){
+			this._indexStore(store);
+			this.render(true);
+		}
 		console.log("New store set on the table! Need to implement!");
 	},
 	showFilter: function(){
@@ -1102,6 +1103,20 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 			this.toolbar.clearfilterAP.set("disabled", false);			
 		}
 		console.log("Filter::" + dojo.toJson(filter));
+	},
+	
+	_indexStore: function(){
+		// check if table has identifier key.
+		if(this.store.idProperty && this.store.data[0][this.store.idProperty]){
+			this._hasIdentifier = true;
+		} else {
+			//add id if not present.
+			for(var i=0; i<this.store.data; i++){
+				this.store.data[i].id = i;
+			}
+			// index the store after id is added.
+			this.store.setData(this.store.data);
+		}
 	}
 	
 });

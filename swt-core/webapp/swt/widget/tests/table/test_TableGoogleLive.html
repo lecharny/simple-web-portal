@@ -1,0 +1,206 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>Table Selection (steel)</title>
+
+	<link rel="stylesheet" href="../../../../../dojo/dojo/resources/dojo.css">
+	<link rel="stylesheet" href="../../../../../dojo/dijit/tests/css/dijitTests.css">
+	<style type="text/css">
+	.widgetContainer {
+		padding-top: 10px;
+		width: 190px;
+	}
+	.widgetContainerH {
+		padding-top: 100px;
+	}
+
+	.testTitle {
+		padding-bottom: 10px;
+	}
+	
+	body {
+		padding-top: 75px;
+	}
+	.timing {
+		color: #e5322a;
+	}
+	.result {
+		border: 1px solid #ef8710;
+		border-radius: 4px;
+		-moz-border-radius: 4px;
+		-webkit-border-radius: 4px;
+		background: #e8f2fe;
+		width: 90%;
+		height: 150px;
+		overflow-y: auto;
+		margin: 10px 0px;
+		padding: 5px;
+	}
+	</style>
+
+	<!-- required: a default dijit theme: -->
+	<link rel="stylesheet" href="../../../themes/steel/SteelBase.css">
+	<link rel="stylesheet" href="../../../themes/steel/swt.css">
+
+	 <script type="text/javascript">
+            djConfig = {
+                isDebug : true,
+                debugAtAllCosts : false,
+                parseOnLoad : true,
+                baseUrl : "../../../../../dojo/dojo/",
+                modulePaths : {
+                	'swt' : '../../swt-core/swt'
+                }
+            };
+    </script>
+	<script type="text/javascript" src="../../../../../dojo/dojo/dojo.js"></script>
+	<script type="text/javascript" src="../../../../../swt-core/swt/widget/table/_Table.js"></script>
+	<script type="text/javascript" src="../../../../../swt-core/swt/widget/table/Table.js"></script>
+	<script language="JavaScript" type="text/javascript">
+		//dojo.require("dijit.dijit"); // optimize: load dijit layer
+		dojo.require("dojo.store.Memory");
+		//dojo.require("swt.widget.table.Table");
+		dojo.require("dojo.parser");	// scan page for widgets and instantiate them
+		dojo.require("dojo.io.script");
+
+		function myHandler(args){
+			console.debug("myHandler-->" +args);
+		}
+		var gStructure = {
+				  addFiller:false,
+				  convertToPercent:false,
+				  headerAlign: "left",
+				  showPaginationAt:"none",
+				  rowsPerPage: 8,
+				  paginationAt: "client",
+				  columns:[
+			    	{
+				      attr:"titleNoFormatting",
+				      label:"Title",
+				      width:150,
+				      vAlignment:"middle",
+				      alignment:"center",
+				      sortable:true
+				    },
+				    {
+				      attr:"content",
+				      label:"Content",
+				      width:400,
+				      vAlignment:"middle",
+				      alignment:"right",
+				      overflow:"ellipses"
+				    },
+				    {
+				      attr:"unescapedUrl",
+				      label:"Unescaped Url",
+				      width:150,
+				      vAlignment:"middle",
+				      editable:true,
+				      sortable:true
+				    },
+				    {
+				      attr:"url",
+				      label:"URL",
+				      width:150,
+				      vAlignment:"middle",
+				      alignment:"left",
+				      editable:true,
+				      sortable:true
+				    },
+				    {
+				      attr:"visibleUrl",
+				      label:"Visible Url",
+				      width:150,
+				      vAlignment:"middle",
+				      editable:true,
+				      sortable:true,
+				      hidden:true,
+				      filterOptions:{
+				        enableAutoSuggest:true,
+				        autoSuggestDelay:1000
+				      }
+				    },
+				    {
+				      attr:"cacheUrl",
+				      label:"Cache Url",
+				      width:150,
+				      ellipses: true,
+				      vAlignment:"middle",
+				      editable:true
+				    }
+				  ]
+				}
+		//dojo.addOnLoad(searchGoogle);
+		var tableW, searchStore;
+		function searchGoogle(text, page) {
+	        //Look up the node we'll stick the text under.
+	        var targetNode = dojo.byId("results");
+			if(!page){
+				page=0;
+			}
+	        //The parameters to pass to xhrGet, the url, how to handle it, and the callbacks.
+	        var jsonpArgs = {
+	            url: "http://ajax.googleapis.com/ajax/services/search/web",
+	            callbackParamName: "callback",
+	            content: {
+	                v: "1.0",
+	                q: text,
+	                start:page,
+	                rsz:8
+	            },
+	            load: function(data) {
+	                //Set the data from the search into the viewbox in nicely formatted JSON
+	                //targetNode.innerHTML = "<pre>" + dojo.toJson(data, true) + "</pre>";
+	                var totalResults = data.responseData.cursor.estimatedResultCount;
+	                dojo.byId("estimatedResultCount").value = totalResults;
+	                searchStore =  new dojo.store.Memory({data:data.responseData.results});
+	                if(!tableW){
+	                	var args = {rowsPerPage:"8", 
+	                			structure:gStructure,
+	                			selectionMode:"multiple",
+	                			store:searchStore,
+	                			tableTitle:"Google Search Results",
+	                			style:"width:1150px;height:500px;"};
+	                	tableW = new swt.widget.table._Table(args, dojo.byId("tableG"));
+	                	//dojo.byId("tableG").appendChild(tableW.domNode);
+	                	tableW.startup();
+	                } else {
+	                	tableW.set("store", searchStore);
+	                	console.log("Reset the table store");
+	                }
+	            },
+	            error: function(error) {
+	                targetNode.innerHTML = "An unexpected error occurred: " + error;
+	            }
+	        };
+	        dojo.io.script.get(jsonpArgs);
+	    }
+
+		dojo.addOnLoad(function(){
+			dojo.connect(dojo.byId("search"), "onclick", function(evt){
+				var st = dojo.byId("searchText").value;
+				var page = dojo.byId("page").value;
+				console.log("User input:" + st + "  "+ page);
+				searchGoogle(st, page);
+			});
+
+		});
+	</script>
+
+</head>
+<body class="steel">
+<div class="timing" id="timing"></div>
+<div class="inputContainer">
+	<label for="searchText">Enter text to search:</label><input id="searchText" name="searchText" type="text">
+	<label for="page">Page:</label><input id="page" name="page" type="text" size="10">
+	<input type="button" id="search" value="Search">
+	<label for="estimatedResultCount">Estimated Result Count:</label><input id="estimatedResultCount" name="estimatedResultCount" type="text" value="0">
+</div>
+<div style="width:1150px;height:300px;" id="tableG"></div>
+<div class="result" id="results" style="height: 200px;"></div>
+<div class="result" id="resultSelect"></div>
+<div class="result" id="resultClick"></div>
+
+</body>
+</html>

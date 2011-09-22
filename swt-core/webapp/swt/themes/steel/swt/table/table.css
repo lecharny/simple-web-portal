@@ -145,6 +145,7 @@
 .steel .swtTable .tableNode .tableBody td {
 	padding: 3px 4px;
 	border: 1px solid transparent;
+	overflow: hidden;
 }
 .steel .swtTable .tableNode .oddRow {
 	background: #f7f3f7;
