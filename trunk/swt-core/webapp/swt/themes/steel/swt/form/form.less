@@ -1,4 +1,5 @@
 @import "variables.less";
+@import "../styles.less";
 
 // Border Radius
 .border-radius(@radius: 5px) {
@@ -177,4 +178,35 @@
     font-size: @basefont - 2px;
   }
  
+}
+
+.steel .swtbtn.swtbtndropdown {
+	position: relative;
+}
+
+
+.steel .swtbtn.swtbtndropdown:after {
+	.arrow(6px, 4px);
+	.arrow-down(4px, #5f89ad);
+}
+
+.steel .swtbtn .dropDown {
+	position: absolute;
+	left: 0;
+	top: 0;
+	visibility: hidden;
+	z-index: 500;
+	border: 1px solid #d3d3d3;
+	@shadow: 2px 3px 3px rgba(0, 0, 0, 0.38);
+    .box-shadow(@shadow);
+}
+.steel .swtbtn .dropDown {
+	min-width: 300px;
+	min-height: 200px;
+	line-height: normal;
+	padding: 5px;
+	cursor: default;
+}
+.steel .swtbtn.swtbtndropdown:FOCUS {
+	border-color: transparent;
 }

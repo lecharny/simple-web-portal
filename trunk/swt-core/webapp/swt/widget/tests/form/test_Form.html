@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="../../../../../dojo/dojo/resources/dojo.css">
 	
 	<link rel="stylesheet/less" type="text/css" href="../../../themes/steel/icons.css">
+	<link rel="stylesheet/less" type="text/css" href="../../../themes/steel/swt/navigation/NavigationMenu.less">
 	<link rel="stylesheet/less" type="text/css" href="../../../themes/steel/swt/form/form.less">
 	<style type="text/css">
 	 body {
@@ -42,16 +43,18 @@
 
 </head>
 <body class="steel">
-	<div dojoType="swt.widget.form.Button" onClick='console.log("clicked simple");' label="Create"></div>
-	<div dojoType="swt.widget.form.Button" onClick='console.log("clicked simple");' class="primary" label="Primary"></div>
-	<div dojoType="swt.widget.form.Button" onClick='console.log("clicked simple");' class="primaryBlue" label="Primary(Blue)"></div>
-	<div dojoType="swt.widget.form.Button" onClick='console.log("clicked simple");' class="disabled" label="Disabled"></div>
-	<div dojoType="swt.widget.form.Button" onClick='console.log("clicked simple");' class="large" label="Large"></div>
-	<div dojoType="swt.widget.form.Button" onClick='console.log("clicked simple");' class="small" label="Small"></div>
-	<div dojoType="swt.widget.form.Button" onClick='console.log("clicked simple");' iconClass="swt-icon swt-icon-refresh" label="Refresh(with icon)"></div>
+	<div dojoType="swt.widget.form.Button" onClick='console.log("Clicked Create");' label="Create"></div>
+	<div dojoType="swt.widget.form.Button" onClick='console.log("Clicked Primary");' class="primary" label="Primary"></div>
+	<div dojoType="swt.widget.form.Button" onClick='console.log("Clicked Primary(Blue)");' class="primaryBlue" label="Primary(Blue)"></div>
+	<div dojoType="swt.widget.form.Button" onClick='console.log("Clicked Disabled");' class="disabled" label="Disabled"></div>
+	<div dojoType="swt.widget.form.Button" onClick='console.log("Clicked Large");' class="large" label="Large"></div>
+	<div dojoType="swt.widget.form.Button" onClick='console.log("Clicked Small");' class="small" label="Small"></div>
+	<div dojoType="swt.widget.form.Button" onClick='console.log("Clicked Refresh");' iconClass="swt-icon swt-icon-refresh" label="Refresh(with icon)"></div>
 	<br>
 	<br>
 	<br>
-	<div dojoType="swt.widget.form.DropDownButton" onClick='console.log("clicked simple");' label="DDBtn Longer"></div>
+	<div dojoType="swt.widget.form.DropDownButton" onClick='console.log("clicked My Actions");' label="My Actions">
+		<div style="width:300px;height:200px;" class='dropDown'>Praesent rhoncus fermentum adipiscing. Aliquam erat volutpat. Praesent id lacus elit, vel cursus velit. Vivamus sed malesuada urna. Aenean elit nisi, pellentesque vel gravida non, blandit at quam. Ut quis magna et lacus molestie mollis. Donec sit amet dui ut sem placerat eleifend a id nibh.</div>
+	</div>
 </body>
 </html>
