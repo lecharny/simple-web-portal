@@ -58,7 +58,7 @@
 	overflow: hidden;
 }
 /*sub menu style*/
-.steel .navigationMenu li ul, .steel .navigationMenu .nmDropDown {
+.steel .navigationMenu li ul, .steel .navigationMenu .dropDown{
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -67,20 +67,23 @@
 	border: 1px solid #d3d3d3;
 	@shadow: -3px 3px 4px rgba(57, 57, 57, 0.28), 4px 3px 5px rgba(57, 57, 57, 0.28);
     .box-shadow(@shadow);
+    border-top-color: transparent;
 }
-.steel .navigationMenu .nmDropDown {
+.steel .navigationMenu .dropDown {
 	min-width: 300px;
 	min-height: 200px;
+	line-height: normal;
+	padding: 5px;
 }
 .steel .navigationMenu.horizontal li ul {
 	border-color: transparent;
 }
 
-.steel .navigationMenu.horizontal a.hasInnerMenu {
+.steel .navigationMenu.horizontal a.hasDropDown {
 	white-space: normal;
 }
 
-.steel .navigationMenu.horizontal a.hasInnerMenu:after {
+.steel .navigationMenu.horizontal a.hasDropDown:after {
 	.arrow(18px, 4px);
 	.arrow-down(4px, #FFFFFF);
 }
@@ -90,7 +93,7 @@
 }
 .steel .navigationMenu li a:visited, .steel .navigationMenu li a:active {
 }
-/*.steel .navigationMenu .navigationMenuItemHover, .steel .navigationMenuItem.innerMenuOpen */
+/*.steel .navigationMenu .navigationMenuItemHover, .steel .navigationMenuItem.dropDownOpen */
 .steel .navigationMenu .navigationMenuItemHover a:HOVER{
 	xxxtext-decoration: underline;
 }
@@ -107,8 +110,7 @@
 	left: 2px;
 }
 
-.header {
-    color: @white;
+.steel .header {
     .gradientBar(@button-primary-blue, @button-primary-blueDark);
     text-shadow: none;
 }
