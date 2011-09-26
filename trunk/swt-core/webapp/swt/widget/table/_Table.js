@@ -1056,7 +1056,6 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 			this._indexStore(store);
 			this.render(true);
 		}
-		console.log("New store set on the table! Need to implement!");
 	},
 	showFilter: function(){
 		if(!this._filterDialog){
@@ -1117,6 +1116,9 @@ dojo.declare('swt.widget.table._Table', [ dijit._Widget, dijit._Templated, dijit
 			// index the store after id is added.
 			this.store.setData(this.store.data);
 		}
+	},
+	gotoPage: function(pageNumber, rowPerPage){
+		// summary: callback for server side page fetch.
 	}
 	
 });
