@@ -56,12 +56,20 @@ dojo.declare('swt.widget.table._Pagination', [dijit._Widget, dijit._Templated], 
 		this.reset();
 	},
 	priviousPage: function(evt){
-		this.table.resetTableView(null, (this.table.showPage-1));
-		this.reset();
+		if(this.table.paginationAt == this.table._paginationAtObject.client){
+			this.table.resetTableView(null, (this.table.showPage-1));
+			this.reset();
+		} else {
+			this.table.gotoPage(this.table.showPage-1);
+		}
 	},
 	nextPage: function(evt){
-		this.table.resetTableView(null, (this.table.showPage+1));
-		this.reset();
+		if(this.table.paginationAt == this.table._paginationAtObject.client){
+			this.table.resetTableView(null, (this.table.showPage+1));
+			this.reset();
+		} else {
+			this.table.gotoPage(this.table.showPage+1);
+		}
 	},
 	_onKeyPressRowsPerPage: function(evt){
 		if (evt.keyCode == dojo.keys.ENTER) {
@@ -76,8 +84,14 @@ dojo.declare('swt.widget.table._Pagination', [dijit._Widget, dijit._Templated], 
 		if (evt.keyCode == dojo.keys.ENTER) {
 			this.table.showPage = parseInt(this.gotoPageAP.get("value"))-1;
 			//console.log("Fired _onKeyPressGotoPage--> go to page::" + this.gotoPageAP.get("value"));
-			this.table.resetTableView(parseInt(this.rowsPerPageAP.get("value")), (parseInt(this.gotoPageAP.get("value"))-1));
-			this.reset();
+			
+			if(this.table.paginationAt == this.table._paginationAtObject.client){
+				this.table.resetTableView(parseInt(this.rowsPerPageAP.get("value")), (parseInt(this.gotoPageAP.get("value"))-1));
+				this.reset();
+			} else {
+				this.table.gotoPage((parseInt(this.gotoPageAP.get("value"))-1), parseInt(this.rowsPerPageAP.get("value")));
+			}
+
 			dojo.stopEvent(evt);
 		}
 	},
