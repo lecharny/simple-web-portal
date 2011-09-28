@@ -75,26 +75,26 @@
 		});
 		
 	</script>
-
 </head>
 <body class="steel">
 <div class="widgetContainerH">
 <p>Horizontal Menu can be used from dijit, will fix if have time later.</p>
 <div class="header">
 <ul dojoType="swt.widget.navigation.NavigationMenu" id="m1" alignment="horizontal">
-	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="My View" iconClass="someClass" href="http://www.google.com"></li>
+	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="My View" href="http://www.google.com"></li>
 	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="My Library" href="http://www.google.com" target="target1"></li>
 	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="People" iconClass="someClass" handler=myHandler></li>
-	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Communities" iconClass="someClass">
+	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Communities">
 		<ul dojoType="swt.widget.navigation.NavigationMenu" id="m2">
 			<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Inner Item One" iconClass="someClass" href="http://www.google.com"></li>
 			<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Inner Item Two" iconClass="someClass" href="http://www.google.com" target="target1"></li>
 			<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Inner Item Three" iconClass="someClass" handler="myHandler"></li>
 		</ul>
 	</li>
-	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Item Five" iconClass="someClass" hasDropDown="true" handler=myHandler>
+	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="Right ALigned" iconClass="someClass" hasDropDown="true" handler=myHandler dropDownAlign="R">
 		<div style="width:300px;height:200px;" class='dropDown'>Praesent rhoncus fermentum adipiscing. Aliquam erat volutpat. Praesent id lacus elit, vel cursus velit. Vivamus sed malesuada urna. Aenean elit nisi, pellentesque vel gravida non, blandit at quam. Ut quis magna et lacus molestie mollis. Donec sit amet dui ut sem placerat eleifend a id nibh.</div>
 	</li>
+	<li dojoType="swt.widget.navigation.NavigationMenuItem" label="" iconClass="someClass" handler=myHandler></li>
 </ul>
 </div>
 </div>

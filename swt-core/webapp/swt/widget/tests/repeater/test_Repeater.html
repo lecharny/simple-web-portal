@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>Repeater All (steel)</title>
+
+	<link rel="stylesheet" href="../../../../../dojo/dojo/resources/dojo.css">
+	<link rel="stylesheet" href="../../../../../dojo/dijit/tests/css/dijitTests.css">
+	<style type="text/css">
+	.widgetContainer {
+		padding-top: 10px;
+		width: 190px;
+	}
+	.widgetContainerH {
+		padding-top: 100px;
+	}
+
+	.testTitle {
+		padding-bottom: 10px;
+	}
+	
+	body {
+		padding-top: 75px;
+	}
+	.timing {
+		color: #e5322a;
+	}
+	.result {
+		border: 1px solid #ef8710;
+		border-radius: 4px;
+		-moz-border-radius: 4px;
+		-webkit-border-radius: 4px;
+		background: #e8f2fe;
+		width: 1000px;
+		height: 150px;
+		overflow-y: auto;
+		margin: 10px 0px;
+		padding: 5px;
+	}
+	</style>
+
+	<!-- required: a default dijit theme: -->
+	<link rel="stylesheet" href="../../../themes/steel/SteelBase.css">
+	<link rel="stylesheet" href="../../../themes/steel/swt.css">
+
+	 <script type="text/javascript">
+            djConfig = {
+                isDebug : true,
+                debugAtAllCosts : false,
+                parseOnLoad : true,
+                baseUrl : "../../../../../dojo/dojo/",
+                modulePaths : {
+                	'swt' : '../../swt-core/swt'
+                }
+            };
+    </script>
+	<script type="text/javascript" src="../../../../../dojo/dojo/dojo.js"></script>
+	<script type="text/javascript" src="../../../../../swt-core/swt/widget/repeater/Repeater.js"></script>
+	<script language="JavaScript" type="text/javascript">
+		//dojo.require("dijit.dijit"); // optimize: load dijit layer
+		dojo.require("dojo.store.Memory");
+		//dojo.require("swt.widget.table.Table");
+		dojo.require("dojo.parser");	// scan page for widgets and instantiate them
+
+		function myHandler(args){
+			console.debug("myHandler-->" +args);
+		}
+		
+		var data;
+		
+		var formatter="<div><span title='${IP}'>${IP}</span></div>";
+		
+		// get the data
+		dojo.xhrGet({url:"../data/devices.json", sync:true, handleAs:"json"}).addCallback(function(results){
+			data = results;
+		});
+		var deviceStore =  new dojo.store.Memory({data:data.items, idProperty: data.identifier});
+		startTime = new Date();
+		dojo.addOnLoad(function(){
+			var elapsed = new Date().getTime() - startTime;
+			var p = document.createElement("p");
+			p.appendChild(document.createTextNode("Widgets loaded in " + elapsed + "ms"));
+			dojo.byId("timing").appendChild(p);
+			console.log("Widgets loaded in " + elapsed + "ms");
+		});
+	</script>
+
+</head>
+<body class="steel">
+<div class="timing" id="timing"></div>
+<div id="table1" dojoType="swt.widget.repeater.Repeater" style="width:700px;height:600px;" store="deviceStore"></div>
+<div class="result" id="resultSelect"></div>
+<div class="result" id="resultClick"></div>
+</body>
+</html>

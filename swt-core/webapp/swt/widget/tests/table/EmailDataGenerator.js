@@ -1,0 +1,6 @@
+dojo.declare('EmailDataGenerator', [], {
+
+	
+
+	
+});
