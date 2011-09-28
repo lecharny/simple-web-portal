@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>Repeater All (steel)</title>
+
+	<link rel="stylesheet" href="../../../../../dojo/dojo/resources/dojo.css">
+	<link rel="stylesheet" href="../../../../../dojo/dijit/tests/css/dijitTests.css">
+	<style type="text/css">
+	.widgetContainer {
+		padding-top: 10px;
+		width: 190px;
+	}
+	.widgetContainerH {
+		padding-top: 100px;
+	}
+
+	.testTitle {
+		padding-bottom: 10px;
+	}
+	
+	body {
+		padding-top: 75px;
+	}
+	.timing {
+		color: #e5322a;
+	}
+	.result {
+		border: 1px solid #ef8710;
+		border-radius: 4px;
+		-moz-border-radius: 4px;
+		-webkit-border-radius: 4px;
+		background: #e8f2fe;
+		width: 1000px;
+		height: 150px;
+		overflow-y: auto;
+		margin: 10px 0px;
+		padding: 5px;
+	}
+	.rItem {
+		border-bottom: 1px solid #d4d4d4;
+		padding: 3px;
+	}
+	.rItem:HOVER {
+		background: #e8f2fe;
+	}
+	
+	.rItem span {
+		padding: 3px;
+	}
+	
+	.text {
+		display: block;
+	}
+	</style>
+
+	<!-- required: a default dijit theme: -->
+	<link rel="stylesheet" href="../../../themes/steel/SteelBase.css">
+	<link rel="stylesheet" href="../../../themes/steel/swt.css">
+
+	 <script type="text/javascript">
+            djConfig = {
+                isDebug : true,
+                debugAtAllCosts : false,
+                parseOnLoad : true,
+                baseUrl : "../../../../../dojo/dojo/",
+                modulePaths : {
+                	'swt' : '../../swt-core/swt'
+                }
+            };
+    </script>
+	<script type="text/javascript" src="../../../../../dojo/dojo/dojo.js"></script>
+	<script type="text/javascript" src="../../../../../swt-core/swt/widget/repeater/Repeater.js"></script>
+	<script language="JavaScript" type="text/javascript">
+		//dojo.require("dijit.dijit"); // optimize: load dijit layer
+		dojo.require("dojo.store.Memory");
+		//dojo.require("swt.widget.table.Table");
+		dojo.require("dojo.parser");	// scan page for widgets and instantiate them
+		dojo.require("dojo.io.script");
+
+		function myHandler(args){
+			console.debug("myHandler-->" +args);
+		}
+		var data;
+		var repeaterW, twitterStore;
+
+		function searchTwitter(text, page) {
+	        //Look up the node we'll stick the text under.
+	        var targetNode = dojo.byId("results");
+			if(!page){
+				page=0;
+			}
+	        //The parameters to pass to xhrGet, the url, how to handle it, and the callbacks.
+	        var jsonpArgs = {
+	            url: "http://search.twitter.com/search.json",
+	            callbackParamName: "callback",
+	            content: {
+	                v: "1.0",
+	                q: text,
+	                rpp:30,
+	                page:1,
+	                result_type:"mixed"
+	            },
+	            load: function(data) {
+	                //Set the data from the search into the viewbox in nicely formatted JSON
+	                //targetNode.innerHTML = "<pre>" + dojo.toJson(data, true) + "</pre>";
+
+	                //var totalResults = data.results.length;
+	                //dojo.byId("estimatedResultCount").value = totalResults;
+	                searchStore = data.results;// new dojo.store.Memory({data:data.responseData.results});
+	                if(!repeaterW){
+	                	var args = {
+	                		formatter: "<span><img alt='Picture' src='${profile_image_url}' width='48px' height='48px'></span><span title='${from_user}'>${from_user}</span><span>${created_at}</span><span class='text'>${text}</span>",
+	                		style:"width:450px;height:500px;",
+	                		store: searchStore	
+	                	};
+	                	repeaterW = new swt.widget.repeater.Repeater(args, dojo.byId("repeaterG"));
+	                	repeaterW.startup();
+	                } else {
+	                	//repeaterW.set("store", searchStore);
+	                	repeaterW.setStore(searchStore);
+	                	console.log("Reset the table store");
+	                }
+	            },
+	            error: function(error) {
+	                targetNode.innerHTML = "An unexpected error occurred: " + error;
+	            }
+	        };
+	        dojo.io.script.get(jsonpArgs);
+	    }
+		
+		dojo.addOnLoad(function(){
+			dojo.connect(dojo.byId("search"), "onclick", function(evt){
+				var st = dojo.byId("searchText").value;
+				var page = dojo.byId("page").value;
+				console.log("User input:" + st + "  "+ page);
+				searchTwitter(st, page);
+			});
+		});
+	</script>
+
+</head>
+<body class="steel">
+<div class="timing" id="timing"></div>
+<p>This is a simple test page to test uploading the repeater from Twitter, just type in some text and hit search button.</p>
+<div class="timing" id="timing"></div>
+
+<div class="inputContainer">
+	<label for="searchText">Enter text to search:</label><input id="searchText" name="searchText" type="text">
+	<label for="page">Page:</label><input id="page" name="page" type="text" size="10">
+	<input type="button" id="search" value="Search">
+	<label for="estimatedResultCount">Estimated Result Count:</label><input id="estimatedResultCount" name="estimatedResultCount" type="text" value="0">
+</div>
+<br>
+<div style="border:1px solid #d4d4d4;">
+	<div style="width:1150px;height:300px;" id="repeaterG"></div>
+</div>
+<div class="result" id="results" style="height: 200px;"></div>
+
+</body>
+</html>

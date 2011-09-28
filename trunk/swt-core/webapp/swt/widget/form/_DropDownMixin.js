@@ -21,8 +21,11 @@ dojo.declare("swt.widget.form._DropDownMixin",[],{
         	//console.log(dojo.toJson(_mb));
     		_l = 0 + "px";
     		_t = _mb.h+ this.dropDownOffset + "px";
-    		//console.log("_l, _t::" + _l +" - "+ _t);
-    		dojo.style(this.dropDown, {'visibility':'visible','left': _l, 'top': _t});
+    		if(this.dropDownAlign=="R"){
+        		dojo.style(this.dropDown, {'visibility':'visible','right': _l, 'top': _t});
+    		} else {
+        		dojo.style(this.dropDown, {'visibility':'visible','left': _l, 'top': _t});
+    		}
 
     	}
     	dojo.addClass(this.domNode,"dropDownOpen");

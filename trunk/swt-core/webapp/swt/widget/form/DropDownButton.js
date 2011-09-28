@@ -8,6 +8,8 @@ dojo.declare("swt.widget.form.DropDownButton",[swt.widget.form.Button, swt.widge
 	
 	dropDown: null,
 	
+	dropDownAlign: "L",
+	
     dropDownOffset: -2,
     
     postCreate : function() {

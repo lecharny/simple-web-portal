@@ -36,6 +36,8 @@ dojo.declare("swt.widget.navigation.NavigationMenuItem",[dijit._Widget, dijit._T
     
     hasDropDown: false,
     
+    dropDownAlign: "L",
+    
     // hover or click
     openDropDownOn: "hover",
     
