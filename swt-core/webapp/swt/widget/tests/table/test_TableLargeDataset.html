@@ -51,7 +51,8 @@
                 baseUrl : "../../../../../dojo/dojo/",
                 modulePaths : {
                 	'swt' : '../../swt-core/swt'
-                }
+                },
+                ioPublish: true
             };
     </script>
 	<script type="text/javascript" src="../../../../../dojo/dojo/dojo.js"></script>
@@ -69,13 +70,21 @@
 		
 		var structure;
 		//get structure
-		dojo.xhrGet({url:"../data/largeDatasetStructure.json", sync:true, handleAs:"json"}).addCallback(function(results){
+		
+		dojo.subscribe("/dojo/io/send", function(/*dojo.Deferred*/ deferred){
+				var foo = "";
+				//dfd.ioArgs.args.headers["X-CSRF-Token"] = "CISCOQUAD";
+				deferred.ioArgs.xhr.setRequestHeader("X-CSRF-Token", "CISCOQUAD");
+				var bar ="";
+		});
+								
+		dojo.xhrGet({url:"../data/largeDatasetStructure.json", sync:true, handleAs:"json", headers:{"Content-Encoding": "ISO-8859-1"}}).addCallback(function(results){
 			structure = results;
 		});
 
 		var data;
 		// get the data
-		dojo.xhrGet({url:"../data/largeDataset.json", sync:true, handleAs:"json"}).addCallback(function(results){
+		dojo.xhrGet({url:"../data/largeDataset.json", sync:true, handleAs:"json", headers:{"Content-Encoding": "ISO-8859-1"}}).addCallback(function(results){
 			data = results;
 		});
 		var defectStore =  new dojo.store.Memory({data:data.items, idProperty: data.identifier});
@@ -116,7 +125,6 @@
 				rs.innerHTML = "Cleared all selections!";
 
 			});
-			//
 
 		});
 	</script>
