@@ -66,17 +66,19 @@
                 baseUrl : "../../../../../dojo/dojo/",
                 modulePaths : {
                 	'swt' : '../../swt-core/swt'
-                }
+                },
+                ioPublish: true
             };
     </script>
 	<script type="text/javascript" src="../../../../../dojo/dojo/dojo.js"></script>
-	<script type="text/javascript" src="../../../../../swt-core/swt/widget/repeater/Repeater.js"></script>
+	<script type="text/javascript" src="../../../../../swt-core/swt/dojo-instrumentation.js"></script>
+	
+	<!-- <script type="text/javascript" src="../../../../../swt-core/swt/widget/repeater/Repeater.js"></script> -->
 	<script language="JavaScript" type="text/javascript">
-		//dojo.require("dijit.dijit"); // optimize: load dijit layer
 		dojo.require("dojo.store.Memory");
-		//dojo.require("swt.widget.table.Table");
-		dojo.require("dojo.parser");	// scan page for widgets and instantiate them
+		dojo.require("dojo.parser");
 		dojo.require("dojo.io.script");
+		dojo.require("swt.widget.repeater.Repeater");
 
 		function myHandler(args){
 			console.debug("myHandler-->" +args);
@@ -97,9 +99,13 @@
 	            content: {
 	                v: "1.0",
 	                q: text,
-	                rpp:30,
+	                rpp:90,
 	                page:1,
 	                result_type:"mixed"
+	            },
+	            headers: {
+	                "X-CSRF-Token": "CISCOQUAD",
+	                "Content-Encoding": "ISO-8859-1"
 	            },
 	            load: function(data) {
 	                //Set the data from the search into the viewbox in nicely formatted JSON
@@ -130,6 +136,11 @@
 	    }
 		
 		dojo.addOnLoad(function(){
+			
+			dojo.subscribe("/dojo/io/send", function(/*dojo.Deferred*/ dfd){
+				var foo = "";
+			});
+			
 			dojo.connect(dojo.byId("search"), "onclick", function(evt){
 				var st = dojo.byId("searchText").value;
 				var page = dojo.byId("page").value;
