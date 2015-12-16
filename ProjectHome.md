@@ -1,0 +1,1 @@
+This projects aims to create simple widgets and server for creating web based applications using DOJO and OpenSocial. Dojo widgets and server can be used separately if needed. Will add more details in the WIKI area.
